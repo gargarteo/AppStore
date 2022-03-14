@@ -107,6 +107,7 @@ def create_account(request):
                 ##TODO: date validation
                 cursor.execute("INSERT INTO users VALUES (%s, %s, %s)"
                         , [ request.POST['name'], request.POST['school_email'], request.POST['password'] ])
+                return redirect('index')    
             else:
                 status = 'User with ID %s already exists' % (request.POST['school_email'])
 
