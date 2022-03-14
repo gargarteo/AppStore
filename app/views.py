@@ -113,4 +113,4 @@ def create_account(request):
 
     context['status'] = status
  
-    return render(request, "app/create.html", context)
+    return render(request, "app/register.html", context)
