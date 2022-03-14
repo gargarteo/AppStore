@@ -16,7 +16,7 @@ def index(request):
         cursor.execute("SELECT * FROM users ORDER BY name")
         customers = cursor.fetchall()
 
-    result_dict = {'records': customers}
+    result_dict = {'records': users}
 
     return render(request,'app/index.html',result_dict)
 
