@@ -90,3 +90,27 @@ def edit(request, id):
     context["status"] = status
  
     return render(request, "app/edit.html", context)
+
+def create_account(request):
+    """Shows the main page"""
+    context = {}
+    status = ''
+
+    if request.POST:
+        ## Check if customerid is already in the table
+        with connection.cursor() as cursor:
+
+            cursor.execute("SELECT * FROM users WHERE school_email = %s", [request.POST['school_email']])
+            user = cursor.fetchone()
+            ## No customer with same id
+            if user == None:
+                ##TODO: date validation
+                cursor.execute("INSERT INTO users VALUES (%s, %s, %s)"
+                        , [ request.POST['name'], request.POST['school_email'], request.POST['password'] ]
+            else:
+                status = 'User with ID %s already exists' % (request.POST['school_email'])
+
+
+    context['status'] = status
+ 
+    return render(request, "app/create.html", context)
