@@ -105,7 +105,7 @@ def create_account(request):
             ## No customer with same id
             if user == None:
                 ##TODO: date validation
-                cursor.execute("INSERT INTO users VALUES (%s, %s, %s)"
+                cursor.execute("INSERT INTO users (name, school_email, password) VALUES (%s, %s, %s)"
                         , [ request.POST['name'], request.POST['school_email'], request.POST['password'] ])
                 return redirect('index')    
             else:
