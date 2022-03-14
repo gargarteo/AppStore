@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.db import connection
-'''
+
 # Create your views here.
 def index(request):
     """Shows the main page"""
@@ -13,13 +13,13 @@ def index(request):
 
     ## Use raw query to get all objects
     with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM customers ORDER BY customerid")
+        cursor.execute("SELECT * FROM users ORDER BY name")
         customers = cursor.fetchall()
 
     result_dict = {'records': customers}
 
     return render(request,'app/index.html',result_dict)
-'''
+
 # Create your views here.
 def view(request, id):
     """Shows the main page"""
