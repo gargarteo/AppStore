@@ -4,9 +4,11 @@
     <a href="/">Back to Login</a>
     </br>
     
-
+    <p style="color:red">{{ status|safe }}</p>
     <!-- Create a Form -->
     <form method="POST">
+        <!-- Security token by Django -->
+        {% csrf_token %}
         <!-- form -->
         <div id="div_id_first_name" class="control-group"> <label for="id_first_name" class="control-label requiredField">
         Name<span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="name" maxlength="64" class="textinput textInput" required="" id="name"> </div> </div> <div id="name" class="control-group"> <label for="id_last_name" class="control-label requiredField">
