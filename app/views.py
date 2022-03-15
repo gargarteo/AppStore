@@ -26,7 +26,7 @@ def index(request):
                 status = 'Wrong Login info'
         
             context['status'] = status
-    return render(request,'app/index.html',result_dict)
+    return render(request,'app/index.html',{})
 
 
 # Create your views here.
