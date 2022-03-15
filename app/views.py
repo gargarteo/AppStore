@@ -12,14 +12,14 @@ def index(request):
         cursor.execute("SELECT u.password FROM users u WHERE u.password = %s", [request.POST['password']])
         password = cursor.fetchall()
 
-    #result_dict = {'records': users}
+    result_dict = {'records': users}
     
     if request.POST:
         if request.POST['school_email'] != email:
             status = 'Invalid School Email'
         elif request.POST['password'] != password:
             status = 'Invalid Password'
-        elif request.POST['school_email'] email and request.POST['password'] password:
+        elif request.POST['school_email'] == email and request.POST['password'] == password:
             return render(request,'app/home.html',result_dict)
         else:
             status = 'Wrong Login info'
