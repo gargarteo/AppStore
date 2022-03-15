@@ -13,13 +13,15 @@ def index(request):
     result_dict = {'records': users}
     
     if request.POST:
-        if request.POST['school_email'] not in result_dict['records']:
+        if request.POST['school_email'] not in result_dict['records'].1:
             status = 'Invalid School Email'
-        elif request.POST['password'] not in result_dict['records']:
+        elif request.POST['password'] not in result_dict['records'].6:
             status = 'Invalid Password'
-        else:
+        elif request.POST['school_email'] == result_dict['records'].1 and request.POST['password'] == result_dict['records'].6:
             return render(request,'app/home.html',result_dict)
-
+        else:
+            status = 'Wrong Login info'
+    context['status'] = status
     return render(request,'app/index.html',result_dict)
 
 
