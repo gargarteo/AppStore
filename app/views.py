@@ -108,7 +108,7 @@ def create_account(request):
                 if len(request.POST['password']) <6:
                     status = 'Password need to be at least 6 characters'
                 
-                elif !request.POST['school_email'].endswith('@u.nus.edu'):
+                elif NOT request.POST['school_email'].endswith('@u.nus.edu'):
                     status = 'Please use your NUS email address'
                 
                 else:
