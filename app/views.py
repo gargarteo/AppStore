@@ -21,7 +21,7 @@ def index(request):
             elif request.POST['password'] != password:
                 status = 'Invalid Password'
             elif request.POST['school_email'] == email and request.POST['password'] == password:
-                return render(request,'app/home.html', {})
+                return redirect('\home')
             else:
                 status = 'Wrong Login info'
         
