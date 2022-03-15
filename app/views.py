@@ -3,28 +3,47 @@ from django.db import connection
 
 def index(request):
     """Shows the main page"""
-    context = {}
-    status = ''
+        """Shows the main page"""
+'''
+    ## Delete customer
+    if request.POST:
+        if request.POST['action'] == 'delete':
+            with connection.cursor() as cursor:
+                cursor.execute("DELETE FROM users WHERE customerid = %s", [request.POST['school_email']])
+
     ## Use raw query to get all objects
     with connection.cursor() as cursor:
-        cursor.execute("SELECT school_email FROM users WHERE school_email = %s", [request.POST['school_email']])
-        email = cursor.fetchone()
-        cursor.execute("SELECT u.password FROM users u WHERE u.password = %s", [request.POST['password']])
-        password = cursor.fetchone()
+        cursor.execute("SELECT * FROM users ORDER BY name")
+        users = cursor.fetchall()
 
     result_dict = {'records': users}
-    
-    if request.POST:
-        if request.POST['school_email'] != email:
-            status = 'Invalid School Email'
-        elif request.POST['password'] != password:
-            status = 'Invalid Password'
-        elif request.POST['school_email'] == email and request.POST['password'] == password:
-            return render(request,'app/home.html',result_dict)
-        else:
-            status = 'Wrong Login info'
-    context['status'] = status
+
     return render(request,'app/index.html',result_dict)
+    '''
+    
+    #Login
+    if request.POST:    
+        if request.POST['action'] == 'login':
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT school_email FROM users WHERE school_email = %s", [request.POST['school_email']])
+                email = cursor.fetchone()
+                cursor.execute("SELECT u.password FROM users u WHERE u.password = %s", [request.POST['password']])
+                password = cursor.fetchone()
+           
+            context = {}
+            status = ''
+            
+            if request.POST['school_email'] != email:
+                status = 'Invalid School Email'
+            elif request.POST['password'] != password:
+                status = 'Invalid Password'
+            elif request.POST['school_email'] == email and request.POST['password'] == password:
+                return render(request,'app/home.html', {})
+            else:
+                status = 'Wrong Login info'
+        
+            context['status'] = status
+     return render(request,'app/index.html',result_dict)
 
 
 # Create your views here.
