@@ -105,7 +105,7 @@ def create_account(request):
             ## No customer with same id
             if user == None:
                 ##TODO: date validation
-                if len(request.POST['password']) <=6:
+                if len(request.POST['password']) <6:
                     status = 'Password need to be at least 6 characters'
                 
                 elif !request.POST['school_email'].endswith('@u.nus.edu'):
