@@ -1,8 +1,30 @@
 from django.shortcuts import render, redirect
 from django.db import connection
 
-# Create your views here.
 def index(request):
+    """Shows the main page"""
+    context = {}
+    status = ''
+    ## Use raw query to get all objects
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM users ORDER BY name")
+        users = cursor.fetchall()
+
+    result_dict = {'records': users}
+    
+    if request.POST:
+        if request.POST['school_email'] not in result_dict['records']:
+            status = 'Invalid School Email'
+        elif request.POST['password'] not in result_dict['records']:
+            status = 'Invalid Password'
+        else:
+            return render(request,'app/home.html',result_dict)
+
+    return render(request,'app/index.html',result_dict)
+
+
+# Create your views here.
+def index_ori(request):
     """Shows the main page"""
 
     ## Delete customer
@@ -116,7 +138,7 @@ def create_account(request):
                         , [ request.POST['name'], request.POST['school_email'], request.POST['password'] ])
                 
                                    
-                    return redirect('index')    
+                    return redirect('login')    
             else:
                 status = 'User with ID %s already exists' % (request.POST['school_email'])
 
