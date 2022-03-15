@@ -151,7 +151,7 @@ def create_account(request):
                         , [ request.POST['name'], request.POST['school_email'], request.POST['password'] ])
                 
                                    
-                    return redirect('login')    
+                    return redirect('index')    
             else:
                 status = 'User with ID %s already exists' % (request.POST['school_email'])
 
