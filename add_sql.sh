@@ -28,8 +28,8 @@ done < ".env"
 URI="postgres://$DB_USER:$DB_PASSWORD@$DB_HOST:$DB_PORT/$DB_NAME"
 
 # Run the scripts to insert data.
-psql ${URI} -f sql/AppStoreClean.sql
-psql ${URI} -f sql/AppStoreSchema.sql
+psql ${URI} -f sql/Clean.sql
+psql ${URI} -f sql/Schema.sql
 #psql ${URI} -f sql/AppStoreCustomers.sql
 #psql ${URI} -f sql/AppStoreGames.sql
 #psql ${URI} -f sql/AppStoreDownloads.sql
