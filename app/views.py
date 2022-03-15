@@ -7,25 +7,20 @@ def index(request):
     #Login
     if request.POST:    
         with connection.cursor() as cursor:
-            cursor.execute("SELECT school_email FROM users WHERE school_email = %s", [request.POST['school_email']])
-            email = cursor.fetchone()
-            cursor.execute("SELECT u.password FROM users u WHERE school_email = %s AND u.password = %s", [request.POST['school_email']], [request.POST['password']])
-            password = cursor.fetchone()
+            cursor.execute("SELECT school_email, password FROM users WHERE school_email = %s AND password = %s", [request.POST['school_email']], [request.POST['password']])
+            account = cursor.fetchone()
            
         context = {}
         status = ''
             
-        if request.POST['school_email'] != email:
-            status = 'Invalid School Email'
-        elif request.POST['password'] != password:
-            status = 'Invalid Password'
-        elif request.POST['school_email'] == email and request.POST['password'] == password:
-            return redirect('\home')
+        if account == None:
+            status = 'Wrong Login Details'
         else:
-            status = 'Wrong Login info'
+            return redirect('\home')
         
         context['status'] = status
         return render(request, "app/index.html", context)
+    
     with connection.cursor() as cursor:
         cursor.execute("SELECT * FROM users ORDER BY name")
         users = cursor.fetchall()
