@@ -1,0 +1,26 @@
+<html>
+<body>
+    <h2>Login</h2>
+    </br>
+    
+    <p style="color:red">{{ status|safe }}</p>
+    <!-- Create a Form -->
+    <form method="POST">
+        <!-- Security token by Django -->
+        {% csrf_token %}
+        <!-- form -->
+        <div id="div_id_first_name" class="control-group"> <label for="id_first_name" class="control-label requiredField">
+        School Email<span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="school_email" maxlength="64" class="textinput textInput" required="" id="school_email"> </div> </div> <div id="name" class="control-group"> <label for="id_last_name" class="control-label requiredField">
+        Password<span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="password" class="textinput" required="" id="password"> </div> </div> <div id="div_id_since" class="control-group"> <label for="id_since" class="control-label requiredField">
+       
+        <br>
+        <button type="submit" value="login">Login</button>
+
+    </form>
+    
+    
+    <p>Register here if you do not have an account</p>
+    <a href="register"><button>Register</button></a>
+      
+</body>
+</html>
