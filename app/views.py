@@ -7,17 +7,19 @@ def index(request):
     status = ''
     ## Use raw query to get all objects
     with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM users ORDER BY name")
-        users = cursor.fetchall()
+        cursor.execute("SELECT u.school_email FROM users u WHERE u.school_email = request.POST['school_email'])
+        email = cursor.fetchall()
+        cursor.execute("SELECT u.password FROM users u WHERE u.password = request.POST['password'])
+        password = cursor.fetchall()
 
-    result_dict = {'records': users}
+    #result_dict = {'records': users}
     
     if request.POST:
-        if request.POST['school_email'] not in result_dict['records'].1:
+        if request.POST['school_email'] != email:
             status = 'Invalid School Email'
-        elif request.POST['password'] not in result_dict['records'].6:
+        elif request.POST['password'] != password:
             status = 'Invalid Password'
-        elif request.POST['school_email'] == result_dict['records'].1 and request.POST['password'] == result_dict['records'].6:
+        elif request.POST['school_email'] email and request.POST['password'] password:
             return render(request,'app/home.html',result_dict)
         else:
             status = 'Wrong Login info'
