@@ -6,7 +6,7 @@
 
 CREATE TABLE users (
 name VARCHAR(64) NOT NULL, 
-school_email VARCHAR(64) PRIMARY KEY CHECK (school_email='%@u.nus.edu'), 
+school_email VARCHAR(64) PRIMARY KEY CHECK (school_email LIKE '%@u.nus.edu'), 
 current_borrowed_items NUMERIC CHECK(current_borrowed_items<= 2) NOT NULL DEFAULT 0.00,
 demerit_points NUMERIC NOT NULL CHECK(demerit_points<= 8) DEFAULT 0.00,
 vouchers_points NUMERIC NOT NULL DEFAULT 0.00,
