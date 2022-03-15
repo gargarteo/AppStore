@@ -106,7 +106,11 @@ def create_account(request):
             if user == None:
                 ##TODO: date validation
                 if len(request.POST['password']) <=6:
-                    status = 'password need to be at least 6 characters'
+                    status = 'Password need to be at least 6 characters'
+                
+                elif request.POST['school_email'].endswith('@u.nus.edu'):
+                    status = 'Please use your NUS email address'
+                
                 else:
                     cursor.execute("INSERT INTO users (name, school_email, password) VALUES (%s, %s, %s)"
                         , [ request.POST['name'], request.POST['school_email'], request.POST['password'] ])
