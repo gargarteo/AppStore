@@ -26,7 +26,14 @@ def index(request):
                 status = 'Wrong Login info'
         
             context['status'] = status
-    return render(request,'app/index.html',{})
+            
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM users ORDER BY name")
+        users = cursor.fetchall()
+
+    result_dict = {'records': users}
+
+    return render(request,'app/index.html',result_dict)
 
 
 # Create your views here.
