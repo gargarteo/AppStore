@@ -8,9 +8,9 @@ def index(request):
     ## Use raw query to get all objects
     with connection.cursor() as cursor:
         cursor.execute("SELECT u.school_email FROM users u WHERE u.school_email = %s", [request.POST['school_email']])
-        email = cursor.fetchall()
+        email = cursor.fetchone()
         cursor.execute("SELECT u.password FROM users u WHERE u.password = %s", [request.POST['password']])
-        password = cursor.fetchall()
+        password = cursor.fetchone()
 
     result_dict = {'records': users}
     
