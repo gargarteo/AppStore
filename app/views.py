@@ -26,7 +26,7 @@ def index(request):
                 status = 'Wrong Login info'
         
             context['status'] = status
-            
+            return render(request, "app/index.html", context)
     with connection.cursor() as cursor:
         cursor.execute("SELECT * FROM users ORDER BY name")
         users = cursor.fetchall()
