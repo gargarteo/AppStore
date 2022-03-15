@@ -3,23 +3,6 @@ from django.db import connection
 
 def index(request):
     """Shows the main page"""
-        """Shows the main page"""
-'''
-    ## Delete customer
-    if request.POST:
-        if request.POST['action'] == 'delete':
-            with connection.cursor() as cursor:
-                cursor.execute("DELETE FROM users WHERE customerid = %s", [request.POST['school_email']])
-
-    ## Use raw query to get all objects
-    with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM users ORDER BY name")
-        users = cursor.fetchall()
-
-    result_dict = {'records': users}
-
-    return render(request,'app/index.html',result_dict)
-    '''
     
     #Login
     if request.POST:    
