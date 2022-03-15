@@ -10,7 +10,8 @@ def index(request):
             with connection.cursor() as cursor:
                 cursor.execute("SELECT school_email FROM users WHERE school_email = %s", [request.POST['school_email']])
                 email = cursor.fetchone()
-                cursor.execute("SELECT u.password FROM users u WHERE u.password = %s", [request.POST['password']])
+                cursor.execute("SELECT u.password FROM users u WHERE school_email = %s AND u.password = %s", 
+                               [request.POST['school_email']], [request.POST['password']])
                 password = cursor.fetchone()
            
             context = {}
