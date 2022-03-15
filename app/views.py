@@ -107,7 +107,7 @@ def create_account(request):
                 ##TODO: date validation
                 if len(request.POST['password']) <=6:
                     status = 'password need to be at least 6 characters'
-                    return
+                else:
                     cursor.execute("INSERT INTO users (name, school_email, password) VALUES (%s, %s, %s)"
                         , [ request.POST['name'], request.POST['school_email'], request.POST['password'] ])
                 
