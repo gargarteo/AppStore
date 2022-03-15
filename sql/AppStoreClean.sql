@@ -4,6 +4,9 @@
 
 *******************/
 
-DROP TABLE IF EXISTS downloads;
-DROP TABLE IF EXISTS games;
-DROP TABLE IF EXISTS customers;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS category;
+DROP TABLE IF EXISTS location;
+DROP TABLE IF EXISTS request;
+DROP TABLE IF EXISTS loan;
+DROP TABLE IF EXISTS vouchers;
