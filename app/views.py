@@ -29,7 +29,7 @@ def home(request):
         cursor.execute("SELECT item, loaner, date_needed, time_needed, (return_date - date_needed) as duration FROM request ORDER BY date_needed ASC")
         requests = cursor.fetchall()
 
-    result_dict = {'requests': requests, 'email':request.session['email']}
+    result_dict = {'requests': requests}
 
     return render(request,'app/home.html',result_dict)
 
@@ -51,7 +51,7 @@ def index(request):
         elif request.POST['school_email'] == 'admin' and request.POST['password'] == '123456':
             return redirect('home_admin')
         else:
-            return render(request, "app/home.html", {"email" : email})
+            return render(request, "app/profile.html", {"email" : email})
         
         context['status'] = status
         return render(request, "app/index.html", context)
