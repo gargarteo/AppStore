@@ -197,7 +197,7 @@ def create_account(request):
 
 def profile(request):
     if request.session.test_cookie_worked():
-        return HttpResponse("Youre ok")
+        return HttpResponse("Youre ok.")
     else:
         return HttpResponse("No")
     request.session.set_test_cookie()
