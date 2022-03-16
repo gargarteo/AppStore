@@ -26,8 +26,8 @@ urlpatterns = [
     path('logout', app.views.logout, name='logout'),
     path('register', app.views.create_account, name='register'),
     path('new_request', app.views.new_request, name='new_request'),
+    path('profile', app.views.profile, name='profile'),
     path('add', app.views.add, name='add'),
     path('view/<str:id>', app.views.view, name='view'),
-    path('edit/<str:id>', app.views.edit, name='edit'),
-    path('profile', app.view.profile, name='profile')
+    path('edit/<str:id>', app.views.edit, name='edit')
 ]
