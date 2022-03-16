@@ -55,13 +55,13 @@ def index(request):
         context['status'] = status
         return render(request, "app/index.html", context)
     
-    with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM users ORDER BY name")
-        users = cursor.fetchall()
+    #with connection.cursor() as cursor:
+        #cursor.execute("SELECT * FROM users ORDER BY name")
+        #users = cursor.fetchall()
 
-    result_dict = {'records': users}
+    #result_dict = {'records': users}
 
-    return render(request,'app/index.html',result_dict)
+    return render(request,'app/index.html',{})
 
 def logout(request):
    try:
