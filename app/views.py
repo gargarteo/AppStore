@@ -4,50 +4,22 @@ from django.db import connection
 def new_request(request):
     context = {}
     status = ''
-    import datetime
-    
-    def validate_date(d):
-        try:
-            d_obj = datetime.strptime(d, "%Y-%m-%d")
-            d_s = datetime.strftime(d_obj, "%Y-%m-%d")
-            return True
-        except:
-            return False
-    
-    def validate_time(t):
-        try:
-            t_obj = datetime.strptime(t, "%H-%M")
-            t_s = datetime.strftime(t_obj, "%H:%M:%S")
-            return True
-        except:
-            return False
-                
+               
     if request.POST:
         with connection.cursor() as cursor:
             
         #How to store email of current login user
         
-        #Checking date format for borrow
-        if not (validate_date(request.POST['borrow_date']):
-            status = 'Please input date as YYYY-MM-DD'
-        #Checking Time format for borrow
-        elif if not (validate_time(request.POST['borrow_time']):
-            status = 'Please input date as HH:MM'
-        
-        #Checking Date format for return
-        elif not (validate_date(request.POST['return_date']):
-              status = 'Please input date as YYYY-MM-DD'
-        
-        #Checking Time format for return
-        elif not (validate_time(request.POST['return_time']):
-              status = 'Please input date as HH:MM'
+        #Checking return later than borrow
+        if request.POST['return_date'] < request.POST['borrow_date']:
+            status = 'Please ensure return date is later than borrow date'
         else:
               cursor.execute("INSERT INTO request (item, category, date_needed, time_needed, return_date, return_time, meetup_location) VALUES (%s, %s, %s, %s, %s, %s, %s)"
                         , [ request.POST['item'], request.POST['category'], request.POST['borrow_date'], request.POST['borrow_time'], request.POST['return_date'], request.POST['return_time'], request.POST['location'] ])
                    
                     return redirect('home')  
             
-        
+    context['status'] = status
     return render(request, 'app/new_request.html', {})
 
 
