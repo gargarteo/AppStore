@@ -144,8 +144,6 @@ USE_TZ = True
 
 
 
-
-SESSION_ENGINE ="django.contrib.sessions.backends.signed_cookies"
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
