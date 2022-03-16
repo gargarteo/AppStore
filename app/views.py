@@ -49,7 +49,7 @@ def index(request):
         if account == None:
             status = 'Wrong Login Details'
         else:
-            return render(request, "app/home.html", {'email' : email})
+            return render(request, "app/home.html", {"email" : email})
         
         context['status'] = status
         return render(request, "app/index.html", context)
@@ -195,7 +195,7 @@ def create_account(request):
 
 def profile(request):
     with connection.cursor() as cursor: 
-        cursor.execute("SELECT name, demerit_points FROM users WHERE school_email=%s", request.session['email']) 
+        cursor.execute("SELECT name, demerit_points FROM users WHERE school_email=%s", [request.session['email']]) 
         requests= cursor.fetchall()
     result_dict = {'requests': requests}
     
