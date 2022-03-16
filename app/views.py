@@ -201,6 +201,6 @@ def profile(request):
         requests= cursor.fetchall()
     result_dict = {'requests': requests}
     return HttpResponse(result_dict)
-    return render(request,'app/profile.html',result_dict)
+    
 
 
