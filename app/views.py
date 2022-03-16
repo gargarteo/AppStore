@@ -51,7 +51,7 @@ def index(request):
         elif request.POST['school_email'] == 'admin' and request.POST['password'] == '123456':
             return redirect('home_admin')
         else:
-            return render(request, "app/home.html", {"email" : email})
+            return render(request, "app/profile.html", {"email" : email})
         
         context['status'] = status
         return render(request, "app/index.html", context)
@@ -197,7 +197,7 @@ def create_account(request):
 
 def profile(request):
     with connection.cursor() as cursor: 
-        cursor.execute("SELECT name, demerit_points FROM users WHERE school_email=%s", [request.session['school_email']]) 
+        cursor.execute("SELECT name, demerit_points FROM users WHERE school_email=%s", [request.session['email']]) 
         requests= cursor.fetchall()
     result_dict = {'requests': requests}
     
