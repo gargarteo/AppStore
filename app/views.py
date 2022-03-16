@@ -3,7 +3,13 @@ from django.db import connection
 
 
 def home(request):
-    return render(request, "app/home.html", {})
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM users ORDER BY name")
+        users = cursor.fetchall()
+
+    result_dict = {'records': users}
+
+    return render(request,'app/home.html',result_dict)
 
 
 def index(request):
