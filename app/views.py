@@ -193,3 +193,14 @@ def create_account(request):
     context['status'] = status
  
     return render(request, "app/register.html", context)
+
+def profile(request):
+    if request.session.has_key('email'):
+        email= request.session['email']
+    with connection.cursor() as cursor: 
+        cursor.execute("SELECT name, demerit_points FROM users WHERE school_email=%s", [email]) 
+        requests= cursor.fetchall()
+    result_dict = {'requests': requests}
+    
+    return render(request,'app/profile.html',result_dict)
+
