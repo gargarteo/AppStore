@@ -29,7 +29,7 @@ def home(request):
         cursor.execute("SELECT item, loaner, date_needed, time_needed, (return_date - date_needed) as duration FROM request ORDER BY date_needed ASC")
         requests = cursor.fetchall()
 
-    result_dict = {'requests': requests, 'email': [request.session['email']]}
+    result_dict = {'requests': requests, 'email':request.session['email']}
 
     return render(request,'app/home.html',result_dict)
 
