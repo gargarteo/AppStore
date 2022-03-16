@@ -196,10 +196,11 @@ def create_account(request):
     return render(request, "app/register.html", context)
 
 def profile(request):
-    with connection.cursor() as cursor: 
-        cursor.execute("SELECT name, demerit_points FROM users WHERE school_email=%s", [request.session['email']]) 
-        requests= cursor.fetchall()
-    result_dict = {'requests': requests}
-    
-    return render(request,'app/profile.html',result_dict)
+    if request.session.test_cookie_worked():
+        return HttpResponse("Youre ok")
+    else:
+        return HyypResponse("No")
+    request.session.set_test_cookie()
+    return render(request,'app/profile.html')
+
 
