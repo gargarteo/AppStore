@@ -1,6 +1,40 @@
 from django.shortcuts import render, redirect
 from django.db import connection
 
+def new_request(request):
+    context = {}
+    status = ''
+    import datetime
+    
+    def validate_date(d):
+        try:
+            d_obj = datetime.strptime(d, "%Y-%m-%d")
+            d_s = datetime.strftime(d_obj, "%Y-%m-%d")
+        except:
+            status = 'Please input date as YYYY-MM-DD'
+    
+    def validate_time(t):
+        try:
+            t_obj = datetime.strptime(t, "%H-%M")
+            t_s = datetime.strftime(t_obj, "%H:%M:%S")
+        except:
+            status = 'Please input date as HH:MM'
+                
+    #if request.POST:
+        #How to store email of current login user
+        
+        #Checking date format
+        #if not validaterequest.POST['borrow_date']
+        #elif:
+        
+        #elif:
+        
+        #else:
+            
+        
+    return render(request, 'app/new_request.html', {})
+
+
 
 def home(request):
     with connection.cursor() as cursor:
