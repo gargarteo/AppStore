@@ -11,13 +11,12 @@ def new_request(request):
         #How to store email of current login user
         
         #Checking return later than borrow
-        if request.POST['return_date'] < request.POST['borrow_date']:
-            status = 'Please ensure return date is later than borrow date'
-        else:
-              cursor.execute("INSERT INTO request (item, category, date_needed, time_needed, return_date, return_time, meetup_location) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+            if request.POST['return_date'] < request.POST['borrow_date']:
+                status = 'Please ensure return date is later than borrow date'
+            else:
+                cursor.execute("INSERT INTO request (item, category, date_needed, time_needed, return_date, return_time, meetup_location) VALUES (%s, %s, %s, %s, %s, %s, %s)"
                         , [ request.POST['item'], request.POST['category'], request.POST['borrow_date'], request.POST['borrow_time'], request.POST['return_date'], request.POST['return_time'], request.POST['location'] ])
-                   
-                    return redirect('home')  
+                return redirect('home')  
             
     context['status'] = status
     return render(request, 'app/new_request.html', {})
