@@ -7,7 +7,7 @@ def index(request):
     #Login
     if request.POST:    
         with connection.cursor() as cursor:
-            cursor.execute("SELECT school_email, password FROM users WHERE school_email = %s AND password = %s", [request.POST['school_email']], [request.POST['password']])
+            cursor.execute("SELECT school_email, password FROM users WHERE school_email = %s AND password = %s", [request.POST['school_email'],[request.POST['password']])
             account = cursor.fetchone()
            
         context = {}
