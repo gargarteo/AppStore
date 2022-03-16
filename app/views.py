@@ -4,10 +4,10 @@ from django.db import connection
 
 def home(request):
     with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM users ORDER BY name")
-        users = cursor.fetchall()
+        cursor.execute("SELECT item, loaner, date_needed, time_needed, return FROM request ORDER BY date_needed ASC")
+        requests = cursor.fetchall()
 
-    result_dict = {'records': users}
+    result_dict = {'requests': requests}
 
     return render(request,'app/home.html',result_dict)
 
