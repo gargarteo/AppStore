@@ -20,6 +20,7 @@ def index(request):
         with connection.cursor() as cursor:
             cursor.execute("SELECT school_email, password FROM users WHERE school_email = %s AND password = %s", [request.POST['school_email'],request.POST['password']])
             account = cursor.fetchone()
+            email = request.POST['school_email']
            
         context = {}
         status = ''
@@ -27,7 +28,7 @@ def index(request):
         if account == None:
             status = 'Wrong Login Details'
         else:
-            return redirect('home')
+            return render(request, "app/home.html". {'email' : email}
         
         context['status'] = status
         return render(request, "app/index.html", context)
