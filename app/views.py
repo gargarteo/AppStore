@@ -200,7 +200,7 @@ def profile(request):
         cursor.execute("SELECT name, demerit_points FROM users WHERE school_email=%s", [request.session['email']]) 
         requests= cursor.fetchall()
     result_dict = {'requests': requests}
-    
+    print(result_dict)
     return render(request,'app/profile.html',result_dict)
 
 
