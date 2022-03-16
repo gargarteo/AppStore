@@ -196,11 +196,7 @@ def create_account(request):
     return render(request, "app/register.html", context)
 
 def profile(request):
-    if request.session.test_cookie_worked():
-        return HttpResponse("Youre ok.")
-    else:
-        return HttpResponse("No")
-    request.session.set_test_cookie()
+    return request.session.keys()
     return render(request,'app/profile.html')
 
 
