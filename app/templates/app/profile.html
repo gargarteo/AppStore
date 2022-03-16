@@ -2,19 +2,21 @@
 <html>
 <body>
     <h1 align = center>Profile</h1>
-
-    <h3 align=center>Demerit Points:<h3>
-        <table border=1>
-        <thead>
-            <th>Name</th>
-            <th>Demerit Points</th>
-        </thead>
-   {% for i in requests %}
-         <tr>
-            <td> {{ i.0 }} </td>
-            <td> {{ i.1 }} </td>
+   <br/><br/>
+    <table style='text-align:left'>
+ {% for r in requests %}
+        <tr>
+            <th>ID</th>
+            <td>:</td>
+            <td> {{ r.0 }} </td>
         </tr>
-   {% endfor %}
- </table>
+        <tr>
+            <th>First name</th>
+            <td>:</td>
+            <td> {{ r.1 }} </td>
+        </tr>
+
+ {% endfor %}
+    </table>
 </body>
 </html>
