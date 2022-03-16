@@ -1,0 +1,104 @@
+{% load static %}
+<html>
+<body>
+    <h1 align = center>Profile</h1>
+    <img src="{% static 'app/images/nus.jpg' %}" width="10%"   alt="NUS logo"/>
+    <br/><br/>
+    <th/>Name</th>
+    <br/><br/>
+    <th>Demerits:<th>
+    <br/><br/>
+    <th>Points:<th>
+    <br/><br/>
+    
+    <th>Loaned items<th>
+    <table border=1 align=center>
+        <thead>
+            <th>Transaction ID</th>
+            <th>Loaner</th>
+            <th>Item</th>
+            <th>Date Borrowed</th>
+            <th>Date Return</th>
+        </thead>
+        {% for item in request %}
+        <tr>
+            <td> {{  }} </td>
+            <td> {{  }} </td>
+            <td> {{  }} </td>
+            <td> {{  }} </td>
+            <td> {{  }} </td>
+        <tr>
+        {% endfor %}
+    </table>
+    <br/><br/>
+
+    <th>Borrowed items<th>
+    <table border=1 align=center>
+        <thead>
+            <th>Transaction ID</th>
+            <th>Borrower</th>
+            <th>Item</th>
+            <th>Date Borrowed</th>
+            <th>Date Return</th>
+        </thead>
+        {% for item in request %}
+        <tr>
+            <td> {{  }} </td>
+            <td> {{  }} </td>
+            <td> {{  }} </td>
+            <td> {{  }} </td>
+            <td> {{  }} </td>
+        <tr>
+        {% endfor %}
+    </table>
+    <br/><br/>
+    
+    <th>Vouchers Available<th>
+    <table border=1 align=center>
+        <thead>
+            <th>Voucer</th>
+            <th>Merchant</th>
+            <th>Value</th>
+            <th>Use</th>
+        </thead>
+        {% for item in request %}
+        <tr>
+            <td> {{  }} </td>
+            <td> {{  }} </td>
+            <td> {{  }} </td>
+      <td><input type="hidden" name="id" value="{{cust.5}}"/>
+                <button onclick="return confirm('Are you sure you want to use voucher?');" type="submit" name="action" value="delete">Use</button>
+        <tr>
+        {% endfor %}
+    </table>
+    
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.btn {
+  background-color: DodgerBlue;
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  font-size: 20px;
+  cursor: pointer;
+}s
+
+/* Darker background on mouse-over */
+.btn:hover {
+  background-color: RoyalBlue;
+}
+</style>
+</head>
+<body align = center>
+
+</br></br><br/><br/>
+<button class="btn"><i class="fa fa-home"></i> Home</button>
+<button class="btn"><i class="fa fa-plus"></i> Request </button>
+<button class="btn"><i class="fa fa-user"></i> Profile</button>
+
+        
+</body>
+</html>
