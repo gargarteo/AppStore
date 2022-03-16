@@ -28,7 +28,7 @@ def index(request):
         if account == None:
             status = 'Wrong Login Details'
         else:
-            return render(request, "app/home.html". {'email' : email}
+            return render(request, "app/home.html", {'email' : email}
         
         context['status'] = status
         return render(request, "app/index.html", context)
