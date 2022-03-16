@@ -11,7 +11,30 @@
     <th>Points:<th>
     <br/><br/>
     
-    <th>Loaned items<th>
+    <h3 align=center>Your Requests<h3>
+    <table border=1 align=center>
+        <thead>
+            <th>Item</th>
+            <th>Category</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Location</th>
+            <th>Return by</th>
+        </thead>
+        {% for item in request %}
+        <tr>
+            <td> {{  }} </td>
+            <td> {{  }} </td>
+            <td> {{  }} </td>
+            <td> {{  }} </td>
+            <td> {{  }} </td>
+            <td> {{  }} </td>
+        <tr>
+        {% endfor %}
+    </table>
+    <br/><br/>
+    
+    <h3 align=center>Loaned items<h3>
     <table border=1 align=center>
         <thead>
             <th>Transaction ID</th>
@@ -32,7 +55,7 @@
     </table>
     <br/><br/>
 
-    <th>Borrowed items<th>
+    <h3 align=center>Borrowed items<h3>
     <table border=1 align=center>
         <thead>
             <th>Transaction ID</th>
@@ -53,7 +76,7 @@
     </table>
     <br/><br/>
     
-    <th>Vouchers Available<th>
+    <h3 align=center>Your Vouchers<h3>
     <table border=1 align=center>
         <thead>
             <th>Voucer</th>
