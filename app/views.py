@@ -33,7 +33,6 @@ def home(request):
 
     return render(request,'app/home.html',result_dict)
 
-
 def index(request):
     """Shows the main page"""
     
@@ -49,6 +48,8 @@ def index(request):
             
         if account == None:
             status = 'Wrong Login Details'
+        elif request.POST['school_email'] == 'admin' and request.POST['password'] == '123456':
+            return redirect('home_admin')
         else:
             return render(request, "app/home.html", {"email" : email})
         
