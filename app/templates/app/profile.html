@@ -16,13 +16,15 @@
         <thead>
             <th>Item</th>
             <th>Category</th>
-            <th>Date</th>
-            <th>Time</th>
+            <th>Date Needed</th>
+            <th>Time Needed</th>
+            <th>Return Date</th>
+            <th>Return Time</th>
             <th>Location</th>
-            <th>Return by</th>
         </thead>
         {% for item in request %}
         <tr>
+            <td> {{  }} </td>
             <td> {{  }} </td>
             <td> {{  }} </td>
             <td> {{  }} </td>
@@ -43,7 +45,7 @@
             <th>Date Borrowed</th>
             <th>Date Return</th>
         </thead>
-        {% for item in loan %}
+        {% for item in request %}
         <tr>
             <td> {{  }} </td>
             <td> {{  }} </td>
@@ -64,7 +66,7 @@
             <th>Date Borrowed</th>
             <th>Date Return</th>
         </thead>
-        {% for item in loan %}
+        {% for item in request %}
         <tr>
             <td> {{  }} </td>
             <td> {{  }} </td>
@@ -84,7 +86,7 @@
             <th>Value</th>
             <th>Use</th>
         </thead>
-        {% for item in vouchers %}
+        {% for item in request %}
         <tr>
             <td> {{  }} </td>
             <td> {{  }} </td>
@@ -107,11 +109,23 @@
   padding: 12px 24px;
   font-size: 20px;
   cursor: pointer;
-}s
+}
+
+.button {background-color: #f44336;
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  font-size: 20px;
+  cursor: pointer;
+}
 
 /* Darker background on mouse-over */
 .btn:hover {
   background-color: RoyalBlue;
+}
+
+.button:hover {
+  background-color: DarkRed;
 }
 </style>
 </head>
@@ -119,9 +133,10 @@
 
 </br></br><br/><br/>
 <button class="btn"><i class="fa fa-home"></i> Home</button>
-<button class="btn"><i class="fa fa-plus"></i> Request </button>
+<a href = "new_request"><button class="btn"><i class="fa fa-plus"></i> Request </button> </a>
 <button class="btn"><i class="fa fa-user"></i> Profile</button>
+<button class="btn"><i class="fa fa-dollar"></i> Vouchers</button>
+<a href = "/"> <button class="button" ><i class="fa fa-sign-out"></i> Logout </button> </a>
 
-        
 </body>
 </html>
