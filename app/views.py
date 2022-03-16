@@ -199,7 +199,7 @@ def profile(request):
     if request.session.test_cookie_worked():
         return HttpResponse("Youre ok")
     else:
-        return HyypResponse("No")
+        return HttpResponse("No")
     request.session.set_test_cookie()
     return render(request,'app/profile.html')
 
