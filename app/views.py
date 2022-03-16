@@ -41,6 +41,12 @@ def index(request):
 
     return render(request,'app/index.html',result_dict)
 
+def logout(request):
+   try:
+      del request.session['email']
+   except:
+      pass
+   return HttpResponse("<strong>You are logged out.</strong>")
 
 # Create your views here.
 def index_ori(request):
