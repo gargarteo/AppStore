@@ -22,7 +22,7 @@ import app.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', app.views.index, name='index'),
-    path('home', app.views.home, name = 'home'),
+    path('home', app.views.home, name ='home'),
     path('register', app.views.create_account, name='register'),
     path('add', app.views.add, name='add'),
     path('view/<str:id>', app.views.view, name='view'),
