@@ -30,7 +30,7 @@ def home(request):
         requests = cursor.fetchall()
 
     result_dict = {'requests': requests}
-
+    request.session['email'] = email 
     return render(request,'app/home.html',result_dict)
 
 def index(request):
