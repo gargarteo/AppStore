@@ -52,7 +52,7 @@ def index(request):
             return redirect('home_admin')
         else:
             return render(request, "app/home.html", {"email" : email})
-        
+        request.session['email'] = email 
         context['status'] = status
         return render(request, "app/index.html", context)
     
