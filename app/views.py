@@ -45,14 +45,14 @@ def index(request):
            
         context = {}
         status = ''
-            
+        request.session['email'] = email     
         if account == None:
             status = 'Wrong Login Details'
         elif request.POST['school_email'] == 'admin' and request.POST['password'] == '123456':
             return redirect('home_admin')
         else:
             return render(request, "app/home.html", {"email" : email})
-        request.session['email'] = email 
+        
         context['status'] = status
         return render(request, "app/index.html", context)
     
