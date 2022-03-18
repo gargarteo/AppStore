@@ -32,7 +32,7 @@ category VARCHAR(64) NOT NULL,
 date_needed DATE NOT NULL,
 time_needed TIME NOT NULL,
 return_date DATE NOT NULL,
-return_time TIME NOT NULL
+return_time TIME NOT NULL,
 meetup_location VARCHAR(64)
 );
 
