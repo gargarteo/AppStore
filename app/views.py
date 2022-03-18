@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.db import connection 
 from django.http import HttpResponse  
-manage.py syncdb
+
 def new_request(request):
     context = {}
     status = ''
