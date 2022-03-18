@@ -201,7 +201,13 @@ def profile(request):
         full_profile= cursor.fetchall()
         cursor.execute("SELECT * FROM request WHERE loaner=%s", [request.session['email']])
         requests= cursor.fetchall()
-    profile_dict = {'full_profile': full_profile, 'requests':requests}
+        cursor.execute("SELECT * FROM loan WHERE owner= %s", [request.session['email']])
+        loans=cursor.fetchall()
+        cursor.execute("SELECT * FROM loan WHERE borrower=%s", [request.session['email']])
+        borrowed=cursor.fetchall()
+        cursor.execute("SELECT * FROM vouchers WHERE owner_of_voucher=%s", [request.session['email']])
+        vouchers=cursor.fetchall() 
+    profile_dict = {'full_profile': full_profile, 'requests':requests, 'loans': loans, 'borrowed':borrowed, 'vouchers':vouchers}
     return render(request,'app/profile.html',profile_dict)
     
 
