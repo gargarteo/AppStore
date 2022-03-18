@@ -35,7 +35,8 @@
                 <td> <form method="POST" style="display: inline;">
                 {% csrf_token %}
                 <input type="hidden" name="id" value="{{r.0}}"/>
-                <button onclick="return confirm('Are you sure you want accept {{r.1}} on {{r.4}} at {{r.8}} ?');" type="submit" name="action" value="accept_request">Accept Request</button> 
+                <button onclick="return confirm('Are you sure you want accept {{r.1}} on {{r.4}} at {{r.8}} ?');" type="submit" name="action" value="accept_request">
+                    Accept Request</button> 
                  </form></td>
                 </tr>
                 {% endfor %}
