@@ -23,7 +23,6 @@
   {% endfor %}
   </table>
     <h3 align=center>Your Requests<h3>
-    <h3 align=center>No Requests<h3> 
     <table border=1 align=center>
         <thead>
             <th>Item</th>
@@ -48,5 +47,110 @@
     </table>
     <br/><br/>
         
+        
+    <h3 align=center>Loaned items<h3>
+    <table border=1 align=center>
+        <thead>
+            <th>Transaction ID</th>
+            <th>Loaner</th>
+            <th>Item</th>
+            <th>Date Borrowed</th>
+            <th>Date Return</th>
+        </thead>
+        {% for item in request %}
+        <tr>
+            <td> {{  }} </td>
+            <td> {{  }} </td>
+            <td> {{  }} </td>
+            <td> {{  }} </td>
+            <td> {{  }} </td>
+        <tr>
+        {% endfor %}
+    </table>
+    <br/><br/>
+
+    <h3 align=center>Borrowed items<h3>
+    <table border=1 align=center>
+        <thead>
+            <th>Transaction ID</th>
+            <th>Borrower</th>
+            <th>Item</th>
+            <th>Date Borrowed</th>
+            <th>Date Return</th>
+        </thead>
+        {% for item in request %}
+        <tr>
+            <td> {{  }} </td>
+            <td> {{  }} </td>
+            <td> {{  }} </td>
+            <td> {{  }} </td>
+            <td> {{  }} </td>
+        <tr>
+        {% endfor %}
+    </table>
+    <br/><br/>
+    
+    <h3 align=center>Your Vouchers<h3>
+    <table border=1 align=center>
+        <thead>
+            <th>Voucer</th>
+            <th>Merchant</th>
+            <th>Value</th>
+            <th>Use</th>
+        </thead>
+        {% for item in request %}
+        <tr>
+            <td> {{  }} </td>
+            <td> {{  }} </td>
+            <td> {{  }} </td>
+      <td><input type="hidden" name="use" value="{{cust.5}}"/>
+                <button onclick="return confirm('Are you sure you want to use voucher?');" type="submit" name="action" value="delete">Use</button>
+        <tr>
+        {% endfor %}
+    </table>
+    
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.btn {
+  background-color: DodgerBlue;
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.button {background-color: #f44336;
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+  background-color: RoyalBlue;
+}
+
+.button:hover {
+  background-color: DarkRed;
+}
+</style>
+</head>
+<body align = center>
+
+</br></br><br/><br/>
+<button class="btn"><i class="fa fa-home"></i> Home</button>
+<a href = "new_request"><button class="btn"><i class="fa fa-plus"></i> Request </button> </a>
+<button class="btn"><i class="fa fa-store-alt"></i> Vouchers Store </button>
+<a href = "profile"><button class="btn"><i class="fa fa-user"></i> Profile</button> </a>
+<a href = "/"> <button class="button" ><i class="fa fa-sign-out"></i> Logout </button> </a>
+
+</body>
+</html>
 </body>
 </html>
