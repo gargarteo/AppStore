@@ -12,7 +12,7 @@ def new_request(request):
         #How to store email of current login user
         
         #Checking return later than borrow
-            if request.POST['return_date'] < request.POST['borrow_date']:
+            if request.POST['return_date'] < request.POST['date_needed']:
                 status = 'Please ensure return date is later than borrow date'
             else:
                 cursor.execute("INSERT INTO request (item, loaner, category, date_needed, time_needed, return_date, return_time, meetup_location) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
