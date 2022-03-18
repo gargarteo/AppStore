@@ -11,17 +11,39 @@
             <td> {{ f.0 }} </td>
         </tr>
         <tr>
-            <th>Number of Demerit Points</th>
+            <th>Demerit Points</th>
             <td>:</td>
             <td> {{ f.3 }} </td>
         </tr>
         <tr>
-            <th>Number of Voucher Points</th>
+            <th>Voucher Points</th>
             <td>:</td>
             <td> {{ f.4 }} </td>
-       </tr>       
-
+       </tr>
+  {% endfor %}
+  {% for f in full_profile %}
+    <h3 align=center>Your Requests<h3>
+    <table border=1 align=center>
+        <thead>
+            <th>Item</th>
+            <th>Category</th>
+            <th>Date Needed</th>
+            <th>Time Needed</th>
+            <th>Return Date</th>
+            <th>Return Time</th>
+            <th>Location</th>
+        </thead>
+          <tr>
+            <td> {{  }} </td>
+            <td> {{  }} </td>
+            <td> {{  }} </td>
+            <td> {{  }} </td>
+            <td> {{  }} </td>
+            <td> {{  }} </td>
+            <td> {{  }} </td>
+        <tr>
  {% endfor %}
     </table>
+    <br/><br/>
 </body>
 </html>
