@@ -15,7 +15,7 @@ def new_request(request):
             if request.POST['return_date'] < request.POST['date_needed']:
                 status = 'Please ensure return date is later than borrow date'
             else:
-                cursor.execute("INSERT INTO request (item, loaner, category, date_needed, time_needed, return_date, return_time, meetup_location) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+                cursor.execute("INSERT INTO request (item, loaner, category, date_needed, time_needed,return_date, return_time, meetup_location) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
                         , [ request.POST['item'], request.session['email'], request.POST['category'], request.POST['date_needed'], request.POST['time_needed'], request.POST['return_date'], request.POST['return_time'], request.POST['meetup_location'] ])
                 return redirect('home')  
             
