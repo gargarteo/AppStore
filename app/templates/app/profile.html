@@ -23,9 +23,7 @@
   {% endfor %}
   </table>
     <h3 align=center>Your Requests<h3>
-    {% if len(requests)==0 %}
     <h3 align=center>No Requests<h3> 
-    {% else %}
     <table border=1 align=center>
         <thead>
             <th>Item</th>
@@ -48,7 +46,7 @@
         </tr>
         {% endfor %}
     </table>
-    {% endif %}
     <br/><br/>
+        
 </body>
 </html>
