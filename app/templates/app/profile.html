@@ -4,21 +4,21 @@
     <h1 align = center>Profile</h1>
    <br/><br/>
     <table style='text-align:left'>
- {% for r in requests %}
+ {% for f in full_profile %}
         <tr>
             <th>Name:</th>
             <td>:</td>
-            <td> {{ r.0 }} </td>
+            <td> {{ f.0 }} </td>
         </tr>
         <tr>
             <th>Number of Demerit Points</th>
             <td>:</td>
-            <td> {{ r.3 }} </td>
+            <td> {{ f.3 }} </td>
         </tr>
         <tr>
             <th>Number of Voucher Points</th>
             <td>:</td>
-            <td> {{ r.4 }} </td>
+            <td> {{ f.4 }} </td>
        </tr>       
 
  {% endfor %}
