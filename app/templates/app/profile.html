@@ -6,15 +6,20 @@
     <table style='text-align:left'>
  {% for r in requests %}
         <tr>
-            <th>ID</th>
+            <th>Name:</th>
             <td>:</td>
             <td> {{ r.0 }} </td>
         </tr>
         <tr>
-            <th>First name</th>
+            <th>Number of Demerit Points</th>
             <td>:</td>
-            <td> {{ r.1 }} </td>
+            <td> {{ r.3 }} </td>
         </tr>
+        <tr>
+            <th>Number of Voucher Points</th>
+            <td>:</td>
+            <td> {{ r.4 }} </td>
+       </tr>       
 
  {% endfor %}
     </table>
