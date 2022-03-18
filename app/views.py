@@ -197,10 +197,10 @@ def create_account(request):
 
 def profile(request):
     with connection.cursor() as cursor: 
-        cursor.execute("SELECT name, demerit_points FROM users WHERE school_email=%s", [request.session['email']]) 
-        requests= cursor.fetchall()
-    result_dict = {'requests': requests}
-    return render(request,'app/profile.html',result_dict)
+        cursor.execute("SELECT * FROM users WHERE school_email=%s", [request.session['email']]) 
+        full_profile= cursor.fetchall()
+    profile_dict = {'full_profile': full_profile}
+    return render(request,'app/profile.html',profile_dict)
     
 
 
