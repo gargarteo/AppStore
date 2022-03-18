@@ -219,4 +219,9 @@ def voucher(request):
     
     return render(request,'app/voucher.html',vouchers_dict)
 
-
+def accept(request, r):
+     with connection.cursor() as cursor:
+           cursor.execute("INSERT INTO loan VALUES (%s, %s, %s, %s, %s, %s, %s)"
+                        , [request.POST[r.0], request.POST[r.2], request.POST[[request.session['email']]],
+                           request.POST[r.1'] , request.POST[r.4], request.POST[r.6], request.POST[r.6] ])
+     return redirect('index')    
