@@ -210,5 +210,10 @@ def profile(request):
     profile_dict = {'full_profile': full_profile, 'requests':requests, 'loans': loans, 'borrowed':borrowed, 'vouchers':vouchers}
     return render(request,'app/profile.html',profile_dict)
     
+def voucher(request):
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM vouchers")
+        vouchers=cursor.fetchall()
+    profile_dict={
 
 
