@@ -21,7 +21,7 @@
             <td> {{ f.4 }} </td>
        </tr>
   {% endfor %}
- {% for r in requests %}
+
     <h3 align=center>Your Requests<h3>
     <table border=1 align=center>
         <thead>
@@ -33,6 +33,7 @@
             <th>Return Time</th>
             <th>Location</th>
         </thead>
+         {% for r in requests %}
           <tr>
             <td> {{ r.1 }} </td>
             <td> {{ r.3 }} </td>
@@ -42,7 +43,7 @@
             <td> {{ r.7 }} </td>
             <td> {{ r.8 }} </td>
         </tr>
- {% endfor %}
+        {% endfor %}
     </table>
     <br/><br/>
 </body>
