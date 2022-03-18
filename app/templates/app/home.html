@@ -6,22 +6,37 @@
     <br/><br/>
     <h3 align = center>Fulfil a need?</h3> 
 
-    <table border=1 align = center>
-        <thead>
-            <th>Item</th>
-            <th>Borrower</th>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Duration</th>
-        </thead>
-        <tr>
-            <td>  </td>
-            <td>  </td>
-            <td>  </td>
-            <td>  </td> 
-            <td>  </td> 
-        </tr>
-    </table>
+  
+        <p style="color:blue" align=center>All Requests</p>
+        {% if requests|length %}
+            <table border=1 align=center>
+                <thead>
+                    <th>Item</th>
+                    <th>Category</th>
+                    <th>Date Needed</th>
+                    <th>Time Needed</th>
+                    <th>Return Date</th>
+                    <th>Return Time</th>
+                    <th>Location</th>
+                </thead>
+                 {% for r in requests %}
+                  <tr>
+                    <td> {{ r.1 }} </td>
+                    <td> {{ r.3 }} </td>
+                    <td> {{ r.4 }} </td>
+                    <td> {{ r.5 }} </td>
+                    <td> {{ r.6 }} </td>
+                    <td> {{ r.7 }} </td>
+                    <td> {{ r.8 }} </td>
+                </tr>
+                {% endfor %}
+          </table>
+          
+        {% else %}
+            There are no requests yet! :)
+  {% endif %}
+  <br/><br/>  
+    
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Add icon library -->
