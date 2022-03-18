@@ -213,8 +213,8 @@ def profile(request):
 def voucher(request):
     with connection.cursor() as cursor:
         cursor.execute("SELECT * FROM vouchers")
-        vouchers=cursor.fetchall()
-    vouchers_dict={'vouchers':vouchers}
+        voucher=cursor.fetchall()
+    vouchers_dict={'voucher':voucher}
     return render(request,'app/voucher.html',vouchers_dict)
 
 
