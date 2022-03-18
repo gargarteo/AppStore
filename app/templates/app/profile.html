@@ -21,7 +21,7 @@
             <td> {{ f.4 }} </td>
        </tr>
   {% endfor %}
-
+  </table>
     <h3 align=center>Your Requests<h3>
     <table border=1 align=center>
         <thead>
@@ -44,6 +44,9 @@
             <td> {{ r.8 }} </td>
         </tr>
         {% endfor %}
+        if ($('table tr').length == 0) {
+         <h4 align=center>You have no requests!<h3>
+}
     </table>
     <br/><br/>
 </body>
