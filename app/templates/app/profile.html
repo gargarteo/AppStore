@@ -21,7 +21,7 @@
             <td> {{ f.4 }} </td>
        </tr>
   {% endfor %}
-  {% for f in full_profile %}
+  {% for r in requests %}
     <h3 align=center>Your Requests<h3>
     <table border=1 align=center>
         <thead>
@@ -34,13 +34,13 @@
             <th>Location</th>
         </thead>
           <tr>
-            <td> {{  }} </td>
-            <td> {{  }} </td>
-            <td> {{  }} </td>
-            <td> {{  }} </td>
-            <td> {{  }} </td>
-            <td> {{  }} </td>
-            <td> {{  }} </td>
+            <td> {{ r.1 }} </td>
+            <td> {{ r.3 }} </td>
+            <td> {{ r.4 }} </td>
+            <td> {{ r.5 }} </td>
+            <td> {{ r.6 }} </td>
+            <td> {{ r.7 }} </td>
+            <td> {{ r.8 }} </td>
         <tr>
  {% endfor %}
     </table>
