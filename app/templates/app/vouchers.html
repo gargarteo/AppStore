@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h1 align = center>Profile</h1>
+   <br/><br/>
+    <table style='text-align:left'>
+ {% for f in full_profile %}
+        <tr>
+            <th>Voucher Points</th>
+            <td>:</td>
+            <td> {{ f.4 }} </td>
+       </tr>
+  {% endfor %}
+	</table>
+  
+    <h3 align=center>Shop Vouchers<h3>
+    <table border=1 align=center>
+        <thead>
+            <th>Voucher</th>
+            <th>Merchant</th>
+            <th>Value</th>
+            <th>Points</th>
+            <th>Claim</th>
+        </thead>
+        {% for v in voucher %}
+        <tr>
+            <td> {{ v.1 }} </td>
+            <td> {{ v.2 }} </td>
+            <td> {{ v.3 }} </td>
+            <td> {{ v.4 }} </td>
+      <td><input type="hidden" name="use" value="{{cust.5}}"/>
+                <button onclick="return confirm('Are you sure you want to collect this voucher?');" type="submit" name="action" value="claim">Claim</button>
+        <tr>
+        {% endfor %}
+    </table>
+    
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.btn {
+  background-color: DodgerBlue;
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.button {background-color: #f44336;
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+  background-color: RoyalBlue;
+}
+
+.button:hover {
+  background-color: DarkRed;
+}
+</style>
+</head>
+<body align = center>
+
+</br></br><br/><br/>
+<a href = "home"><button class="btn"><i class="fa fa-home"></i> Home</button></a>
+<a href = "new_request"><button class="btn"><i class="fa fa-plus"></i> Request </button> </a>
+<button class="btn"><i class="fa fa-gift-card"></i> Vouchers Store </button>
+<button class="btn"><i class="fa fa-user"></i> Profile </button>
+<a href = "/"> <button class="button" ><i class="fa fa-sign-out"></i> Logout </button> </a>
+
+</body>
+</html>
+</body>
+</html>
