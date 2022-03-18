@@ -26,7 +26,7 @@ def new_request(request):
 
 def home(request):
     with connection.cursor() as cursor:
-        cursor.execute("SELECT item, loaner, date_needed, time_needed, (return_date - date_needed) as duration FROM request ORDER BY date_needed ASC")
+        cursor.execute("SELECT item, loaner, date_needed, time_needed, (return_date - date_needed) as duration, meetup_location FROM request ORDER BY date_needed ASC")
         requests = cursor.fetchall()
 
     result_dict = {'requests': requests}
