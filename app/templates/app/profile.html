@@ -23,6 +23,9 @@
   {% endfor %}
   </table>
     <h3 align=center>Your Requests<h3>
+    {% if len(requests)==0 %}
+    <h3 align=center>No Requests<h3> 
+    {% else %}
     <table border=1 align=center>
         <thead>
             <th>Item</th>
@@ -44,10 +47,8 @@
             <td> {{ r.8 }} </td>
         </tr>
         {% endfor %}
-        if ($('table tr').length == 0) {
-         <h4 align=center>You have no requests!<h3>
-}
     </table>
+    {% endif %}
     <br/><br/>
 </body>
 </html>
