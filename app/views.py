@@ -215,6 +215,9 @@ def voucher(request):
         cursor.execute("SELECT * FROM vouchers")
         voucher=cursor.fetchall()
     vouchers_dict={'voucher':voucher}
+    
+    #Need add the buy functionality
+    
     return render(request,'app/voucher.html',vouchers_dict)
 
 
