@@ -30,7 +30,6 @@ def home(request):
         requests = cursor.fetchall()
 
     result_dict = {'requests': requests}
-    email = request.session['email']
     return render(request,'app/home.html',result_dict)
 
 def index(request):
@@ -199,7 +198,7 @@ def profile(request):
     with connection.cursor() as cursor: 
         cursor.execute("SELECT * FROM users WHERE school_email=%s", [request.session['email']]) 
         full_profile= cursor.fetchall()
-        cursor.execute("SELECT * FROM request WHERE loaner=%s", [request.session['email']])
+        cursor.execute("SELECT * FROM requests WHERE loaner=%s", [request.session['email']])
         requests= cursor.fetchall()
         cursor.execute("SELECT * FROM loan WHERE owner= %s", [request.session['email']])
         loan=cursor.fetchall()
