@@ -21,32 +21,36 @@
             <td> {{ f.4 }} </td>
        </tr>
   {% endfor %}
-  </table>
-    <h3 align=center>Your Requests<h3>
-    <table border=1 align=center>
-        <thead>
-            <th>Item</th>
-            <th>Category</th>
-            <th>Date Needed</th>
-            <th>Time Needed</th>
-            <th>Return Date</th>
-            <th>Return Time</th>
-            <th>Location</th>
-        </thead>
-         {% for r in requests %}
-          <tr>
-            <td> {{ r.1 }} </td>
-            <td> {{ r.3 }} </td>
-            <td> {{ r.4 }} </td>
-            <td> {{ r.5 }} </td>
-            <td> {{ r.6 }} </td>
-            <td> {{ r.7 }} </td>
-            <td> {{ r.8 }} </td>
-        </tr>
-        {% endfor %}
+  {% if requests %}
+    </table>
+        <h3 align=center>Your Requests<h3>
+        <table border=1 align=center>
+            <thead>
+                <th>Item</th>
+                <th>Category</th>
+                <th>Date Needed</th>
+                <th>Time Needed</th>
+                <th>Return Date</th>
+                <th>Return Time</th>
+                <th>Location</th>
+            </thead>
+             {% for r in requests %}
+              <tr>
+                <td> {{ r.1 }} </td>
+                <td> {{ r.3 }} </td>
+                <td> {{ r.4 }} </td>
+                <td> {{ r.5 }} </td>
+                <td> {{ r.6 }} </td>
+                <td> {{ r.7 }} </td>
+                <td> {{ r.8 }} </td>
+            </tr>
+            {% endfor %}
     </table>
     <br/><br/>
-        
+  {% else %}
+    You have no requests! :(
+  {% endif %}
+    
         
     <h3 align=center>Loaned items<h3>
     <table border=1 align=center>
