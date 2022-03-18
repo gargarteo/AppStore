@@ -214,6 +214,7 @@ def voucher(request):
     with connection.cursor() as cursor:
         cursor.execute("SELECT * FROM vouchers")
         vouchers=cursor.fetchall()
-    profile_dict={
+    vouchers_dict={'vouchers':vouchers}
+    return render(request,'app/voucher.html',vouchers_dict)
 
 
