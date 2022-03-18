@@ -199,7 +199,9 @@ def profile(request):
     with connection.cursor() as cursor: 
         cursor.execute("SELECT * FROM users WHERE school_email=%s", [request.session['email']]) 
         full_profile= cursor.fetchall()
-    profile_dict = {'full_profile': full_profile}
+        cursor.execute("SELECT * FROM request WHERE loaner=%s", [request.session['email']])
+        loans= cursor.fetchall()
+    profile_dict = {'full_profile': full_profile, 'loans':loans}
     return render(request,'app/profile.html',profile_dict)
     
 
