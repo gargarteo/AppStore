@@ -29,8 +29,8 @@
                     <td> {{ r.7 }} </td>
                     <td> {{ r.8 }} </td>
                     <td>
-                <a href="accept/{{r}}"><button>Accept Request</button></a>
-                    </td>
+         
+       <td><input type="button" value="Accept Request" onclick="accept/{{r}}"></td>
                       
                 <td> <form method="POST" style="display: inline;">
                 {% csrf_token %}
