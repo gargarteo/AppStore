@@ -293,10 +293,15 @@ def voucher(request):
     #Need add the buy functionality
     
     return render(request,'app/voucher.html',vouchers_dict)
+
 #buy voucher function
 #def use(request):
-    #with connection.cursor() as cursor:
-        #cursor.execute("SELECT * FROM voucher WHERE " )
+#    with connection.cursor() as cursor:
+#        cursor.execute("SELECT * FROM users WHERE school_email=%s", [request.session['email']])
+#        profile=cursor.fetchall()
+#        if (@@@v.points_required)<=(profile.4):
+#            cursor.execute("UPDATE voucher SET owner_of_voucher=%s" WHERE @@@/*voucher that use button was pressed*/, [request.session['email'])
+#            cursor.execute("UPDATE users SET @@@/*vouchers_points=profile.4-v.points_required*/ WHERE school_email=%s", [request.session['email']])
     
 
 #def accept(request, r):
