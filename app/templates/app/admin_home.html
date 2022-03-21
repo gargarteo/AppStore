@@ -31,18 +31,18 @@
                     <td> {{ r.5 }} </td>
                     <td> {{ r.7 }} </td>
                     
-                <td><a href = "profile"> <form method="POST" style="display: inline;">
+                <td> <form method="POST" style="display: inline;">
                 {% csrf_token %}
                 <input type="hidden" name="school_email" value="{{r.1}}"/>
-                <button type="submit" name="action" value="admin_view">
+                <a href = "profile"><button type="submit" name="action" value="admin_view">
                     View</button> 
                  </form></a> 
                 </td>
                 
-                <td><a href = "admin_useredit"> <form method="POST" style="display: inline;">
+                <td> <form method="POST" style="display: inline;">
                 {% csrf_token %}
                 <input type="hidden" name="school_email" value="{{r.1}}"/>
-                <button type="submit" name="action" value="admin_useredit">
+                <a href = "admin_useredit"><button type="submit" name="action" value="admin_useredit">
                     Edit</button> 
                  </form></a> 
                 </td>
