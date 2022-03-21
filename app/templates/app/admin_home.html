@@ -33,7 +33,7 @@
                     
                 <td><a href = "profile"> <form method="POST" style="display: inline;">
                 {% csrf_token %}
-                <input type="hidden" name="email" value="{{r.1}}"/>
+                <input type="hidden" name="school_email" value="{{r.1}}"/>
                 <button type="submit" name="action" value="admin_view">
                     View</button> 
                  </form></a> 
@@ -41,7 +41,7 @@
                 
                 <td><a href = "admin_useredit"> <form method="POST" style="display: inline;">
                 {% csrf_token %}
-                <input type="hidden" name="email" value="{{r.1}}"/>
+                <input type="hidden" name="school_email" value="{{r.1}}"/>
                 <button type="submit" name="action" value="admin_useredit">
                     View</button> 
                  </form></a> 
@@ -49,7 +49,7 @@
                       
                 <td> <form method="POST" style="display: inline;">
                 {% csrf_token %}
-                <input type="hidden" name="email" value="{{r.1}}"/>
+                <input type="hidden" name="school_email" value="{{r.1}}"/>
                 <button onclick="return confirm('Are you sure you want suspend {{r.0}} with an email of {{r.1}} ?');" type="submit" name="action" value="suspend_user">
                     Suspend User</button> 
                  </form></td>
