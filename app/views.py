@@ -101,7 +101,7 @@ def home(request):
         requests = cursor.fetchall()
     if request.POST:
         if request.POST['action']=="accept_request":
-           cursor.execute("SELECT * FROM requests WHERE request_id=%s",[reqid])
+           cursor.execute("SELECT * FROM requests WHERE request_id=%s",[request.POST['id']])
            r= cursor.fetchone()
            cursor.execute("SELECT loaner FROM r")
            borrower= cursor.fetchone()
