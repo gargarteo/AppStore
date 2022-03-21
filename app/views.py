@@ -21,7 +21,7 @@ def new_request(request):
     return render(request, 'app/new_request.html', {})
 
 def admin_home(request):
-    ## Delete customer
+    ## Suspend customer
     if request.POST:
         if request.POST['action'] == 'suspend_user':
             with connection.cursor() as cursor:
@@ -39,16 +39,36 @@ def admin_home(request):
     result_dict = {'users': users}
     return render(request,'app/admin_home.html',result_dict)
 
-def admin_view(request, email):
+def admin_useredit(request, email):
     """Shows the main page"""
-    
-    ## Use raw query to get a customer
-    with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM users WHERE school_email = %s", [request.POST['school_email']])
-        user = cursor.fetchone()
-    result_dict = {'user': user}
 
-    return render(request,'app/admin_view.html',result_dict)
+    # dictionary for initial data with
+    # field names as keys
+    context ={}
+
+    # fetch the object related to passed email
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM customers WHERE school_email = %s", [email])
+        obj = cursor.fetchone()
+
+    status = ''
+    # save the data from the form
+
+    if request.POST:
+        ##TODO: date validation
+        with connection.cursor() as cursor:
+            cursor.execute("UPDATE users SET name = %s, current_borrowed_items = %s, demerit_points = %s, vouchers_points = %s, max_request = %s, password = %s WHERE school_email = %s"
+                    , [request.POST['name'], request.POST['current_borrowed_items'], request.POST['demerit_points'],
+                        request.POST['vouchers_points'] , request.POST['max_request'], request.POST['password'], email ])
+            status = 'User edited successfully!'
+            cursor.execute("SELECT * FROM users WHERE school_email = %s", [email])
+            obj = cursor.fetchone()
+
+
+    context["obj"] = obj
+    context["status"] = status
+ 
+    return render(request, "app/admin_useredit.html", context)
 
 def home(request):
     with connection.cursor() as cursor:
