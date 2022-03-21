@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h1 align = center>Profile</h1>
+   <br/><br/>
+    <table style='text-align:left'>
+ {% for f in full_profile %}
+        <tr>
+            <th>Name:</th>
+            <td>:</td>
+            <td> {{ f.0 }} </td>
+        </tr>
+        <tr>
+            <th>Demerit Points</th>
+            <td>:</td>
+            <td> {{ f.3 }} </td>
+        </tr>
+        <tr>
+            <th>Voucher Points</th>
+            <td>:</td>
+            <td> {{ f.4 }} </td>
+       </tr>
+  {% endfor %}
+
+    </table>
+        <p style="color:blue" align=center>Your Requests</p>
+        {% if requests|length %}
+            <table border=1 align=center>
+                <thead>
+                    <th>Item</th>
+                    <th>Category</th>
+                    <th>Date Needed</th>
+                    <th>Time Needed</th>
+                    <th>Return Date</th>
+                    <th>Return Time</th>
+                    <th>Location</th>
+                </thead>
+                 {% for r in requests %}
+                  <tr>
+                    <td> {{ r.1 }} </td>
+                    <td> {{ r.3 }} </td>
+                    <td> {{ r.4 }} </td>
+                    <td> {{ r.5 }} </td>
+                    <td> {{ r.6 }} </td>
+                    <td> {{ r.7 }} </td>
+                    <td> {{ r.8 }} </td>
+                </tr>
+                {% endfor %}
+          </table>
+          
+        {% else %}
+            You have no requests! :(
+  {% endif %}
+  <br/><br/>  
+        
+    <p style="color:blue" align=center>Loaned Items</p>
+    {% if loan|length %}
+        <table border=1 align=center>
+            <thead>
+                <th>Transaction ID</th>
+                <th>Loaner</th>
+                <th>Item</th>
+                <th>Date Borrowed</th>
+                <th>Date Return</th>
+            </thead>
+            {% for item in loan %}
+            <tr>
+                <td> {{ item.0 }} </td>
+                <td> {{ item.1 }} </td>
+                <td> {{ item.3 }} </td>
+                <td> {{ item.4 }} </td>
+                <td> {{ item.5 }} </td>
+            <tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        You have no loaned out items! :(
+    {% endif %}
+    <br/><br/>
+
+    <p style="color:blue" align=center>Borrowed Items</p>
+    {% if borrowed|length %}
+        <table border=1 align=center>
+            <thead>
+                <th>Transaction ID</th>
+                <th>Borrower</th>
+                <th>Item</th>
+                <th>Date Borrowed</th>
+                <th>Date Return</th>
+            </thead>
+            {% for b in borrowed %}
+            <tr>
+                <td> {{ b.0 }} </td>
+                <td> {{ b.2 }} </td>
+                <td> {{ b.3 }} </td>
+                <td> {{ b.4 }} </td>
+                <td> {{ b.5 }} </td>
+            <tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        You have no borrowed items! :D
+    {% endif %}  
+    <br/><br/>
+    
+    <p style="color:blue" align=center>Your Vouchers</p>
+    {% if voucher|length %}
+        <table border=1 align=center>
+            <thead>
+                <th>Voucher</th>
+                <th>Merchant</th>
+                <th>Value</th>
+                <th>Use</th>
+            </thead>
+            {% for v in voucher %}
+            <tr>
+                <td> {{ v.1 }} </td>
+                <td> {{ v.2 }} </td>
+                <td> {{ v.3 }} </td>
+          <td><input type="hidden" name="use" value="{{cust.5}}"/>
+                    <button onclick="return confirm('Are you sure you want to use voucher?');" type="submit" name="action" value="use">Use</button>
+            <tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        Time to earn some vouchers now >:(
+    {% endif %}  
+    <br/><br/>
+    
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.btn {
+  background-color: DodgerBlue;
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.button {background-color: #f44336;
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+  background-color: RoyalBlue;
+}
+
+.button:hover {
+  background-color: DarkRed;
+}
+</style>
+</head>
+<body align = center>
+
+</br></br><br/><br/>
+<a href = "home"><button class="btn"><i class="fa fa-home"></i> Home</button></a>
+<a href = "new_request"><button class="btn"><i class="fa fa-plus"></i> Request </button> </a>
+<a href ="voucher"><button class="btn"><i class="fa fa-gift-card"></i> Vouchers Store </button></a>
+<button class="btn"><i class="fa fa-user"></i> Profile </button>
+<a href = "/"> <button class="button" ><i class="fa fa-sign-out"></i> Logout </button> </a>
+
+</body>
+</html>
+</body>
+</html>
