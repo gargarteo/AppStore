@@ -71,7 +71,7 @@ def index(request):
         if account == None:
             status = 'Wrong Login Details'
         elif request.POST['school_email'] == 'admin@u.nus.edu' and request.POST['password'] == '123456':
-            return redirect('admin_home')
+            return render(request, "app/admin_home.html", {"email" : email})
         elif account.suspend == 'TRUE':
             status = 'Your account has been suspended'
         else:
