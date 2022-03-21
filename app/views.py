@@ -26,8 +26,10 @@ def admin_home(request):
         if request.POST['action'] == 'suspend_user':
             with connection.cursor() as cursor:
                 cursor.execute("UPDATE users SET suspend = TRUE WHERE school_email = %s", [request.POST['school_email']])        
-                cursor.execute("SELECT * FROM users ORDER BY name ASC")
-                users = cursor.fetchall()
+    
+    with connection.cursor() as cursor:            
+        cursor.execute("SELECT * FROM users ORDER BY name ASC")
+        users = cursor.fetchall()
 
     result_dict = {'users': users}
     return render(request,'app/admin_home.html',result_dict)
@@ -72,7 +74,8 @@ def index(request):
                 users = cursor.fetchall()
             result_dict = {'users': users}
             
-            return render(request, "app/admin_home.html", {'users': users})
+            return redirect('admin_home')
+        #render(request, "app/admin_home.html", {'users': users})
         else:
             with connection.cursor() as cursor:
                 cursor.execute("SELECT * FROM requests")
