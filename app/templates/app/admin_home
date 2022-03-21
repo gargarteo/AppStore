@@ -1,4 +1,51 @@
-{{r.0}} with an email of {{r.1}} ?');" type="submit" name="action" value="suspend_user">
+<!DOCTYPE html>
+<html>
+<body>
+    <h1 align = center>Admin Home</h1>
+
+    <br/><br/>
+    <h3 align = center>User Table</h3> 
+
+  
+        <p style="color:blue" align=center>All Requests</p>
+        {% if requests|length %}
+            <table border=1 align=center>
+                <thead>
+                    <th>Name</th>
+                    <th>School Email</th>
+                    <th>Number of items borrowed currently</th>
+                    <th>Demerit Points</th>
+                    <th>Voucher Points</th>
+                    <th>Maximum Request</th>
+                    <th>Suspended</th>
+                    <th>View</th> 
+                    <th>Suspend</th>
+                </thead>
+                 {% for r in result_dict %}
+                  <tr>
+                    <td> {{ r.0 }} </td>
+                    <td> {{ r.1 }} </td>
+                    <td> {{ r.2 }} </td>
+                    <td> {{ r.3 }} </td>
+                    <td> {{ r.4 }} </td>
+                    <td> {{ r.5 }} </td>
+                    <td> {{ r.7 }} </td>
+                    
+                <td><a href = "profile"> <form method="POST" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="email" value="{{r.1}}"/>
+                <button type="submit" name="action" value="admin_view">
+                    View</button> 
+                 </form></a> 
+                </td>
+                </tr>
+                {% endfor %}
+        
+                      
+                <td> <form method="POST" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="email" value="{{r.1}}"/>
+                <button onclick="return confirm('Are you sure you want suspend {{r.0}} with an email of {{r.1}} ?');" type="submit" name="action" value="suspend_user">
                     Suspend User</button> 
                  </form></td>
                 </tr>
