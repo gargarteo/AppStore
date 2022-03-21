@@ -71,7 +71,12 @@ def index(request):
         if account == None:
             status = 'Wrong Login Details or your account has been suspended'
         elif request.POST['school_email'] == 'admin@u.nus.edu' and request.POST['password'] == '123456':
-            return render(request, "app/admin_home.html", {"email" : email})
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT * FROM users")
+                users = cursor.fetchall()
+            result_dict = {'users': users}
+            
+            return render(request, "app/admin_home.html", result_dict)
         else:
             return render(request, "app/home.html", {"email" : email})
         
