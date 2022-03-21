@@ -53,18 +53,18 @@ def admin_useredit(request, email):
 
     status = ''
     # save the data from the form
-    #try:
-    if request.POST:
+    try:
+        if request.POST:
         ##TODO: date validation
-        with connection.cursor() as cursor:
+            with connection.cursor() as cursor:
             cursor.execute("UPDATE users SET name = %s, demerit_points = %s, vouchers_points = %s, max_request = %s, password = %s WHERE school_email = %s"
                     , [request.POST['name'], request.POST['demerit_points'],
                         request.POST['vouchers_points'] , request.POST['max_request'], request.POST['password'], email ])
-            status = 'User edited successfully!'
-            cursor.execute("SELECT * FROM users WHERE school_email = %s", [email])
-            obj = cursor.fetchone()
-    #except:
-    status = 'Error with updating details, Please ensure points & max request are numerical, length of password is >= 6'
+                status = 'User edited successfully!'
+                cursor.execute("SELECT * FROM users WHERE school_email = %s", [email])
+                obj = cursor.fetchone()
+    except:
+        status = 'Error with updating details, Please ensure points & max request are numerical, length of password is >= 6'
 
 
     context["obj"] = obj
