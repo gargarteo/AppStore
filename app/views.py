@@ -74,6 +74,12 @@ def admin_useredit(request, email):
 
 def admin_userview(request, email):
     """Shows the main page"""
+    #Delete requests
+    if request.POST:
+        if request.POST['action'] == 'delete_request':
+            with connection.cursor() as cursor:
+                cursor.execute("DELETE FROM requests WHERE request_id = %s", [request.POST['request_id']])
+    
     with connection.cursor() as cursor: 
         cursor.execute("SELECT * FROM users WHERE school_email=%s", [email]) 
         full_profile= cursor.fetchall()
