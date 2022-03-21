@@ -293,6 +293,9 @@ def voucher(request):
     #Need add the buy functionality
     
     return render(request,'app/voucher.html',vouchers_dict)
+#buy voucher function
+#def use(request):
+    
 
 #def accept(request, r):
      #with connection.cursor() as cursor:
