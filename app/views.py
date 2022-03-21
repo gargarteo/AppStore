@@ -78,16 +78,15 @@ def index(request):
             
             return render(request, "app/admin_home.html", result_dict)
         else:
-            return render(request, "app/home.html", {"email" : email})
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT * FROM requests")
+                requests = cursor.fetchall()
+            result_dict = {'requests': requests}
+           
+            return render(request, "app/home.html", {"requests" : requests})
         
         context['status'] = status
         return render(request, "app/index.html", context)
-    
-    #with connection.cursor() as cursor:
-        #cursor.execute("SELECT * FROM users ORDER BY name")
-        #users = cursor.fetchall()
-
-    #result_dict = {'records': users}
 
     return render(request,'app/index.html',{})
 
