@@ -48,7 +48,7 @@ def admin_useredit(request, email):
 
     # fetch the object related to passed email
     with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM customers WHERE school_email = %s", [email])
+        cursor.execute("SELECT * FROM users WHERE school_email = %s", [email])
         obj = cursor.fetchone()
 
     status = ''
@@ -71,6 +71,17 @@ def admin_useredit(request, email):
     context["status"] = status
  
     return render(request, "app/admin_useredit.html", context)
+
+def admin_userview(request, email):
+    """Shows the main page"""
+    
+    ## Use raw query to get request of customer
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM requests WHERE loaner = %s", [email])
+        user = cursor.fetchall()
+    result_dict = {'user': user}
+
+    return render(request,'app/view.html',result_dict)
 
 def home(request):
     with connection.cursor() as cursor:
