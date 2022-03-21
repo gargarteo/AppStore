@@ -1,0 +1,34 @@
+<html>
+<body>
+    <h2>User Edit {{obj.5}}</h2>
+    <a href="/">Back to home</a>
+
+    <p style="color:red">{{ status|safe }}</p>
+
+    <!-- Create a Form -->
+    <form method="POST">
+        <!-- Security token by Django -->
+        {% csrf_token %}
+        <!-- form -->
+        <div id="div_id_name" class="control-group"> <label for="name" class="control-label requiredField">
+        Name<span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="name" value="{{obj.0}}" maxlength="64" class="textinput textInput" required="" id="id_first_name"> </div> </div> 
+        
+        <div id="div_id_demerit_points" class="control-group"> <label for="id_demerit_points" class="control-label requiredField">
+        Demerit Points<span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="demerit_points" value="{{obj.3}}" maxlength="64" class="textinput textInput" required="" id="id_demerit_points"> </div> </div> 
+        
+        <div id="div_id_voucher_points" class="control-group"> <label for="id_voucher_points" class="control-label requiredField">
+        Voucher Points<span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="voucher_points" value="{{obj.4}}" maxlength="64" class="textinput textInput" required="" id="id_voucher_points"> </div> </div>
+        
+        <div id="div_id_max_request" class="control-group"> <label for="id_max_request" class="control-label requiredField">
+        Maximum Requests<span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="max_request" value="{{obj.5}}" maxlength="64" class="textinput textInput" required="" id="id_max_request"> </div> </div>
+        
+        <div id="div_id_password" class="control-group"> <label for="id_password" class="control-label requiredField">
+        Password<span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="password" value="{{obj.6}}" maxlength="64" class="textinput textInput" required="" id="id_password"> </div> </div>
+        
+        
+
+        <br>
+        <button type="submit" value="Update">Update</button>
+    </form>
+</body>
+</html>
