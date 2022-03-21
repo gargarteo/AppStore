@@ -99,22 +99,23 @@ def home(request):
     with connection.cursor() as cursor:
         cursor.execute("SELECT * FROM requests ORDER BY date_needed ASC")
         requests = cursor.fetchall()
-    if request.POST:
-        if request.POST['action']=="accept_request":
-           cursor.execute("SELECT * FROM requests WHERE request_id=%s",[request.POST['id']])
-           r= cursor.fetchone()
-           cursor.execute("SELECT loaner FROM r")
-           borrower= cursor.fetchone()
-           cursor.execute("SELECT item FROM r")
-           item= cursor.fetchone()
-           cursor.execute("SELECT date_needed FROM r")
-           date_borrowed= cursor.fetchone()
-           cursor.execute("SELECT return_date FROM r")
-           return_deadline= cursor.fetchone()
-           returned_date= return_deadline
-           cursor.execute("INSERT INTO loan VALUES (%s, %s, %s, %s, %s, %s, %s)"
-                        , [request.POST['id'], borrower, [request.session['email']],
-                           item , date_borrowed, return_deadline, returned_date])
+    with connection.cursor() as cursor:
+        if request.POST:
+            if request.POST['action']=="accept_request":
+               cursor.execute("SELECT * FROM requests WHERE request_id=%s",[request.POST['id']])
+               r= cursor.fetchone()
+               cursor.execute("SELECT loaner FROM r")
+               borrower= cursor.fetchone()
+               cursor.execute("SELECT item FROM r")
+               item= cursor.fetchone()
+               cursor.execute("SELECT date_needed FROM r")
+               date_borrowed= cursor.fetchone()
+               cursor.execute("SELECT return_date FROM r")
+               return_deadline= cursor.fetchone()
+               returned_date= return_deadline
+               cursor.execute("INSERT INTO loan VALUES (%s, %s, %s, %s, %s, %s, %s)"
+                            , [request.POST['id'], borrower, [request.session['email']],
+                               item , date_borrowed, return_deadline, returned_date])
     result_dict = {'requests': requests}
     return render(request,'app/home.html',result_dict)
 
