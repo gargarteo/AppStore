@@ -315,7 +315,17 @@ def accept(request, reqid):
      with connection.cursor() as cursor:
            cursor.execute("SELECT * FROM requests WHERE request_id=%s",[reqid])
            r= cursor.fetchone()
+           cursor.execute("SELECT loaner FROM r")
+           borrower= cursor.fetchone()
+           cursor.execute("SELECT item FROM r")
+           item= cursor.fetchone()
+           cursor.execute("SELECT date_needed FROM r")
+           date_borrowed= cursor.fetchone()
+           cursor.execute("SELECT return_date FROM r")
+           return_deadline= cursor.fetchone()
+           returned_date= return_deadline
            cursor.execute("INSERT INTO loan VALUES (%s, %s, %s, %s, %s, %s, %s)"
-                        , [r.0, r.2, [request.session['email']],
-                           r.1 , r.4, r.6, r.6 ])
+                        , [reqid, borrower, [request.session['email']],
+                           item , date_borrowed, return_deadline, returned_date])
      return redirect('index')    
+ 
