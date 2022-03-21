@@ -61,7 +61,7 @@ def index(request):
     #Login
     if request.POST:    
         with connection.cursor() as cursor:
-            cursor.execute("SELECT school_email, password FROM users WHERE school_email = %s AND password = %s AND suspend = %s", [request.POST['school_email'],request.POST['password'], request.POST['suspend']])
+            cursor.execute("SELECT school_email, password FROM users WHERE school_email = %s AND password = %s AND suspend = %s", [request.POST['school_email'],request.POST['password'], request.POST['suspend_user']])
             account = cursor.fetchone()
             email = request.POST['school_email']
            
@@ -70,7 +70,7 @@ def index(request):
         request.session['email'] = email     
         if account == None:
             status = 'Wrong Login Details'
-        elif request.POST['school_email'] == 'admin' and request.POST['password'] == '123456':
+        elif request.POST['school_email'] == 'admin@u.nus.edu' and request.POST['password'] == '123456':
             return redirect('home_admin')
         elif account.suspend == 'TRUE':
             status = 'Your account has been suspended'
