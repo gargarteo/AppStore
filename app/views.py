@@ -22,7 +22,7 @@ def new_request(request):
     context['status'] = status
     return render(request, 'app/new_request.html', {})
 
-def home_admin(request):
+def admin_home(request):
     ## Delete customer
     if request.POST:
         if request.POST['action'] == 'suspend':
@@ -30,22 +30,22 @@ def home_admin(request):
                 cursor.execute("UPDATE users SET suspend = FALSE WHERE school_email = %s", [request.POST['school_email']])
                 
     with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM requests ORDER BY date_needed ASC")
-        requests = cursor.fetchall()
+        cursor.execute("SELECT * FROM users ORDER BY name ASC")
+        users = cursor.fetchall()
 
-    result_dict = {'requests': requests}
-    return render(request,'app/home.html',result_dict)
+    result_dict = {'users': users}
+    return render(request,'app/admin_home.html',result_dict)
 
-def view_admin(request, email):
+def admin_view(request, email):
     """Shows the main page"""
     
     ## Use raw query to get a customer
     with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM customers WHERE school_email = %s", [request.POST['school_email']])
+        cursor.execute("SELECT * FROM users WHERE school_email = %s", [request.POST['school_email']])
         user = cursor.fetchone()
     result_dict = {'user': user}
 
-    return render(request,'app/view_admin.html',result_dict)
+    return render(request,'app/admin_view.html',result_dict)
 
 def home(request):
     with connection.cursor() as cursor:
