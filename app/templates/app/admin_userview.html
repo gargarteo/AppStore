@@ -49,7 +49,7 @@
                     <form method="POST" style="display: inline;">
                 {% csrf_token %}
                 <input type="hidden" name="id" value="{{r.0}}"/>
-                <button onclick="return confirm('Are you sure you want to delete {{r.0}}?');" type="submit" name="action" value="delete">Delete</button> 
+                <button onclick="return confirm('Are you sure you want to delete {{r.0}}?');" type="submit" name="action" value="delete_request">Delete</button> 
               </form></td>
                 
                 {% endfor %}
@@ -130,7 +130,7 @@
             {% endfor %}
         </table>
     {% else %}
-        Time to earn some vouchers now >:(
+                <p align = center>Time to earn some vouchers now >:(</p>
     {% endif %}  
     <br/><br/>
     
