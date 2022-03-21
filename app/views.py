@@ -297,11 +297,11 @@ def voucher(request):
 #buy voucher function
 #def use(request):
 #    with connection.cursor() as cursor:
-#        cursor.execute("SELECT * FROM users WHERE school_email=%s", [request.session['email']])
-#        profile=cursor.fetchall()
-#        if (v.4)<=(profile.vouchers_points):
-#            cursor.execute("UPDATE voucher SET owner_of_voucher=%s" WHERE @@@/*voucher that use button was pressed*/, [request.session['email'])
-#            cursor.execute("UPDATE users SET @@@/*vouchers_points=(profile.voucher_points)-(v.4)*/ WHERE school_email=%s", [request.session['email']])
+#        cursor.execute("SELECT voucher_points FROM users WHERE school_email=%s", [request.session['email']])
+#        profilepoints=cursor.fetchall()
+#        if (v.4)<=(profilepoints):
+#            cursor.execute("UPDATE voucher SET owner_of_voucher=%s" WHERE voucher_id=%s, [request.session['email'],v.0])
+#            cursor.execute("UPDATE users SET vouchers_points=(profilepoints)-(v.4) WHERE school_email=%s", [request.session['email']])
     
 
 #def accept(request, r):
