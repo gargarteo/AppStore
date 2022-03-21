@@ -31,6 +31,7 @@
                     <td> {{ r.5 }} </td>
                     <td> {{ r.7 }} </td>
                     
+                <!--
                 <td> <form method="POST" style="display: inline;">
                 {% csrf_token %}
                 <input type="hidden" name="school_email" value="{{r.1}}"/>
@@ -38,6 +39,10 @@
                     View</button> </a> 
                  </form>
                 </td>
+                -->
+                      
+                <td> <a href="admin_userview/{{r.1}}"><button>view</button></a>     
+                 </td>
                       
                 <!--
                 <td> <form method="POST" style="display: inline;">
