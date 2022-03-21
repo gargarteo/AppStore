@@ -25,7 +25,7 @@ def admin_home(request):
     if request.POST:
         if request.POST['action'] == 'suspend_user':
             with connection.cursor() as cursor:
-                cursor.execute("UPDATE users SET suspend = FALSE WHERE school_email = %s", [request.POST['school_email']])
+                cursor.execute("UPDATE users SET suspend = TRUE WHERE school_email = %s", [request.POST['school_email']])
                 
     with connection.cursor() as cursor:
         cursor.execute("SELECT * FROM users ORDER BY name ASC")
