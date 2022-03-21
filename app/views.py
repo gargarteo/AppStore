@@ -295,6 +295,8 @@ def voucher(request):
     return render(request,'app/voucher.html',vouchers_dict)
 #buy voucher function
 #def use(request):
+    #with connection.cursor() as cursor:
+        #cursor.execute("SELECT * FROM voucher WHERE " )
     
 
 #def accept(request, r):
