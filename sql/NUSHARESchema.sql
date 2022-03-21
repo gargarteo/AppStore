@@ -12,7 +12,7 @@ demerit_points NUMERIC NOT NULL CHECK(demerit_points<= 8) DEFAULT 0.00,
 vouchers_points NUMERIC NOT NULL DEFAULT 0.00,
 max_request NUMERIC NOT NULL DEFAULT 2.00,
 password VARCHAR(64) NOT NULL,
-suspend BOOLEAN,
+suspend BOOLEAN DEFAULT FALSE,
 CHECK (users.current_borrowed_items <= users.max_request),
 CHECK (LENGTH(users.password) >= 6)
 );
