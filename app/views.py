@@ -8,8 +8,6 @@ def new_request(request):
                
     if request.POST:
         with connection.cursor() as cursor:
-            
-        #How to store email of current login user
         
         #Checking return later than borrow
             if request.POST['return_date'] < request.POST['date_needed']:
