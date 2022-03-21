@@ -22,7 +22,30 @@ def new_request(request):
     context['status'] = status
     return render(request, 'app/new_request.html', {})
 
+def home_admin(request):
+    ## Delete customer
+    if request.POST:
+        if request.POST['action'] == 'suspend':
+            with connection.cursor() as cursor:
+                cursor.execute("UPDATE users SET suspend = FALSE WHERE school_email = %s", [request.POST['school_email']])
+                
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM requests ORDER BY date_needed ASC")
+        requests = cursor.fetchall()
 
+    result_dict = {'requests': requests}
+    return render(request,'app/home.html',result_dict)
+
+def view_admin(request, email):
+    """Shows the main page"""
+    
+    ## Use raw query to get a customer
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM customers WHERE school_email = %s", [request.POST['school_email']])
+        user = cursor.fetchone()
+    result_dict = {'user': user}
+
+    return render(request,'app/view_admin.html',result_dict)
 
 def home(request):
     with connection.cursor() as cursor:
@@ -38,7 +61,7 @@ def index(request):
     #Login
     if request.POST:    
         with connection.cursor() as cursor:
-            cursor.execute("SELECT school_email, password FROM users WHERE school_email = %s AND password = %s", [request.POST['school_email'],request.POST['password']])
+            cursor.execute("SELECT school_email, password FROM users WHERE school_email = %s AND password = %s AND suspend = %s", [request.POST['school_email'],request.POST['password'], request.POST['suspend])
             account = cursor.fetchone()
             email = request.POST['school_email']
            
@@ -49,6 +72,8 @@ def index(request):
             status = 'Wrong Login Details'
         elif request.POST['school_email'] == 'admin' and request.POST['password'] == '123456':
             return redirect('home_admin')
+        elif account.suspend == 'TRUE':
+            status = 'Your account has been suspended'
         else:
             return render(request, "app/home.html", {"email" : email})
         
@@ -90,7 +115,7 @@ def index_ori(request):
     return render(request,'app/index.html',result_dict)
 
 # Create your views here.
-def view(request, id):
+def view_Original(request, id):
     """Shows the main page"""
     
     ## Use raw query to get a customer
@@ -102,7 +127,7 @@ def view(request, id):
     return render(request,'app/view.html',result_dict)
 
 # Create your views here.
-def add(request):
+def add_Original(request):
     """Shows the main page"""
     context = {}
     status = ''
@@ -129,7 +154,7 @@ def add(request):
     return render(request, "app/add.html", context)
 
 # Create your views here.
-def edit(request, id):
+def edit_original(request, id):
     """Shows the main page"""
 
     # dictionary for initial data with
@@ -219,9 +244,9 @@ def voucher(request):
     
     return render(request,'app/voucher.html',vouchers_dict)
 
-def accept(request, r):
-     with connection.cursor() as cursor:
-           cursor.execute("INSERT INTO loan VALUES (%s, %s, %s, %s, %s, %s, %s)"
-                        , [r.0, r.2, [request.session['email']],
-                           r.1 , r.4, r.6, r.6 ])
-     return redirect('index')    
+#def accept(request, r):
+     #with connection.cursor() as cursor:
+           #cursor.execute("INSERT INTO loan VALUES (%s, %s, %s, %s, %s, %s, %s)"
+                        #, [r.0, r.2, [request.session['email']],
+                           #r.1 , r.4, r.6, r.6 ])
+     #return redirect('index')    
