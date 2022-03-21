@@ -74,14 +74,19 @@ def admin_useredit(request, email):
 
 def admin_userview(request, email):
     """Shows the main page"""
-    
-    ## Use raw query to get request of customer
-    with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM requests WHERE loaner = %s", [email])
-        user = cursor.fetchall()
-    result_dict = {'user': user}
-
-    return render(request,'app/admin_userview.html',result_dict)
+    with connection.cursor() as cursor: 
+        cursor.execute("SELECT * FROM users WHERE school_email=%s", [email]) 
+        full_profile= cursor.fetchall()
+        cursor.execute("SELECT * FROM requests WHERE loaner=%s", [email])
+        requests= cursor.fetchall()
+        cursor.execute("SELECT * FROM loan WHERE owner= %s", [email])
+        loan=cursor.fetchall()
+        cursor.execute("SELECT * FROM loan WHERE borrower=%s", [email])
+        borrowed=cursor.fetchall()
+        cursor.execute("SELECT * FROM vouchers WHERE owner_of_voucher=%s", [email])
+        vouchers=cursor.fetchall() 
+    profile_dict = {'full_profile': full_profile, 'requests':requests, 'loan': loan, 'borrowed':borrowed, 'voucher':voucher}
+    return render(request,'app/admin_userview.html',profile_dict)
 
 def home(request):
     with connection.cursor() as cursor:
