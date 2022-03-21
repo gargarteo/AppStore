@@ -25,7 +25,7 @@ def new_request(request):
 def admin_home(request):
     ## Delete customer
     if request.POST:
-        if request.POST['action'] == 'suspend':
+        if request.POST['action'] == 'suspend_user':
             with connection.cursor() as cursor:
                 cursor.execute("UPDATE users SET suspend = FALSE WHERE school_email = %s", [request.POST['school_email']])
                 
