@@ -311,9 +311,11 @@ def use(request):
     return render(request, "app/voucher.html", context)
     
 
-#def accept(request, r):
-     #with connection.cursor() as cursor:
-           #cursor.execute("INSERT INTO loan VALUES (%s, %s, %s, %s, %s, %s, %s)"
-                        #, [r.0, r.2, [request.session['email']],
-                           #r.1 , r.4, r.6, r.6 ])
-     #return redirect('index')    
+def accept(request, reqid):
+     with connection.cursor() as cursor:
+           cursor.execute("SELECT * FROM requests WHERE request_id=%s",[reqid])
+           r= cursor.fetchone()
+           cursor.execute("INSERT INTO loan VALUES (%s, %s, %s, %s, %s, %s, %s)"
+                        , [r.0, r.2, [request.session['email']],
+                           r.1 , r.4, r.6, r.6 ])
+     return redirect('index')    
