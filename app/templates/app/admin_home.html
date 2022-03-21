@@ -38,6 +38,7 @@
                     View</button> </a> 
                  </form>
                 </td>
+                      
                 <!
                 <td> <form method="POST" style="display: inline;">
                 {% csrf_token %}
@@ -47,7 +48,8 @@
                  </form>
                 </td>
                 >
-                 <a href="admin_useredit/{{r.1}}"><button>Edit</button></a>     
+                 <td> <a href="admin_useredit/{{r.1}}"><button>Edit</button></a>     
+                 </td>
                  
                 <td> <form method="POST" style="display: inline;">
                 {% csrf_token %}
