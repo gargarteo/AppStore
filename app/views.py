@@ -327,5 +327,5 @@ def accept(request, reqid):
            cursor.execute("INSERT INTO loan VALUES (%s, %s, %s, %s, %s, %s, %s)"
                         , [reqid, borrower, [request.session['email']],
                            item , date_borrowed, return_deadline, returned_date])
-     return redirect('index')    
+     return render(request,'app/home.html',{})    
  
