@@ -74,7 +74,7 @@ def index(request):
                 users = cursor.fetchall()
             result_dict = {'users': users}
             
-            return render(request, "app/admin_home.html", result_dict)
+            return render(request, "app/admin_home.html", {'users': users})
         else:
             with connection.cursor() as cursor:
                 cursor.execute("SELECT * FROM requests")
