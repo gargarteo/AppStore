@@ -70,7 +70,7 @@ def index(request):
             status = 'Wrong Login Details or your account has been suspended'
         elif request.POST['school_email'] == 'admin@u.nus.edu' and request.POST['password'] == '123456':
             with connection.cursor() as cursor:
-                cursor.execute("SELECT * FROM users except select * from users where school_email == admin@u.nus.edu")
+                cursor.execute("SELECT * FROM users")
                 users = cursor.fetchall()
             result_dict = {'users': users}
             
