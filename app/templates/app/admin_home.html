@@ -19,6 +19,7 @@
                     <th>Suspended</th>
                     <th>View</th> 
                     <th>Suspend</th>
+                    <th>Edit</th>
                 </thead>
                  {% for r in users %}
                   <tr>
@@ -37,9 +38,14 @@
                     View</button> 
                  </form></a> 
                 </td>
-
-
-        
+                
+                <td><a href = "admin_useredit"> <form method="POST" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="email" value="{{r.1}}"/>
+                <button type="submit" name="action" value="admin_useredit">
+                    View</button> 
+                 </form></a> 
+                </td>
                       
                 <td> <form method="POST" style="display: inline;">
                 {% csrf_token %}
