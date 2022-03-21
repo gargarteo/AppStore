@@ -35,16 +35,16 @@
                 {% csrf_token %}
                 <input type="hidden" name="school_email" value="{{r.1}}"/>
                 <a href = "profile"><button type="submit" name="action" value="admin_view">
-                    View</button> 
-                 </form></a> 
+                    View</button> </a> 
+                 </form>
                 </td>
                 
                 <td> <form method="POST" style="display: inline;">
                 {% csrf_token %}
                 <input type="hidden" name="school_email" value="{{r.1}}"/>
                 <a href="admin_useredit"><button type="submit" name="action" value="admin_useredit">
-                    Edit</button> 
-                 </form></a> 
+                    Edit</button> </a> 
+                 </form>
                 </td>
                       
                 <td> <form method="POST" style="display: inline;">
