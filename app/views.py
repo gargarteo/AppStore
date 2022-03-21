@@ -81,7 +81,7 @@ def admin_userview(request, email):
         user = cursor.fetchall()
     result_dict = {'user': user}
 
-    return render(request,'app/view.html',result_dict)
+    return render(request,'app/admin_userview.html',result_dict)
 
 def home(request):
     with connection.cursor() as cursor:
