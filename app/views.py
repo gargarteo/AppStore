@@ -94,13 +94,30 @@ def admin_userview(request, email):
     profile_dict = {'full_profile': full_profile, 'requests':requests, 'loan': loan, 'borrowed':borrowed, 'voucher':voucher}
     return render(request,'app/admin_userview.html',profile_dict)
 
+
 def home(request):
     with connection.cursor() as cursor:
         cursor.execute("SELECT * FROM requests ORDER BY date_needed ASC")
         requests = cursor.fetchall()
-
+    if request.POST:
+        if request.POST['action']=="accept_request":
+           cursor.execute("SELECT * FROM requests WHERE request_id=%s",[reqid])
+           r= cursor.fetchone()
+           cursor.execute("SELECT loaner FROM r")
+           borrower= cursor.fetchone()
+           cursor.execute("SELECT item FROM r")
+           item= cursor.fetchone()
+           cursor.execute("SELECT date_needed FROM r")
+           date_borrowed= cursor.fetchone()
+           cursor.execute("SELECT return_date FROM r")
+           return_deadline= cursor.fetchone()
+           returned_date= return_deadline
+           cursor.execute("INSERT INTO loan VALUES (%s, %s, %s, %s, %s, %s, %s)"
+                        , [request.POST['id'], borrower, [request.session['email']],
+                           item , date_borrowed, return_deadline, returned_date])
     result_dict = {'requests': requests}
     return render(request,'app/home.html',result_dict)
+
 
 def index(request):
     """Shows the main page"""
@@ -313,21 +330,4 @@ def voucher(request):
 #    return render(request, "app/voucher.html", context)
     
 
-def accept(request, reqid):
-     with connection.cursor() as cursor:
-           cursor.execute("SELECT * FROM requests WHERE request_id=%s",[reqid])
-           r= cursor.fetchone()
-           cursor.execute("SELECT loaner FROM r")
-           borrower= cursor.fetchone()
-           cursor.execute("SELECT item FROM r")
-           item= cursor.fetchone()
-           cursor.execute("SELECT date_needed FROM r")
-           date_borrowed= cursor.fetchone()
-           cursor.execute("SELECT return_date FROM r")
-           return_deadline= cursor.fetchone()
-           returned_date= return_deadline
-           cursor.execute("INSERT INTO loan VALUES (%s, %s, %s, %s, %s, %s, %s)"
-                        , [reqid, borrower, [request.session['email']],
-                           item , date_borrowed, return_deadline, returned_date])
-     return render(request,'app/home.html',{})    
- 
+
