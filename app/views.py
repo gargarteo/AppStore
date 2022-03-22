@@ -106,9 +106,6 @@ def home(request):
     context = {}
     status = ''
     with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM requests WHERE accepted=false ORDER BY date_needed ASC")
-        requests = cursor.fetchall()
-    with connection.cursor() as cursor:
         if request.POST:
             if request.POST['action']=="accept_request":
                cursor.execute("SELECT loaner FROM requests WHERE request_id=%s" ,[request.POST['id']])
@@ -130,8 +127,9 @@ def home(request):
                                item , date_borrowed, return_deadline, returned_date])
                     cursor.execute("UPDATE requests SET accepted=true WHERE request_id=%s",[request.POST['id']])
                     return redirect('profile')
-
-               
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM requests WHERE accepted=false ORDER BY date_needed ASC")
+        requests = cursor.fetchall()           
     result_dict = {'requests': requests}
     return render(request,'app/home.html',result_dict)
 
