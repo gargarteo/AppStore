@@ -327,7 +327,8 @@ def voucher(request):
                     cursor.execute("UPDATE users SET vouchers_points=%s-%s WHERE school_email=%s", [profilepoints,pts,request.session['email']])
                 else:
                     status = 'Not enough points to purchase voucher!'
-    context['status'] = status
+                    context['status'] = status
+                    return render(request,'app/voucher.html',context)
     return render(request,'app/voucher.html',vouchers_dict)
 
 #buy voucher function
