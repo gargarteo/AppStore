@@ -120,10 +120,10 @@ def home(request):
                if borrower in request.session:
                     cursor.execute("INSERT INTO loan VALUES (%s, %s, %s, %s, %s, %s, %s)", [request.POST['id'], borrower, request.session['email'], item , date_borrowed, return_deadline, returned_date])
                     cursor.execute("UPDATE requests SET accepted=true WHERE request_id=%s",[request.POST['id']])
-                    return render(request,'app/home.html',context)
                else:
                     status = 'You cannot accept your own requests!'
-                    context['status'] = status        
+               context['status'] = status   
+               return render(request,'app/home.html',context)
     with connection.cursor() as cursor:
         cursor.execute("SELECT * FROM requests WHERE accepted=false ORDER BY date_needed ASC")
         requests = cursor.fetchall()           
