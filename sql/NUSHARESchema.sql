@@ -49,7 +49,6 @@ return_deadline DATE,
 returned_date DATE
 );
 
-
 CREATE TABLE vouchers(
 voucher_id VARCHAR(64) PRIMARY KEY,
 voucher_name VARCHAR(64) NOT NULL,
