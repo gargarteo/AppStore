@@ -311,6 +311,7 @@ def profile(request):
             if request.POST['action'] == 'removereq':
                 with connection.cursor() as cursor:
                     cursor.execute("DELETE FROM requests WHERE request_id=%s", [request.POST['use']])
+                    return redirect('profile')
     profile_dict = {'full_profile': full_profile, 'requests':requests, 'loan': loan, 'borrowed':borrowed, 'voucher':voucher}
     return render(request,'app/profile.html',profile_dict)
     
