@@ -103,13 +103,13 @@ def home(request):
         if request.POST:
             if request.POST['action']=="accept_request":
                cursor.execute("SELECT loaner FROM requests WHERE request_id=%s",[request.POST['id']])
-               borrower= cursor.fetchone()
+               borrower= (cursor.fetchone())[0]
                cursor.execute("SELECT item FROM requests WHERE request_id=%s",[request.POST['id']])
-               item= cursor.fetchone()
+               item= (cursor.fetchone())[0]
                cursor.execute("SELECT date_needed FROM requests WHERE request_id=%s",[request.POST['id']])
-               date_borrowed= cursor.fetchone()
+               date_borrowed= (cursor.fetchone())[0]
                cursor.execute("SELECT return_date FROM requests WHERE request_id=%s",[request.POST['id']])
-               return_deadline= cursor.fetchone()
+               return_deadline= (cursor.fetchone())[0]
                returned_date= return_deadline
                cursor.execute("INSERT INTO loan VALUES (%s, %s, %s, %s, %s, %s, %s)"
                             , [request.POST['id'], borrower, [request.session['email']],
