@@ -109,7 +109,7 @@ def home(request):
     with connection.cursor() as cursor:
         if request.POST:
             if request.POST['action']=="accept_request":
-               cursor.execute("SELECT loaner FROM requests WHERE request_id=%s ,[request.POST['id']])
+               cursor.execute("SELECT loaner FROM requests WHERE request_id=%s" ,[request.POST['id']])
                borrower= (cursor.fetchone())
                cursor.execute("SELECT item FROM requests WHERE request_id=%s",[request.POST['id']])
                item= (cursor.fetchone())
