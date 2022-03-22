@@ -24,7 +24,7 @@ def new_request(request):
             else:
                 status = 'Exceeded Max request limit'
     context['status'] = status
-    return render(request, 'app/new_request.html', {})
+    return render(request, 'app/new_request.html', context)
 
 def admin_home(request):
     ## Suspend customer
