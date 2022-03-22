@@ -49,7 +49,7 @@
                     <td><form method="POST" style="display: inline;">
 		{% csrf_token %}
 	        <input type="hidden" name="use" value="{{r.0}}"/>
-                <button onclick="return confirm('Are you sure you want to collect this voucher?');" type="submit" name="action" value="removereq">Remove</button>
+                <button onclick="return confirm('Are you sure you want to remove this request?');" type="submit" name="action" value="removereq">Remove</button>
 		    </form></td>
                 </tr>
                 {% endfor %}
