@@ -26,6 +26,7 @@ def new_request(request):
     context['status'] = status
     return render(request, 'app/new_request.html', context)
 
+
 def admin_home(request):
     ## Suspend customer
     if request.POST:
