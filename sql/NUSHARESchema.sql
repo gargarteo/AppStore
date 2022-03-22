@@ -39,7 +39,7 @@ meetup_location VARCHAR(64)
 
 
 CREATE TABLE loan (
-transaction_id SERIAL PRIMARY KEY,
+request_id REFERENCES requests(request_id) ON UPDATE CASCADE ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED,
 borrower VARCHAR(64) NOT NULL REFERENCES users(school_email),
 owner VARCHAR(64) NOT NULL REFERENCES users(school_email),
 item VARCHAR(64) NOT NULL,
