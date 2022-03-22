@@ -8,15 +8,17 @@ def new_request(request):
                
     if request.POST:
         with connection.cursor() as cursor:
-        
-        #Checking return later than borrow
-            if request.POST['return_date'] < request.POST['date_needed']:
-                status = 'Please ensure return date is later than borrow date'
-            else:
-                cursor.execute("INSERT INTO requests(item, loaner, category, date_needed, time_needed,return_date, return_time, meetup_location) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+            #Checking if exceed max request
+            if cursor.execute("SELECT COUNT(*) from requests where loaner =%s", [request.session['email']]) < cursor.execute("SELECT max_request from users where school_email = %s", [request.session['email']])
+            #Checking return later than borrow
+                if request.POST['return_date'] < request.POST['date_needed']:
+                    status = 'Please ensure return date is later than borrow date'
+                else:
+                    cursor.execute("INSERT INTO requests(item, loaner, category, date_needed, time_needed,return_date, return_time, meetup_location) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
                         , [ request.POST['item'], request.session['email'], request.POST['category'], request.POST['date_needed'], request.POST['time_needed'], request.POST['return_date'], request.POST['return_time'], request.POST['meetup_location'] ])
-                return redirect('home')  
-            
+                    return redirect('home')  
+            else:
+                status = 'Exceeded Max request limit'
     context['status'] = status
     return render(request, 'app/new_request.html', {})
 
