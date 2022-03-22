@@ -117,8 +117,8 @@ def home(request):
                cursor.execute("SELECT return_date FROM requests WHERE request_id=%s",[request.POST['id']])
                return_deadline= (cursor.fetchone())[0]
                returned_date= return_deadline
-               cursor.execute("INSERT INTO loan VALUES (%s, %s, %s, %s, %s, %s, %s)"
-                            , [request.POST['id'], borrower, request.session['email'],
+               cursor.execute("INSERT INTO loan VALUES (%s, %s, %s, %s, %s, %s)"
+                            , [borrower, request.session['email'],
                                item , date_borrowed, return_deadline, returned_date])
     result_dict = {'requests': requests}
     return render(request,'app/home.html',result_dict)
