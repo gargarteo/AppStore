@@ -71,14 +71,14 @@
             </thead>
             {% for item in loan %}
             <tr>
-                <td> {{ item.1 }} </td>
+                <td> {{ item.2 }} </td>
                 <td> {{ item.3 }} </td>
                 <td> {{ item.4 }} </td>
                 <td> {{ item.5 }} </td>
                 <td><form method="POST" style="display: inline;">
 		{% csrf_token %}
 	        <input type="hidden" name="returned" value="{{item.0}}"/>
-                <button onclick="return confirm('Confirm returned by item?');" type="submit" name="action" value="returned">Returned</button>
+                <button onclick="return confirm('Confirm returned by {{ item.1 }}?');" type="submit" name="action" value="returned">Returned</button>
 		    </form></td>
             </tr>
             {% endfor %}
