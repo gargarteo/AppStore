@@ -112,7 +112,7 @@ def home(request):
                return_deadline= (cursor.fetchone())[0]
                returned_date= return_deadline
                cursor.execute("INSERT INTO loan VALUES (%s, %s, %s, %s, %s, %s, %s)"
-                            , [request.POST['id'], borrower, [request.session['email']],
+                            , [request.POST['id'], borrower, request.session['email'],
                                item , date_borrowed, return_deadline, returned_date])
     result_dict = {'requests': requests}
     return render(request,'app/home.html',result_dict)
