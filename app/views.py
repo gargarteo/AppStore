@@ -4,8 +4,7 @@ from django.http import HttpResponse
 
 def new_request(request):
     context = {}
-    status = ''
-               
+    status = ''             
     if request.POST:
         with connection.cursor() as cursor:
             #Checking if exceed max request
