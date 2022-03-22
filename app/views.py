@@ -122,8 +122,10 @@ def home(request):
                             , [request.POST['id'], borrower, request.session['email'],
                                item , date_borrowed, return_deadline, returned_date])
                cursor.execute("UPDATE requests SET accepted=true WHERE request_id=%s",[request.POST['id']])
-               status = 'Successfully loaned out!'
-               return redirect('profile')
+               response= redirect('profile')
+               response.status = 'Successfully loaned out!'
+               return response
+               
     result_dict = {'requests': requests}
     return render(request,'app/home.html',result_dict)
 
