@@ -9,8 +9,10 @@ def new_request(request):
     if request.POST:
         with connection.cursor() as cursor:
             #Checking if exceed max request
-            current_request = cursor.execute("SELECT COUNT(*) from requests where loaner =%s", [request.session['email']])
-            max_requests = cursor.execute("SELECT max_request from users where school_email = %s", [request.session['email']])
+            cursor.execute("SELECT COUNT(*) from requests where loaner =%s", [request.session['email']])
+            current_request = cursor.fetchone()
+            cursor.execute("SELECT max_request from users where school_email = %s", [request.session['email']])
+            max_requests = cursor.fetchone()
             if  current_request < max_requests :
             #Checking return later than borrow
                 if request.POST['return_date'] < request.POST['date_needed']:
