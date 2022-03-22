@@ -298,7 +298,7 @@ def profile(request):
     with connection.cursor() as cursor: 
         cursor.execute("SELECT * FROM users WHERE school_email=%s", [request.session['email']]) 
         full_profile= cursor.fetchall()
-        cursor.execute("SELECT * FROM requests WHERE loaner=%s", [request.session['email']])
+        cursor.execute("SELECT * FROM requests WHERE loaner=%s AND accepted=%s", [request.session['email'],false])
         requests= cursor.fetchall()
         cursor.execute("SELECT * FROM loan WHERE owner= %s", [request.session['email']])
         loan=cursor.fetchall()
@@ -306,6 +306,12 @@ def profile(request):
         borrowed=cursor.fetchall()
         cursor.execute("SELECT * FROM vouchers WHERE owner_of_voucher=%s", [request.session['email']])
         vouchers=cursor.fetchall() 
+        if request.POST:
+            if request.POST['action'] == 'removereq':
+                with connection.cursor() as cursor:
+                    cursor.execute("SELECT request_id FROM requests WHERE request_id=%s", [request.POST['use']])
+                    request_id=cursor.fetchall()
+                    cursor.execute("REMOVE FROM requests WHERE request_id=%s", [request_id])
     profile_dict = {'full_profile': full_profile, 'requests':requests, 'loan': loan, 'borrowed':borrowed, 'voucher':voucher}
     return render(request,'app/profile.html',profile_dict)
     
