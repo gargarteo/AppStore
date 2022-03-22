@@ -9,7 +9,7 @@ def new_request(request):
     if request.POST:
         with connection.cursor() as cursor:
             #Checking if exceed max request
-            cursor.execute("SELECT COUNT(*) from requests where loaner =%s", [request.session['email']])
+            cursor.execute("SELECT COUNT(*) from requests where loaner =%s and accepted=false", [request.session['email']])
             current_request = cursor.fetchone()
             cursor.execute("SELECT max_request from users where school_email = %s", [request.session['email']])
             max_requests = cursor.fetchone()
@@ -118,9 +118,11 @@ def home(request):
                cursor.execute("SELECT return_date FROM requests WHERE request_id=%s",[request.POST['id']])
                return_deadline= (cursor.fetchone())
                returned_date= return_deadline
-               cursor.execute("INSERT INTO loan VALUES (%s, %s, %s, %s, %s, %s)"
-                            , [borrower, request.session['email'],
+               cursor.execute("INSERT INTO loan VALUES (%s, %s, %s, %s, %s, %s, %s)"
+                            , [request.POST['id'], borrower, request.session['email'],
                                item , date_borrowed, return_deadline, returned_date])
+               cursor.execute("UPDATE requests SET accepted=true WHERE request_id=%s",[request.POST['id']])
+
     result_dict = {'requests': requests}
     return render(request,'app/home.html',result_dict)
 
