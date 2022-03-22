@@ -121,7 +121,7 @@ def home(request):
                     cursor.execute("INSERT INTO loan VALUES (%s, %s, %s, %s, %s, %s, %s)", [request.POST['id'], borrower, request.session['email'], item , date_borrowed, return_deadline, returned_date])
                     cursor.execute("UPDATE requests SET accepted=true WHERE request_id=%s",[request.POST['id']])
                     return redirect('profile')
-               else:
+               elif borrower == request.session['email']:
                     status = 'You cannot accept your own requests!'
                     context['status'] = status
                     return render(request,'app/home.html',context)
