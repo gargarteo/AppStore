@@ -142,7 +142,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-
+CSRF_TRUSTED_ORIGINS = ['http://project-it2002-gargar.herokuapp.com/home']
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
