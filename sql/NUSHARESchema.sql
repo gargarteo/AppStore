@@ -3,7 +3,6 @@
   Create the schema
 
 ********************/
-
 CREATE TABLE users (
 name VARCHAR(64) NOT NULL, 
 school_email VARCHAR(64) PRIMARY KEY CHECK (school_email LIKE '%@u.nus.edu'), 
