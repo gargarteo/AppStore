@@ -124,7 +124,7 @@ def home(request):
                     status = 'Not enough points to purchase voucher!'
                     context['status'] = status
                     return render(request,'app/home.html',context)
-                else:
+               else:
                     cursor.execute("INSERT INTO loan VALUES (%s, %s, %s, %s, %s, %s, %s)"
                             , [request.POST['id'], borrower, request.session['email'],
                                item , date_borrowed, return_deadline, returned_date])
