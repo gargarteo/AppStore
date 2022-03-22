@@ -104,7 +104,7 @@ def admin_userview(request, email):
 
 def home(request):
     with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM requests ORDER BY date_needed ASC")
+        cursor.execute("SELECT * FROM requests WHERE accepted=false ORDER BY date_needed ASC")
         requests = cursor.fetchall()
     with connection.cursor() as cursor:
         if request.POST:
