@@ -104,12 +104,12 @@ def admin_userview(request, email):
 
 def home(request):
     with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM requests WHERE accepted=false ORDER BY date_needed ASC")
+        cursor.execute("SELECT * FROM requests WHERE accepted=false and loaner=ORDER BY date_needed ASC")
         requests = cursor.fetchall()
     with connection.cursor() as cursor:
         if request.POST:
             if request.POST['action']=="accept_request":
-               cursor.execute("SELECT loaner FROM requests WHERE request_id=%s",[request.POST['id']])
+               cursor.execute("SELECT loaner FROM requests WHERE request_id=%s and loaner<> %s",[request.POST['id'],  request.session['email']])
                borrower= (cursor.fetchone())
                cursor.execute("SELECT item FROM requests WHERE request_id=%s",[request.POST['id']])
                item= (cursor.fetchone())
@@ -122,9 +122,8 @@ def home(request):
                             , [request.POST['id'], borrower, request.session['email'],
                                item , date_borrowed, return_deadline, returned_date])
                cursor.execute("UPDATE requests SET accepted=true WHERE request_id=%s",[request.POST['id']])
-               response= redirect('profile')
-               response.status = 'Successfully loaned out!'
-               return response
+               return redirect('profile')
+
                
     result_dict = {'requests': requests}
     return render(request,'app/home.html',result_dict)
