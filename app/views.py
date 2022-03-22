@@ -117,13 +117,13 @@ def home(request):
                cursor.execute("SELECT return_date FROM requests WHERE request_id=%s",[request.POST['id']])
                return_deadline= (cursor.fetchone())
                returned_date= return_deadline
-               if borrower == request.session['email']:
-                    status = 'You cannot accept your own requests!'
-                    context['status'] = status
-               elif borrower != request.session['email']:
+               if borrower in request.session:
                     cursor.execute("INSERT INTO loan VALUES (%s, %s, %s, %s, %s, %s, %s)", [request.POST['id'], borrower, request.session['email'], item , date_borrowed, return_deadline, returned_date])
                     cursor.execute("UPDATE requests SET accepted=true WHERE request_id=%s",[request.POST['id']])
                     return render(request,'app/home.html',context)
+               else:
+                    status = 'You cannot accept your own requests!'
+                    context['status'] = status        
     with connection.cursor() as cursor:
         cursor.execute("SELECT * FROM requests WHERE accepted=false ORDER BY date_needed ASC")
         requests = cursor.fetchall()           
