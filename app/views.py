@@ -104,12 +104,12 @@ def admin_userview(request, email):
 
 def home(request):
     with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM requests WHERE accepted=false and loaner=ORDER BY date_needed ASC")
+        cursor.execute("SELECT * FROM requests WHERE accepted=false and loaner<> %s ORDER BY date_needed ASC",[request.session['email']])
         requests = cursor.fetchall()
     with connection.cursor() as cursor:
         if request.POST:
             if request.POST['action']=="accept_request":
-               cursor.execute("SELECT loaner FROM requests WHERE request_id=%s and loaner<> %s",[request.POST['id'],  request.session['email']])
+               cursor.execute("SELECT loaner FROM requests WHERE request_id=%s ,[request.POST['id']])
                borrower= (cursor.fetchone())
                cursor.execute("SELECT item FROM requests WHERE request_id=%s",[request.POST['id']])
                item= (cursor.fetchone())
