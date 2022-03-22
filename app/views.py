@@ -319,13 +319,13 @@ def use(request):
     if request.POST:
         if request.POST['action'] == 'claim':
             with connection.cursor() as cursor:
-        cursor.execute("SELECT voucher_points FROM users WHERE school_email=%s", [request.session['email']])
-        profilepoints=cursor.fetchall()
-        if (request.POST['use']<=(profilepoints):
-            cursor.execute("UPDATE voucher SET owner_of_voucher=%s" WHERE voucher_id=%s, [request.session['email'],v.0])
-            cursor.execute("UPDATE users SET vouchers_points=(profilepoints)-(%s) WHERE school_email=%s", [request.POST['use'],request.session['email']])
-        else:
-            status = 'Not enough points to purchase voucher!'
+            cursor.execute("SELECT voucher_points FROM users WHERE school_email=%s", [request.session['email']])
+            profilepoints=cursor.fetchall()
+            if (request.POST['use']<=(profilepoints):
+                cursor.execute("UPDATE voucher SET owner_of_voucher=%s" WHERE voucher_id=%s, [request.session['email'],v.0])
+                cursor.execute("UPDATE users SET vouchers_points=(profilepoints)-(%s) WHERE school_email=%s", [request.POST['use'],request.session['email']])
+            else:
+                status = 'Not enough points to purchase voucher!'
     context['status'] = status
     return render(request, "app/voucher.html", context)
     
