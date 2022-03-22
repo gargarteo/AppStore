@@ -120,7 +120,7 @@ def home(request):
                cursor.execute("SELECT return_date FROM requests WHERE request_id=%s",[request.POST['id']])
                return_deadline= (cursor.fetchone())
                returned_date= return_deadline
-               if borrower=request.session['email']:
+               if borrower==request.session['email']:
                     status = 'Not enough points to purchase voucher!'
                     context['status'] = status
                     return render(request,'app/home.html',context)
