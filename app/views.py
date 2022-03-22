@@ -323,7 +323,7 @@ def use(request, voucherid):
                 profilepoints=cursor.fetchall()
                 cursor.execute("SELECT points_required FROM vouchers WHERE voucher_id=voucherid")
                 pts= cursor.fetchone()
-                if (voucherid<=(profilepoints):
+                if (voucherid<=(profilepoints)):
                     cursor.execute("UPDATE voucher SET owner_of_voucher=%s" WHERE voucher_id=%s, [request.session['email'],voucherid])
                     cursor.execute("UPDATE users SET vouchers_points=(profilepoints)-(%s) WHERE school_email=%s", [pts,request.session['email']])
                 else:
