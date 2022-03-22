@@ -298,7 +298,7 @@ def profile(request):
     with connection.cursor() as cursor: 
         cursor.execute("SELECT * FROM users WHERE school_email=%s", [request.session['email']]) 
         full_profile= cursor.fetchall()
-        cursor.execute("SELECT * FROM requests WHERE loaner=%s AND accepted=%s", [request.session['email'],false])
+        cursor.execute("SELECT * FROM requests WHERE loaner=%s AND accepted=false", [request.session['email']])
         requests= cursor.fetchall()
         cursor.execute("SELECT * FROM loan WHERE owner= %s", [request.session['email']])
         loan=cursor.fetchall()
