@@ -103,8 +103,10 @@ def admin_userview(request, email):
 
 
 def home(request):
+    context = {}
+    status = ''
     with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM requests WHERE accepted=false and loaner<> %s ORDER BY date_needed ASC",[request.session['email']])
+        cursor.execute("SELECT * FROM requests WHERE accepted=false ORDER BY date_needed ASC")
         requests = cursor.fetchall()
     with connection.cursor() as cursor:
         if request.POST:
@@ -118,7 +120,12 @@ def home(request):
                cursor.execute("SELECT return_date FROM requests WHERE request_id=%s",[request.POST['id']])
                return_deadline= (cursor.fetchone())
                returned_date= return_deadline
-               cursor.execute("INSERT INTO loan VALUES (%s, %s, %s, %s, %s, %s, %s)"
+               if borrower=request.session['email']:
+                    status = 'Not enough points to purchase voucher!'
+                    context['status'] = status
+                    return render(request,'app/home.html',context)
+                else:
+                    cursor.execute("INSERT INTO loan VALUES (%s, %s, %s, %s, %s, %s, %s)"
                             , [request.POST['id'], borrower, request.session['email'],
                                item , date_borrowed, return_deadline, returned_date])
                cursor.execute("UPDATE requests SET accepted=true WHERE request_id=%s",[request.POST['id']])
