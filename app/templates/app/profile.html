@@ -63,10 +63,11 @@
     {% if loan|length %}
         <table border=1 align=center>
             <thead>
-                <th>Loaner</th>
+                <th>Owner</th>
                 <th>Item</th>
                 <th>Date Borrowed</th>
                 <th>Date Return</th>
+                <th>Item Returned</th>
             </thead>
             {% for item in loan %}
             <tr>
@@ -74,7 +75,12 @@
                 <td> {{ item.3 }} </td>
                 <td> {{ item.4 }} </td>
                 <td> {{ item.5 }} </td>
-            <tr>
+                <td><form method="POST" style="display: inline;">
+		{% csrf_token %}
+	        <input type="hidden" name="returned" value="{{item.0}}"/>
+                <button onclick="return confirm('Confirm returned by item?');" type="submit" name="action" value="returned">Returned</button>
+		    </form></td>
+            </tr>
             {% endfor %}
         </table>
     {% else %}
