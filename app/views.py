@@ -125,7 +125,7 @@ def home(request):
                status = 'Successfully loaned out!'
                context={}
                context['status']=status
-               return render(request, profile , context)
+               return render(request, 'profile' , context)
     result_dict = {'requests': requests}
     return render(request,'app/home.html',result_dict)
 
