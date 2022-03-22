@@ -159,7 +159,7 @@ def index(request):
         #render(request, "app/admin_home.html", {'users': users})
         else:
             with connection.cursor() as cursor:
-                cursor.execute("SELECT * FROM requests")
+                cursor.execute("SELECT * FROM requests WHERE accepted=false")
                 requests = cursor.fetchall()
             result_dict = {'requests': requests}
            
