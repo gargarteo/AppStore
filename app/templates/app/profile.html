@@ -63,7 +63,7 @@
     {% if loan|length %}
         <table border=1 align=center>
             <thead>
-                <th>Owner</th>
+                <th>Borrower</th>
                 <th>Item</th>
                 <th>Date Borrowed</th>
                 <th>Date Return</th>
@@ -71,7 +71,7 @@
             </thead>
             {% for item in loan %}
             <tr>
-                <td> {{ item.2 }} </td>
+                <td> {{ item.1 }} </td>
                 <td> {{ item.3 }} </td>
                 <td> {{ item.4 }} </td>
                 <td> {{ item.5 }} </td>
@@ -92,7 +92,7 @@
     {% if borrowed|length %}
         <table border=1 align=center>
             <thead>
-                <th>Borrower</th>
+                <th>Owner</th>
                 <th>Item</th>
                 <th>Date Borrowed</th>
                 <th>Date Return</th>
