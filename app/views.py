@@ -121,10 +121,11 @@ def home(request):
                cursor.execute("UPDATE requests SET accepted=true WHERE request_id=%s",[request.POST['id']])
                return redirect('profile')
     with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM requests WHERE accepted=false ORDER BY date_needed ASC")
-        requests = cursor.fetchall()           
-    result_dict = {'requests': requests}
-    return render(request,'app/home.html',result_dict)
+        cursor.execute("SELECT * FROM requests WHERE accepted=false and loaner<>%s ORDER BY date_needed ASC",[request.session['email']])
+        requests = cursor.fetchall()
+        cursor.execute("SELECT * FROM requests WHERE accepted=false and loaner=%s ORDER BY date_needed ASC",[request.session['email']])
+        my_requests=cursor.fetchall()
+        return render(request, "app/home.html",  {'requests': requests, 'my_requests':my_requests})
 
 
 def index(request):
@@ -152,11 +153,12 @@ def index(request):
         #render(request, "app/admin_home.html", {'users': users})
         else:
             with connection.cursor() as cursor:
-                cursor.execute("SELECT * FROM requests WHERE accepted=false")
+                cursor.execute("SELECT * FROM requests WHERE accepted=false and loaner<>%s",[request.session['email']])
                 requests = cursor.fetchall()
-            result_dict = {'requests': requests}
-           
-            return render(request, "app/home.html", {"requests" : requests})
+                cursor.execute("SELECT * FROM requests WHERE accepted=false and loaner=%s",[request.session['email']])
+                my_requests=cursor.fetchall()
+            result_dict = {'requests': requests, 'my_requests':my_requests}
+            return render(request, "app/home.html",  {'requests': requests, 'my_requests':my_requests})
         
         context['status'] = status
         return render(request, "app/index.html", context)
