@@ -33,14 +33,14 @@ date_needed DATE NOT NULL,
 time_needed TIME NOT NULL,
 return_date DATE NOT NULL,
 return_time TIME NOT NULL,
-meetup_location VARCHAR(64).
+meetup_location VARCHAR(64),
 accepted BOOLEAN DEFAULT false
 );
 
 
 
 CREATE TABLE loan (
-request_id REFERENCES requests(request_id) ON UPDATE CASCADE ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED,
+request_id NUMERIC PRIMARY KEY REFERENCES request(request_id) ON UPDATE CASCADE ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED,
 borrower VARCHAR(64) NOT NULL REFERENCES users(school_email),
 owner VARCHAR(64) NOT NULL REFERENCES users(school_email),
 item VARCHAR(64) NOT NULL,
