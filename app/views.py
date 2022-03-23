@@ -120,8 +120,8 @@ def home(request):
                cursor.execute("UPDATE requests SET accepted=true WHERE request_id=%s",[request.POST['id']])
                return redirect('profile')
     with connection.cursor() as cursor:
-        #cursor.execute("SELECT * FROM requests WHERE accepted=false and loaner<>%s ORDER BY date_needed ASC",[request.session['email']])
-        cursor.execute("SELECT * FROM requests r, user u WHERE r.accepted=false and r.loaner<>%s and u.school_email=r.loaner ORDER BY date_needed ASC",[request.session['email']])
+        cursor.execute("SELECT * FROM requests WHERE accepted=false and loaner<>%s ORDER BY date_needed ASC",[request.session['email']])
+        #cursor.execute("SELECT * FROM requests r, user u WHERE r.accepted=false and r.loaner<>%s and u.school_email=r.loaner ORDER BY date_needed ASC",[request.session['email']])
         requests = cursor.fetchall()
         cursor.execute("SELECT * FROM requests WHERE accepted=false and loaner=%s ORDER BY date_needed ASC",[request.session['email']])
         my_requests=cursor.fetchall()
