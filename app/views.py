@@ -109,8 +109,6 @@ def home(request):
             if request.POST['action']=="accept_request":
                cursor.execute("SELECT loaner FROM requests WHERE request_id=%s" ,[request.POST['id']])
                borrower= (cursor.fetchone())
-               #cursor.execute("SELECT u.name FROM users u, requests r WHERE r.request_id=%s AND u.school_email=r.loaner" ,[request.POST['id']])
-               #borrower_name=(cursor.fetchone())
                cursor.execute("SELECT item FROM requests WHERE request_id=%s",[request.POST['id']])
                item= (cursor.fetchone())
                cursor.execute("SELECT date_needed FROM requests WHERE request_id=%s",[request.POST['id']])
@@ -122,8 +120,8 @@ def home(request):
                cursor.execute("UPDATE requests SET accepted=true WHERE request_id=%s",[request.POST['id']])
                return redirect('profile')
     with connection.cursor() as cursor:
-        #cursor.execute("SELECT * FROM requests WHERE accepted=false and loaner<>%s ORDER BY date_needed ASC",[request.session['email']])
-        cursor.execute("SELECT * FROM requests r, user u WHERE r.accepted=false and r.loaner<>%s and u.school_email=r.loaner ORDER BY date_needed ASC",[request.session['email']])
+        cursor.execute("SELECT * FROM requests WHERE accepted=false and loaner<>%s ORDER BY date_needed ASC",[request.session['email']])
+        #cursor.execute("SELECT * FROM requests r, user u WHERE r.accepted=false and r.loaner<>%s and u.school_email=r.loaner ORDER BY date_needed ASC",[request.session['email']])
         requests = cursor.fetchall()
         cursor.execute("SELECT * FROM requests WHERE accepted=false and loaner=%s ORDER BY date_needed ASC",[request.session['email']])
         my_requests=cursor.fetchall()
@@ -139,14 +137,11 @@ def index(request):
             cursor.execute("SELECT school_email, password FROM users WHERE school_email = %s AND password = %s AND suspend = FALSE", [request.POST['school_email'],request.POST['password']])
             account = cursor.fetchone()
             email = request.POST['school_email']
-            #cursor.execute("SELECT name FROM users WHERE school_email = %s AND password = %s AND suspend = FALSE", [request.POST['school_email'],request.POST['password']])
-            #account_name=cursor.fetchone()
             
            
         context = {}
         status = ''
         request.session['email'] = email
-        #request.session['name']=account_name
         if account == None:
             status = 'Wrong Login Details or your account has been suspended'
         elif request.POST['school_email'] == 'admin@u.nus.edu' and request.POST['password'] == '123456':
