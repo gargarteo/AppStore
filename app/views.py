@@ -278,19 +278,14 @@ def create_account(request):
             user = cursor.fetchone()
             ## No customer with same id
             if user == None:
-                ##TODO: date validation
-                if len(request.POST['password']) <6:
-                    status = 'Password need to be at least 6 characters'
-                
-                elif not (request.POST['school_email']).endswith('@u.nus.edu'):
-                    status = 'Please use your NUS email address'
-                
-                else:
+                try:
                     cursor.execute("INSERT INTO users (name, school_email, password) VALUES (%s, %s, %s)"
                         , [ request.POST['name'], request.POST['school_email'], request.POST['password'] ])
-                
-                                   
                     return redirect('index')    
+                    
+                except:
+                    status = 'Please ensure (1) you use your NUS email address (2) password is between 6-12 characters' 
+                    
             else:
                 status = 'User with ID %s already exists' % (request.POST['school_email'])
 
