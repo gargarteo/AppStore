@@ -14,12 +14,14 @@ def new_request(request):
             max_requests = cursor.fetchone()
             if  current_request < max_requests :
             #Checking return later than borrow
-                if request.POST['return_date'] < request.POST['date_needed']:
-                    status = 'Please ensure return date is later than borrow date'
-                else:
+                try:
                     cursor.execute("INSERT INTO requests(item, loaner, category, date_needed, time_needed,return_date, return_time, meetup_location) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
                         , [ request.POST['item'], request.session['email'], request.POST['category'], request.POST['date_needed'], request.POST['time_needed'], request.POST['return_date'], request.POST['return_time'], request.POST['meetup_location'] ])
-                    return redirect('home')  
+                    return redirect('home') 
+                
+                except:
+                    status = 'Please ensure return date is later than borrow date'
+                     
             else:
                 status = 'Exceeded Max request limit'
     context['status'] = status
