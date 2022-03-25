@@ -1,3 +1,18 @@
+<html>
+<body>
+    <h2>Request</h2>
+    <a href="home">Back to Home</a>
+    </br>
+    
+	<p style="color:red">{{ status|safe }}</p>
+	
+    <!-- Create a Form -->
+    <form method="POST">
+        <!-- Security token by Django -->
+        {% csrf_token %}
+        <!-- form -->
+				
+		<div id="div_id_item" class="control-group"> <label for="id_item" class="control-label requiredField">
         Item:<span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="item" maxlength="64" class="textinput textInput" required="" id="name"> </div> </div> 
         
         <div id="div_id_category" class="control-group"> <label for="id_category" class="control-label requiredField">
@@ -15,14 +30,14 @@
         <div id="div_id_return_time" class="control-group"> <label for="id_return_time" class="control-label requiredField">
         Return Time:<span class="asteriskField">*</span> </label> <div class="controls"> <input type="time" name="return_time" class="textinput" required="" id="date"> </div> </div> 
         
-        <div id="div_id_meetup_location" class="control-group"> <label for="meetup_location" class="control-label requiredField">
+        <div id="div_id_meetup_location" class="control-group"> <label for="id_meetup_location" class="control-label requiredField">
         Meetup Location: <span class="asteriskField">*</span> </label> </br>
-          <select name="meetup_location" id="meetup_location"> 
-    <option value="AS_5">AS5</option>
-    <option value="BIZ_2">BIZ 2</option>
-    <option value="Botanic_Garden_MRT">Botanic Garden MRT</option>
-    <option value="Central_Library">Central Library</option>
-  </select><div class="controls">  </div> </div> 
+          <select name="meetup_location" id="id_meetup_location"> 
+    <option value="AS 5">AS5</option>
+    <option value="BIZ 2">BIZ 2</option>
+    <option value="Botanic Garden MRT">Botanic Garden MRT</option>
+    <option value="Central Library">Central Library</option>
+  </select><div class="controls"> </div> </div> 
         <br>
         <button type="submit" value="new_request">Request</button>
     </form>
