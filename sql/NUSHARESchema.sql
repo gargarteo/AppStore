@@ -31,11 +31,12 @@ loaner VARCHAR(64) REFERENCES users(school_email) ON UPDATE CASCADE ON DELETE CA
 category VARCHAR(64) NOT NULL,
 date_needed DATE NOT NULL,
 time_needed TIME NOT NULL,
-return_date DATE NOT NULL,
+return_date DATE NOT NULL CHECK(date_needed < return_date),
 return_time TIME NOT NULL,
 meetup_location VARCHAR(64),
 accepted BOOLEAN DEFAULT false
 );
+
 
 
 
