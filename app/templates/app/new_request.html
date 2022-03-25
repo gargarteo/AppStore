@@ -15,8 +15,18 @@
 		<div id="div_id_item" class="control-group"> <label for="id_item" class="control-label requiredField">
         Item:<span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="item" maxlength="64" class="textinput textInput" required="" id="name"> </div> </div> 
         
-        <div id="div_id_category" class="control-group"> <label for="id_category" class="control-label requiredField">
-        Category:<span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="category" maxlength="64" class="textInput" required="" id="id_email"> </div> </div> 
+                <div id="div_id_category" class="control-group"> <label for="category" class="control-label requiredField">
+        Category:<span class="asteriskField">*</span> </label> </br>
+        <select name="category" id="category"> 
+    <option value="Stationary">Stationary</option>
+    <option value="Electronics">Electronics</option>
+    <option value="Sports Equipment">Sports Equipment</option>
+    <option value="Clothes">Clothes</option>
+    <option value="Lab Equipment">Lab Equipment</option>
+    <option value="Textbooks">Textbooks</option>
+    <option value="Lifestyle">Lifestyle</option>
+    <option value="Others">Others</option>
+    </select><div class="controls">  </div> </div> ass="textInput" required="" id="id_email"> </div> </div> 
         
         <div id="div_id_date_needed" class="control-group"> <label for="id_date_needed" class="control-label requiredField">
         Borrow Date:<span class="asteriskField">*</span> </label> <div class="controls"> <input type="date" name="date_needed" class="textinput" required="" id="date"> </div> </div>
