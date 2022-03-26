@@ -312,7 +312,7 @@ def profile(request):
         cursor.execute("SELECT * FROM loan WHERE borrower=%s AND %s> return_deadline",[request.session['email'],current_datetime])
         late= cursor.fetchall()
         if late!= None:
-            cursor.execute("SELECT DATEDIFF(day, return_deadline, %s) AS DateDiff FROM %s", [current_datetime,late])
+            cursor.execute("SELECT DATEDIFF(day, return_deadline, CURDATE()) AS DateDiff FROM %s", [late])
             days_late= cursor.fetchall()
             cursor.execute("SELECT SUM(DateDiff) AS demerit_pts FROM %s", [days_late])
             demerits=cursor.fetchone()
