@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.db import connection 
 from django.http import HttpResponse  
+import datetime
 
 def new_request(request):
     context = {}
@@ -307,6 +308,17 @@ def profile(request):
         borrowed=cursor.fetchall()
         cursor.execute("SELECT * FROM vouchers WHERE owner_of_voucher=%s", [request.session['email']])
         vouchers=cursor.fetchall() 
+        current_datetime = datetime.date.today() 
+        cursor.execute("SELECT * FROM %s WHERE borrower=%s AND %s>return_date",[loan, request.session['email'],current_datetime])
+        late= cursor.fetchall()
+        if late!= None:
+            cursor.execute("SELECT DATEDIFF(day, return_date, %s) AS DateDiff FROM %s", [current_datetime,late])
+            days_late= cursor.fetchall()
+            cursor.execute("SELECT SUM(DateDiff) AS demerit_pts FROM %s", [days_late])
+            demerits=cursor.fetchone()
+            cursor.execute("UPDATE users SET demerit_points= %s WHERE school_email=%s", [demerits, request.session['email']])
+            cursor.execute("SELECT * FROM users WHERE school_email=%s", [request.session['email']]) 
+            full_profile= cursor.fetchall()
         if request.POST:
             if request.POST['action'] == 'removereq':
                 with connection.cursor() as cursor:
