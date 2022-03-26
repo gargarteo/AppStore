@@ -120,6 +120,7 @@ def home(request):
                returned_date= return_deadline
                cursor.execute("INSERT INTO loan VALUES (%s, %s, %s, %s, %s, %s, %s)", [request.POST['id'], borrower, request.session['email'], item , date_borrowed, return_deadline, returned_date])
                cursor.execute("UPDATE requests SET accepted=true WHERE request_id=%s",[request.POST['id']])
+               cursor.execute("UPDATE users SET vouchers_points=vouchers_points+100 WHERE school_email=%s",[request.session['email']])
                return redirect('profile')
     with connection.cursor() as cursor:
         cursor.execute("SELECT * FROM requests WHERE accepted=false and loaner<>%s ORDER BY date_needed ASC",[request.session['email']])
