@@ -124,10 +124,10 @@ def home(request):
                cursor.execute("UPDATE users SET vouchers_points=vouchers_points+100 WHERE school_email=%s",[request.session['email']])
                return redirect('profile')
     with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM requests WHERE accepted=false and loaner<>%s ORDER BY date_needed ASC",[request.session['email']])
+        cursor.execute("SELECT * FROM requests WHERE accepted=false and loaner<>%s and return_date>=CURRDATE() ORDER BY date_needed ASC",[request.session['email']])
         #cursor.execute("SELECT * FROM requests r, user u WHERE r.accepted=false and r.loaner<>%s and u.school_email=r.loaner ORDER BY date_needed ASC",[request.session['email']])
         requests = cursor.fetchall()
-        cursor.execute("SELECT * FROM requests WHERE accepted=false and loaner=%s ORDER BY date_needed ASC",[request.session['email']])
+        cursor.execute("SELECT * FROM requests WHERE accepted=false and loaner=%s and return_date>=CURRDATE() ORDER BY date_needed ASC",[request.session['email']])
         my_requests=cursor.fetchall()
         return render(request, "app/home.html",  {'requests': requests, 'my_requests':my_requests})
 
