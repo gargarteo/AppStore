@@ -131,7 +131,6 @@ def home(request):
         my_requests=cursor.fetchall()
         return render(request, "app/home.html",  {'requests': requests, 'my_requests':my_requests})
 
-
 def index(request):
     """Shows the main page"""
     
