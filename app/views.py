@@ -309,7 +309,7 @@ def profile(request):
         cursor.execute("SELECT * FROM vouchers WHERE owner_of_voucher=%s", [request.session['email']])
         vouchers=cursor.fetchall() 
         current_datetime = datetime.date.today() 
-        cursor.execute("SELECT * FROM loan WHERE borrower=%s AND %s>return_date",[request.session['email'],current_datetime])
+        cursor.execute("SELECT * FROM loan WHERE borrower=%s AND %s> return_deadline",[request.session['email'],current_datetime])
         late= cursor.fetchall()
         if late!= None:
             cursor.execute("SELECT DATEDIFF(day, return_date, %s) AS DateDiff FROM %s", [current_datetime,late])
