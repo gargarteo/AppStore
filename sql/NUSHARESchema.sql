@@ -23,6 +23,7 @@ CREATE TABLE location (
 location VARCHAR(64) PRIMARY KEY UNIQUE
 );
 
+
 CREATE TABLE requests (
 request_id SERIAL PRIMARY KEY,
 item VARCHAR(64) NOT NULL,
