@@ -46,7 +46,8 @@ owner VARCHAR(64) NOT NULL REFERENCES users(school_email),
 item VARCHAR(64) NOT NULL,
 date_borrowed DATE NOT NULL,
 return_deadline DATE,
-returned_date DATE
+returned_date DATE,
+days_overdue DATE
 );
 
 CREATE TABLE vouchers(
