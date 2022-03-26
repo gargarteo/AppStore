@@ -311,6 +311,7 @@ def profile(request):
         borrowed=cursor.fetchall()
         cursor.execute("SELECT * FROM vouchers WHERE owner_of_voucher=%s", [request.session['email']])
         vouchers=cursor.fetchall() 
+        
         #gives an error
         #cursor.execute("SELECT * FROM loan WHERE borrower=%s AND CURRENT_DATE> return_deadline",[request.session['email']])
         #late= cursor.fetchall()
