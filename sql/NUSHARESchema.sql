@@ -47,7 +47,7 @@ item VARCHAR(64) NOT NULL,
 date_borrowed DATE NOT NULL,
 return_deadline DATE,
 returned_date DATE,
-days_overdue DATE
+days_overdue INT
 );
 
 CREATE TABLE vouchers(
