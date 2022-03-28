@@ -306,7 +306,7 @@ def profile(request):
         demerits= cursor.fetchone()
         if demerits is None:
             demerits=int(0)
-        cursor.execute("UPDATE users SET demerit_points= %s WHERE school_email=%s", [demerits, request.session['email']])
+        #cursor.execute("UPDATE users SET demerit_points= %s WHERE school_email=%s", [demerits, request.session['email']])
         cursor.execute("SELECT * FROM loan WHERE owner= %s", [request.session['email']])
         loan=cursor.fetchall()
         cursor.execute("SELECT * FROM loan WHERE borrower=%s", [request.session['email']])
