@@ -31,5 +31,6 @@ URI="postgres://$DB_USER:$DB_PASSWORD@$DB_HOST:$DB_PORT/$DB_NAME"
 psql ${URI} -f sql/NUSHAREClean.sql
 psql ${URI} -f sql/NUSHARESchema.sql
 psql ${URI} -f sql/NUSHAREvouch.sql
+psql ${URI} -f sql/NUSHAREUsers.sql
 #psql ${URI} -f sql/AppStoreGames.sql
 #psql ${URI} -f sql/AppStoreDownloads.sql
