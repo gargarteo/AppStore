@@ -338,7 +338,7 @@ def profile(request):
                 with connection.cursor() as cursor:
                     cursor.execute("DELETE FROM loan WHERE request_id=%s", [request.POST['returned']])
                     return redirect('profile')
-    profile_dict = {'full_profile': full_profile, 'requests':requests, 'loan': loan, 'borrowed':borrowed, 'voucher':voucher}
+    profile_dict = {'full_profile': full_profile, 'requests':requests, 'loan': loan, 'borrowed':borrowed, 'voucher':vouchers}
     return render(request,'app/profile.html',profile_dict)
     
 def voucher(request):
