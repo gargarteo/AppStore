@@ -169,7 +169,7 @@ def admin_addvoucher(request):
             cursor.execute("SELECT * FROM vouch WHERE voucher_name = %s", [request.POST['voucher_name']])
             voucher = cursor.fetchone()
             ## No customer with same id
-            if user == None:
+            if voucher == None:
                 try:
                     cursor.execute("INSERT INTO vouch (voucher_name, merchant_name, voucher_value, points_required) VALUES (%s, %s, %s,%s)"
                         , [ request.POST['voucher_name'], request.POST['merchant_name'], request.POST['voucher_value'],request.POST['points_required'] ])
