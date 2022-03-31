@@ -3,9 +3,14 @@
 <body>
     <h1 align = center>Voucher Store</h1>
    <br/><br/>
+    <table style='text-align:left'>
  {% for f in points %}
-	    <p align = left> Points: {{ f.4 }} </p>
+        <tr>
+            <th>Points: </th>
+            <td> {{ f.4 }} </td>
+       </tr>
   {% endfor %}
+	</table>
 
     <p style="color:red">{{ status|safe }}</p>
     <h3 align=center>Shop Vouchers<h3>
