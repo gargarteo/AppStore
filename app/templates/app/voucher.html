@@ -5,10 +5,7 @@
    <br/><br/>
     <table style='text-align:left'>
  {% for f in points %}
-        <tr>
-            <th>Points: </th>
-            <td> {{ f.1 }} </td>
-       </tr>
+           <th>Points: {{ f.1 }} </th>
   {% endfor %}
 	</table>
     <p style="color:red">{{ status|safe }}</p>
