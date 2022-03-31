@@ -230,8 +230,11 @@ def index(request):
             if account:
                 cursor.execute("UPDATE loan SET days_overdue= (CURRENT_DATE- return_deadline) WHERE return_deadline<CURRENT_DATE")
                 cursor.execute("SELECT COALESCE(SUM(days_overdue),0) FROM loan WHERE borrower=%s", [request.POST['school_email']])
-                demerits= cursor.fetchone()
-                if demerits[0]<8:
+                loan_demerits= cursor.fetchone()
+                cursor.execute("SELECT demerit_points FROM users where school_email =%s", [request.POST['school_email']])
+                user_demerits=cursor.fetchone()
+                demerits=loan_demerits[0]+user_demerits[0]
+                if demerits<8:
                     cursor.execute("UPDATE users SET demerit_points= %s WHERE school_email=%s and suspend=false", [demerits, request.POST['school_email']])
                 else:
                     cursor.execute("UPDATE users SET suspend= true WHERE school_email=%s", [request.POST['school_email']])
