@@ -342,13 +342,6 @@ def profile(request):
     return render(request,'app/profile.html',profile_dict)
     
 def voucher(request):
-    with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM vouch")
-        voucher=cursor.fetchall()
-        cursor.execute('SELECT * from users WHERE school_email =%s', [request.session['email'] ])
-        points=cursor.fetchall()
-        
-    results_dict={'voucher':voucher, 'points':points}
     
     #Need add the buy functionality
     context = {}
@@ -367,10 +360,17 @@ def voucher(request):
                                    ,[pts[0], request.session['email'] ])
                     status = 'Voucher successfully claimed'
                     results_dict={'voucher':voucher, 'points':points,'status':status}
-                    return render(request,'app/voucher.html',results_dict)
+
 
                 else:
                     status = 'Not enough points to purchase voucher!'
                     results_dict={'voucher':voucher, 'points':points,'status':status}
-                    return render(request,'app/voucher.html',results_dict)
+
+      with connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM vouch")
+        voucher=cursor.fetchall()
+        cursor.execute('SELECT * from users WHERE school_email =%s', [request.session['email'] ])
+        points=cursor.fetchall()
+        
+    results_dict={'voucher':voucher, 'points':points}
     return render(request,'app/voucher.html',results_dict)
