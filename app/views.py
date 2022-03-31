@@ -328,18 +328,7 @@ def profile(request):
         borrowed=cursor.fetchall()
         cursor.execute("SELECT * FROM vouchers WHERE owner_of_voucher=%s", [request.session['email']])
         vouchers=cursor.fetchall() 
-        
-        #gives an error
-        #cursor.execute("SELECT * FROM loan WHERE borrower=%s AND CURRENT_DATE> return_deadline",[request.session['email']])
-        #late= cursor.fetchall()
-        #if late!= None:
-            #cursor.execute("SELECT DATEDIFF(day, return_deadline, CURRENT_DATE) AS DateDiff FROM %s", [late])
-            #days_late= cursor.fetchall()
-           # cursor.execute("SELECT SUM(DateDiff) AS demerit_pts FROM %s", [days_late])
-            #demerits=cursor.fetchone()
-           # cursor.execute("UPDATE users SET demerit_points= %s WHERE school_email=%s", [demerits, request.session['email']])
-           # cursor.execute("SELECT * FROM users WHERE school_email=%s", [request.session['email']]) 
-           # full_profile= cursor.fetchall()        
+    
         if request.POST:
             if request.POST['action'] == 'removereq':
                 with connection.cursor() as cursor:
