@@ -132,7 +132,7 @@ def admin_userview(request, email):
         borrowed=cursor.fetchall()
         cursor.execute("SELECT * FROM vouchers WHERE owner_of_voucher=%s", [email])
         vouchers=cursor.fetchall() 
-    profile_dict = {'full_profile': full_profile, 'requests':requests, 'loan': loan, 'borrowed':borrowed, 'voucher':voucher}
+    profile_dict = {'full_profile': full_profile, 'requests':requests, 'loan': loan, 'borrowed':borrowed, 'vouchers':vouchers}
     return render(request,'app/admin_userview.html',profile_dict)
 
 
