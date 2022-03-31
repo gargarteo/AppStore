@@ -28,6 +28,38 @@ def new_request(request):
     context['status'] = status
     return render(request, 'app/new_request.html', context)
 
+def home(request):
+    context = {}
+    status = ''
+    with connection.cursor() as cursor:
+        if request.POST:
+            if request.POST['action']=="accept_request":
+               cursor.execute("SELECT loaner FROM requests WHERE request_id=%s" ,[request.POST['id']])
+               borrower= (cursor.fetchone())
+               cursor.execute("SELECT item FROM requests WHERE request_id=%s",[request.POST['id']])
+               item= (cursor.fetchone())
+               cursor.execute("SELECT date_needed FROM requests WHERE request_id=%s",[request.POST['id']])
+               date_borrowed= (cursor.fetchone())
+               cursor.execute("SELECT return_date FROM requests WHERE request_id=%s",[request.POST['id']])
+               return_deadline= (cursor.fetchone())
+               returned_date= return_deadline
+               cursor.execute("INSERT INTO loan VALUES (%s, %s, %s, %s, %s, %s, %s)", [request.POST['id'], borrower, request.session['email'], item , date_borrowed, return_deadline, returned_date])
+               cursor.execute("UPDATE requests SET accepted=true WHERE request_id=%s",[request.POST['id']])
+               cursor.execute("UPDATE users SET vouchers_points=vouchers_points+100 WHERE school_email=%s",[request.session['email']])
+               return redirect('profile')
+    with connection.cursor() as cursor:
+        cursor.execute("UPDATE loan SET days_overdue= (CURRENT_DATE- return_deadline) WHERE return_deadline<CURRENT_DATE")
+        cursor.execute("SELECT COALESCE(SUM(days_overdue),0) FROM loan WHERE borrower=%s", [request.session['email']])
+        demerits= cursor.fetchone()
+        cursor.execute("UPDATE users SET demerit_points= %s WHERE school_email=%s", [demerits, request.session['email']])
+        #
+        cursor.execute("SELECT * FROM requests WHERE accepted=false and loaner<>%s  ORDER BY date_needed ASC",[request.session['email']])
+        #cursor.execute("SELECT * FROM requests r, user u WHERE r.accepted=false and r.loaner<>%s and u.school_email=r.loaner ORDER BY date_needed ASC",[request.session['email']])
+        requests = cursor.fetchall()
+        cursor.execute("SELECT * FROM requests WHERE accepted=false and loaner=%s ORDER BY date_needed ASC",[request.session['email']])
+        my_requests=cursor.fetchall()
+        return render(request, "app/home.html",  {'requests': requests, 'my_requests':my_requests})
+
 
 def admin_home(request):
     ## Suspend customer
