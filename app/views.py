@@ -170,13 +170,13 @@ def admin_addvoucher(request):
             voucher = cursor.fetchone()
             ## No customer with same id
             if voucher == None:
-                try:
-                    cursor.execute("INSERT INTO vouch (voucher_name, merchant_name, voucher_value, points_required) VALUES (%s, %s, %s,%s)"
+                #try:
+                cursor.execute("INSERT INTO vouch (voucher_name, merchant_name, voucher_value, points_required) VALUES (%s, %s, %s,%s)"
                         , [ request.POST['voucher_name'], request.POST['merchant_name'], request.POST['voucher_value'],request.POST['points_required'] ])
-                    return redirect('admin_home')    
+                return redirect('admin_home')    
                     
-                except:
-                    status = 'Please ensure (1) Voucher value & points required is integers (2) every field is filled' 
+                #except:
+                status = 'Please ensure (1) Voucher value & points required is integers (2) every field is filled' 
                     
             else:
                 status = 'Voucher %s already exists' % (request.POST['voucher_name'])
