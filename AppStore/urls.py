@@ -34,7 +34,4 @@ urlpatterns = [
     path('admin_voucher', app.views.admin_voucher, name='admin_voucher'),
     path('admin_addvoucher', app.views.admin_addvoucher, name='admin_addvoucher'),
     path('admin_editvoucher', app.views.admin_editvoucher, name='admin_editvoucher'),
-    path('add', app.views.add_Original, name='add'),
-    path('view/<str:id>', app.views.view_Original, name='view'),
-    path('edit/<str:id>', app.views.edit_original, name='edit')
 ]
