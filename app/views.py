@@ -358,8 +358,7 @@ def voucher(request):
                 else:
                     status = 'Not enough points to purchase voucher!'
                     results_dict={'voucher':voucher, 'points':points,'status':status}
-
-      with connection.cursor() as cursor:
+    with connection.cursor() as cursor:
         cursor.execute("SELECT * FROM vouch")
         voucher=cursor.fetchall()
         cursor.execute('SELECT * from users WHERE school_email =%s', [request.session['email'] ])
