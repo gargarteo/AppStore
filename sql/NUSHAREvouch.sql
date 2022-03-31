@@ -20,6 +20,5 @@ INSERT INTO vouch VALUES('The Tea Party Free Brownie','The Tea Party', 2, 200);
 INSERT INTO vouch VALUES('Uncle Penyet Fusion $2','Uncle Penyet', 2, 200);
 INSERT INTO vouch VALUES('Maxx Coffee $10','Maxx Coffee', 10, 10);
 INSERT INTO vouch VALUES('Pasta Express $1', 'Pasta Express', 1,100);
-INSERT INTO vouch VALUES('Bar Bar Black Sheep $20', 'Bar Bar Black Sheep', 100, 4500);
 INSERT INTO vouch VALUES('Central Square Free Takoyaki', 'Central Square', 5, 1000);
 INSERT INTO vouch VALUES('Central Square $2', 'Central Square', 2, 200);
