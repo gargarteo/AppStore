@@ -124,8 +124,11 @@
                 <td> {{ v.1 }} </td>
                 <td> {{ v.2 }} </td>
                 <td> {{ v.3 }} </td>
-          <td><input type="hidden" name="voucher_id" value="{{v.0}}"/>
+                <td> <form method="POST" style="display: inline;">
+                {% csrf_token %}
+              <input type="hidden" name="voucher_id" value="{{v.0}}"/>
                     <button onclick="return confirm('Are you sure you want to delete voucher?');" type="submit" name="action" value="delete_voucher">Delete</button>
+                    </form></td>
             <tr>
             {% endfor %}
         </table>
