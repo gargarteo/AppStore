@@ -65,7 +65,7 @@ CREATE TABLE vouch (
 voucher_name VARCHAR(64) NOT NULL,
 merchant_name VARCHAR(64) NOT NULL,
 voucher_value INTEGER NOT NULL,
-points_required NUMERIC
+points_required INTEGER NOT NULL
 );
 
 
