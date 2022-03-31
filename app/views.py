@@ -157,6 +157,35 @@ def admin_voucher(request):
 
     return render(request,'app/admin_voucher.html',result_dict)
 
+def admin_addvoucher(request):
+    """Shows the main page"""
+    context = {}
+    status = ''
+
+    if request.POST:
+        ## Check if customerid is already in the table
+        with connection.cursor() as cursor:
+
+            cursor.execute("SELECT * FROM vouch WHERE voucher_name = %s", [request.POST['voucher_name']])
+            voucher = cursor.fetchone()
+            ## No customer with same id
+            if user == None:
+                try:
+                    cursor.execute("INSERT INTO vouch (voucher_name, merchant_name, voucher_value, points_required) VALUES (%s, %s, %s,%s)"
+                        , [ request.POST['voucher_name'], request.POST['merchant_name'], request.POST['voucher_value'],request.POST['points_required'] ])
+                    return redirect('admin_home')    
+                    
+                except:
+                    status = 'Please ensure (1) you use your NUS email address (2) password is between 6-12 characters' 
+                    
+            else:
+                status = 'Voucher %s already exists' % (request.POST['voucher_name'])
+
+
+    context['status'] = status
+ 
+    return render(request, "app/admin_addvoucher.html", context)
+
 def index(request):
     """Shows the main page"""
     
