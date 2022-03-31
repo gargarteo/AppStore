@@ -52,13 +52,14 @@ days_overdue INT DEFAULT 0.00
 );
 
 CREATE TABLE vouchers(
-voucher_id VARCHAR(64) PRIMARY KEY,
+voucher_id SERIAL PRIMARY KEY,
 voucher_name VARCHAR(64) NOT NULL,
 merchant_name VARCHAR(64) NOT NULL,
 voucher_value INTEGER NOT NULL,
 points_required NUMERIC,
 used BOOLEAN NOT NULL DEFAULT FALSE,
 owner_of_voucher VARCHAR(64) references users(school_email));
+
 
 
 CREATE TABLE vouch (
