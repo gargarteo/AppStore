@@ -356,7 +356,7 @@ def voucher(request):
     if request.POST:
         if request.POST['action'] == 'claim':
             with connection.cursor() as cursor:
-                cursor.execute("SELECT voucher_points FROM users WHERE school_email=%s", [request.session['email']])
+                cursor.execute("SELECT vouchers_points FROM users WHERE school_email=%s", [request.session['email']])
                 profilepoints=cursor.fetchall()
                 cursor.execute("SELECT points_required FROM vouch WHERE voucher_name =%s", [request.POST['voucher_name']])
                 pts= cursor.fetchone()
