@@ -400,7 +400,7 @@ def voucher(request):
         points=cursor.fetchone()
         
     results_dict={'voucher':voucher, 'points':points}
-    
+    '''
     #Need add the buy functionality
     context = {}
     status = ''
@@ -417,5 +417,5 @@ def voucher(request):
                 else:
                     status = 'Not enough points to purchase voucher!'
                     context['status'] = status
-                    return render(request,'app/voucher.html',context)
+                    return render(request,'app/voucher.html',context)'''
     return render(request,'app/voucher.html',results_dict)
