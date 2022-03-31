@@ -4,15 +4,15 @@
     <h1 align = center>Voucher Store</h1>
    <br/><br/>
     <table style='text-align:left'>
- {% for f in full_profile %}
+ {% for f in points %}
         <tr>
-            <th>Voucher Points</th>
+            <th>Points</th>
             <td>:</td>
-            <td> {{ f.4 }} </td>
+            <td> {{ f.0 }} </td>
        </tr>
   {% endfor %}
 	</table>
-  
+    <p style="color:red">{{ status|safe }}</p>
     <h3 align=center>Shop Vouchers<h3>
     <table border=1 align=center>
         <thead>
