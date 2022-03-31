@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <body>
-    <h1 align = center>Profile</h1>
+    <h1 align = center>Voucher Store</h1>
    <br/><br/>
     <table style='text-align:left'>
  {% for f in full_profile %}
@@ -22,12 +22,12 @@
             <th>Points</th>
             <th>Claim</th>
         </thead>
-        {% for v in voucher %}
+        {% for v in vouch %}
         <tr>
+            <td> {{ v.0 }} </td>
             <td> {{ v.1 }} </td>
             <td> {{ v.2 }} </td>
             <td> {{ v.3 }} </td>
-            <td> {{ v.4 }} </td>
             <td><form method="POST" style="display: inline;">
 		{% csrf_token %}
 	        <input type="hidden" name="use" value="{{v.0}}"/>
