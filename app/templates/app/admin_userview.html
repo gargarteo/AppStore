@@ -111,7 +111,7 @@
     <br/><br/>
     
     <p style="color:blue" align=center>Your Vouchers</p>
-    {% if voucher|length %}
+    {% if vouchers|length %}
         <table border=1 align=center>
             <thead>
                 <th>Voucher</th>
@@ -119,7 +119,7 @@
                 <th>Value</th>
                 <th>Use</th>
             </thead>
-            {% for v in voucher %}
+            {% for v in vouchers %}
             <tr>
                 <td> {{ v.1 }} </td>
                 <td> {{ v.2 }} </td>
