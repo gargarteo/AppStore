@@ -127,7 +127,7 @@ def home(request):
         cursor.execute("SELECT * FROM requests WHERE accepted=false and loaner<>%s  ORDER BY date_needed ASC",[request.session['email']])
         #cursor.execute("SELECT * FROM requests r, user u WHERE r.accepted=false and r.loaner<>%s and u.school_email=r.loaner ORDER BY date_needed ASC",[request.session['email']])
         requests = cursor.fetchall()
-        cursor.execute("SELECT * FROM requests WHERE accepted=false and loaner=%s and return_date>=CURRENT_DATE ORDER BY date_needed ASC",[request.session['email']])
+        cursor.execute("SELECT * FROM requests WHERE accepted=false and loaner=%s ORDER BY date_needed ASC",[request.session['email']])
         my_requests=cursor.fetchall()
         return render(request, "app/home.html",  {'requests': requests, 'my_requests':my_requests})
 
