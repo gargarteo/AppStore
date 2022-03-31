@@ -120,6 +120,10 @@ def admin_userview(request, email):
         if request.POST['action'] == 'delete_request':
             with connection.cursor() as cursor:
                 cursor.execute("DELETE FROM requests WHERE request_id = %s", [request.POST['request_id']])
+                
+        if request.POST['action'] == 'delete_voucher':
+            with connection.cursor() as cursor:
+                cursor.execute("DELETE FROM vouchers WHERE voucher_id = %s", [request.POST['voucher_id']])
     
     with connection.cursor() as cursor: 
         cursor.execute("SELECT * FROM users WHERE school_email=%s", [email]) 
@@ -134,6 +138,7 @@ def admin_userview(request, email):
         vouchers=cursor.fetchall() 
     profile_dict = {'full_profile': full_profile, 'requests':requests, 'loan': loan, 'borrowed':borrowed, 'vouchers':vouchers}
     return render(request,'app/admin_userview.html',profile_dict)
+
 
 
 def index(request):
