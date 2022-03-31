@@ -3,27 +3,6 @@ from django.db import connection
 from django.http import HttpResponse  
 import datetime
 
-def voucher_store(request):
-    """Shows the main page"""
-
-    ## redeem voucher
-    if request.POST:
-        if request.POST['action'] == 'redeem':
-            #Check if enough points
-            with connection.cursor() as cursor:
-                cursor.execute("INSERT INTO vouchers(voucher_name , merchant_name , voucher_value , owner_of_voucher) VALUES (%s, %s, %s, %s)"
-                        , [ request.POST['voucher_name'], request.POST['merchant_name'], request.POST['voucher_value'], request.session['email'] ])
-                    return redirect('voucher_store') 
-
-    ## Use raw query to get all objects
-    with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM vouch ORDER BY merchant_name")
-        vouch = cursor.fetchall()
-
-    result_dict = {'vouch': vouch}
-
-    return render(request,'app/voucher_store.html',result_dict)
-
 def new_request(request):
     context = {}
     status = ''             
@@ -381,9 +360,9 @@ def profile(request):
     profile_dict = {'full_profile': full_profile, 'requests':requests, 'loan': loan, 'borrowed':borrowed, 'voucher':voucher}
     return render(request,'app/profile.html',profile_dict)
     
-def voucher(request):
+def voucher_store(request):
     with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM vouchers")
+        cursor.execute("SELECT * FROM vouch")
         voucher=cursor.fetchall()
     vouchers_dict={'voucher':voucher}
     
@@ -404,7 +383,7 @@ def voucher(request):
                     status = 'Not enough points to purchase voucher!'
                     context['status'] = status
                     return render(request,'app/voucher.html',context)
-    return render(request,'app/voucher.html',vouchers_dict)
+    return render(request,'app/voucher_store.html',vouchers_dict)
 
 #buy voucher function
 #def use(request, voucherid):
