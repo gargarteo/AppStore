@@ -176,7 +176,7 @@ def admin_addvoucher(request):
                     return redirect('admin_home')    
                     
                 except:
-                    status = 'Please ensure (1) you use your NUS email address (2) password is between 6-12 characters' 
+                    status = 'Please ensure (1) Voucher value & points required is integers (2) every field is filled' 
                     
             else:
                 status = 'Voucher %s already exists' % (request.POST['voucher_name'])
