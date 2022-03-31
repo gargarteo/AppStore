@@ -62,10 +62,10 @@ owner_of_voucher VARCHAR(64) references users(school_email));
 
 
 CREATE TABLE vouch (
-voucher_name VARCHAR(64) NOT NULL,
+voucher_name VARCHAR(64) NOT NULL PRIMARY KEY,
 merchant_name VARCHAR(64) NOT NULL,
-voucher_value INTEGER NOT NULL,
-points_required INTEGER NOT NULL
+voucher_value INTEGER NOT NULL CHECK (voucher_value >0),
+points_required INTEGER NOT NULL CHECK(points_required >0)
 );
 
 
