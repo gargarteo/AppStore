@@ -6,11 +6,14 @@ import datetime
 def voucher_store(request):
     """Shows the main page"""
 
-    ## Delete customer
+    ## redeem voucher
     if request.POST:
-        if request.POST['action'] == 'delete':
+        if request.POST['action'] == 'redeem':
+            #Check if enough points
             with connection.cursor() as cursor:
-                cursor.execute("DELETE FROM vouch WHERE voucher_name = %s", [request.POST['voucher_name']])
+                cursor.execute("INSERT INTO vouchers(voucher_name , merchant_name , voucher_value , owner_of_voucher) VALUES (%s, %s, %s, %s)"
+                        , [ request.POST['voucher_name'], request.POST['merchant_name'], request.POST['voucher_value'], request.session['email'] ])
+                    return redirect('voucher_store') 
 
     ## Use raw query to get all objects
     with connection.cursor() as cursor:
