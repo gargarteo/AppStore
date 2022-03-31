@@ -1,0 +1,31 @@
+<html>
+<body>
+    <h2>Add Voucher</h2>
+    <a href="https://project-it2002-gargar.herokuapp.com/admin_voucher">Back to list of vouchers</a>
+
+    <p style="color:red">{{ status|safe }}</p>
+
+    <!-- Create a Form -->
+    <form method="POST">
+        <!-- Security token by Django -->
+        {% csrf_token %}
+        <!-- form -->
+        <div id="div_id_voucher_name" class="control-group"> <label for="voucher_name" class="control-label requiredField">
+        Voucher Name<span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="voucher_name" maxlength="64" class="textinput textInput" required="" id="id_voucher_name"> </div> </div> 
+        
+        <div id="div_id_merchant_name" class="control-group"> <label for="id_merchant_name" class="control-label requiredField">
+        Merchant Name<span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="merchant_name" maxlength="64" class="textinput textInput" required="" id="id_merchant_name"> </div> </div> 
+        
+        <div id="div_id_voucher_value" class="control-group"> <label for="id_voucher_value" class="control-label requiredField">
+        Voucher Value<span class="asteriskField">*</span> </label> <div class="controls"> <input type="number" name="vouchers_value" maxlength="64" class="textinput textInput" required="" id="id_voucher_value"> </div> </div>
+        
+        <div id="div_id_points_required" class="control-group"> <label for="id_points_required" class="control-label requiredField">
+        Points Required<span class="asteriskField">*</span> </label> <div class="controls"> <input type="number" name="points_required" maxlength="64" class="textinput textInput" required="" id="id_points_required"> </div> </div>
+       
+        
+ 
+        <br>
+        <button type="submit" value="add">Add</button>
+    </form>
+</body>
+</html>
