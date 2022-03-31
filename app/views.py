@@ -67,6 +67,7 @@ def admin_home(request):
         if request.POST['action'] == 'suspend_user':
             with connection.cursor() as cursor:
                 cursor.execute("UPDATE users SET suspend = NOT suspend WHERE school_email = %s", [request.POST['school_email']])
+                cursor.execute("UPDATE users SET demerit_points=0 WHERE school_email = %s", [request.POST['school_email']])
                 cursor.execute("SELECT * FROM users ORDER BY name ASC")
                 users = cursor.fetchall()
                 result_dict = {'users': users}
