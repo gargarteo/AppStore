@@ -187,6 +187,39 @@ def admin_addvoucher(request):
  
     return render(request, "app/admin_addvoucher.html", context)
 
+def admin_editvoucher(request, voucher_name):
+    """Shows the main page"""
+
+    # dictionary for initial data with
+    # field names as keys
+    context ={}
+
+    # fetch the object related to passed email
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM vouch WHERE voucher_name = %s", [voucher_name])
+        obj = cursor.fetchone()
+
+    status = ''
+    # save the data from the form
+    try:
+        if request.POST:
+        ##TODO: date validation
+            with connection.cursor() as cursor:
+                cursor.execute("UPDATE vouch SET merchant_name = %s, voucher_value = %s, points_required = %s"
+                    , [request.POST['merchant_name'], request.POST['voucher_value'],
+                        request.POST['points_required'] ])
+                status = 'Voucher edited successfully!'
+                cursor.execute("SELECT * FROM vouch WHERE voucher_name = %s", [voucher_name])
+                obj = cursor.fetchone()
+    except:
+        status = 'Error with updating details, Please ensure voucher value & points required are integers & Merchant name is not null'
+
+
+    context["obj"] = obj
+    context["status"] = status
+ 
+    return render(request, "app/admin_editvoucher.html", context)
+
 def index(request):
     """Shows the main page"""
     
