@@ -31,6 +31,7 @@ urlpatterns = [
     path('admin_home', app.views.admin_home, name='admin_home'),
     path('admin_useredit/<str:email>', app.views.admin_useredit, name='admin_useredit'),
     path('admin_userview/<str:email>', app.views.admin_userview, name='admin_userview'),
+    path('admin_voucher', app.views.admin_voucher, name='admin_voucher'),
     path('add', app.views.add_Original, name='add'),
     path('view/<str:id>', app.views.view_Original, name='view'),
     path('edit/<str:id>', app.views.edit_original, name='edit')
