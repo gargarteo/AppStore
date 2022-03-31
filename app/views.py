@@ -326,7 +326,7 @@ def profile(request):
         loan=cursor.fetchall()
         cursor.execute("SELECT * FROM loan WHERE borrower=%s", [request.session['email']])
         borrowed=cursor.fetchall()
-        cursor.execute("SELECT * FROM vouchers WHERE owner_of_voucher=%s", [request.session['email']])
+        cursor.execute("SELECT * FROM vouchers WHERE owner_of_voucher=%s AND used=FALSE", [request.session['email']])
         vouchers=cursor.fetchall() 
     
         if request.POST:
