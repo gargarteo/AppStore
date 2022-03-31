@@ -229,10 +229,8 @@ def index(request):
                 cursor.execute("SELECT demerit_points FROM users where school_email =%s", [request.POST['school_email']])
                 user_demerits=cursor.fetchone()
                 demerits=loan_demerits[0]+user_demerits[0]
-                if demerits<8:
-                    cursor.execute("UPDATE users SET demerit_points= %s WHERE school_email=%s and suspend=false", [demerits, request.POST['school_email']])
-                else:
-                    cursor.execute("UPDATE users SET suspend= true WHERE school_email=%s", [request.POST['school_email']])
+                cursor.execute("UPDATE users SET demerit_points= %s WHERE school_email=%s", [demerits, request.POST['school_email']])
+                cursor.execute("UPDATE users SET suspend= true WHERE school_email=%s AND demerit_points>=8 ", [request.POST['school_email']])
             #
             cursor.execute("SELECT school_email, password FROM users WHERE school_email = %s AND password = %s AND suspend = FALSE", [request.POST['school_email'],request.POST['password']])
             account = cursor.fetchone()
