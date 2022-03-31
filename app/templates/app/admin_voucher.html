@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h1 align = center>Admin Vouchers</h1>
+
+    <br/><br/>
+    <h3 align = center>Vouchers Table</h3> 
+
+  
+
+            <table border=1 align=center>
+                <thead>
+                    <th><div>Voucher</div><div>Name</div></th>
+                    <th><div>Merchant</div><div>Name</div></th>
+                    <th><div>Voucher</div><div>Value</div></th>
+                    <th><div>Points</div><div>Required</div></th>
+                    <th>Delete</th>
+                </thead>
+                 {% for v in vouch %}
+                  <tr>
+                    <td> {{ v.0 }} </td>
+                    <td> {{ v.1 }} </td>
+                    <td> {{ v.2 }} </td>
+                    <td> {{ v.3 }} </td>
+                   
+                 
+                <td> <form method="POST" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="voucher_name" value="{{v.0}}"/>
+                <button onclick="return confirm('Are you sure you want delete {{v.0}}  ?');" type="submit" name="action" value="delete_voucher">
+                    Delete Voucher</button> 
+                 </form></td>
+                </tr>
+                {% endfor %}
+          </table>
+          
+  <br/><br/>  
+    
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.btn {
+  background-color: DodgerBlue;
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.button {background-color: #f44336;
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+  background-color: RoyalBlue;
+}
+
+.button:hover {
+  background-color: DarkRed;
+}
+</style>
+</head>
+<body align = center>
+
+</br></br><br/><br/>
+<button class="btn"><i class="fa fa-home"></i>Home</button>
+<a href ="admin_vouchers"><button class="btn"><i class="fa fa-gift-card"></i> Vouchers</button></a>
+<a href = "/"> <button class="button" ><i class="fa fa-sign-out"></i> Logout </button> </a>
+
+
+</body>
+</html>
