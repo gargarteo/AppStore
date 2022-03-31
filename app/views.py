@@ -349,7 +349,7 @@ def voucher(request):
         points=cursor.fetchone()
         
     results_dict={'voucher':voucher, 'points':points}
-    '''
+    
     #Need add the buy functionality
     context = {}
     status = ''
@@ -358,13 +358,16 @@ def voucher(request):
             with connection.cursor() as cursor:
                 cursor.execute("SELECT voucher_points FROM users WHERE school_email=%s", [request.session['email']])
                 profilepoints=cursor.fetchall()
-                cursor.execute("SELECT points_required FROM vouchers WHERE voucher_id=%s", [request.POST['use']])
+                cursor.execute("SELECT points_required FROM vouch WHERE voucher_name =%s", [request.POST['voucher_name']])
                 pts= cursor.fetchone()
                 if (pts<=profilepoints):
-                    cursor.execute("UPDATE voucher SET owner_of_voucher=%s WHERE voucher_id=%s", [request.session['email'],request.POST['use']])
-                    cursor.execute("UPDATE users SET vouchers_points=%s-%s WHERE school_email=%s", [profilepoints,pts,request.session['email']])
+                    cursor.execute("INSERT INTO vouchers (voucher_name, merchant_name, voucher_value,owner_of_voucher) VALUES (%s, %s, %s,%s)"
+                        , [ request.POST['voucher_name'], request.POST['merchant_name'], request.POST['voucher_value'],[request.session['email'] ])
+                    cursor.execute("UPDATE users SET u.vouchers_points = u.vouchers_points-v.points_required FROM users u, vouch v WHERE u.school_email=%s",[request.session['email']])
+                    status = 'Voucher successfully claimed'
+
                 else:
                     status = 'Not enough points to purchase voucher!'
                     context['status'] = status
-                    return render(request,'app/voucher.html',context)'''
+                    return render(request,'app/voucher.html',context)
     return render(request,'app/voucher.html',results_dict)
