@@ -366,10 +366,11 @@ def voucher(request):
                     cursor.execute("UPDATE users SET vouchers_points = vouchers_points-%s WHERE school_email=%s"
                                    ,[pts[0], request.session['email'] ])
                     status = 'Voucher successfully claimed'
+                    results_dict={'voucher':voucher, 'points':points,'status':status}
+                    return render(request,'app/voucher.html',results_dict)
 
                 else:
                     status = 'Not enough points to purchase voucher!'
-                    #context['status'] = status
                     results_dict={'voucher':voucher, 'points':points,'status':status}
                     return render(request,'app/voucher.html',results_dict)
     return render(request,'app/voucher.html',results_dict)
