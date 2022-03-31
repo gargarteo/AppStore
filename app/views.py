@@ -250,12 +250,7 @@ def index(request):
             #render(request, "app/admin_home.html", {'users': users})
             else:
                 with connection.cursor() as cursor:
-                    request.session['email'] = email
-                    cursor.execute("UPDATE loan SET days_overdue= (CURRENT_DATE- return_deadline) WHERE return_deadline<CURRENT_DATE")
-                    cursor.execute("SELECT COALESCE(SUM(days_overdue),0) FROM loan WHERE borrower=%s", [request.session['email']])
-                    demerits= cursor.fetchone()
-                    cursor.execute("UPDATE users SET demerit_points= %s WHERE school_email=%s", [demerits, request.session['email']])
-                    #               
+                    request.session['email'] = email           
                     cursor.execute("SELECT * FROM requests WHERE accepted=false and loaner<>%s",[request.session['email']])
                     requests = cursor.fetchall()
                     cursor.execute("SELECT * FROM requests WHERE accepted=false and loaner=%s",[request.session['email']])
