@@ -125,37 +125,58 @@ def admin_userview(request, email):
     return render(request,'app/admin_userview.html',profile_dict)
 
 
-def home(request):
-    context = {}
-    status = ''
-    with connection.cursor() as cursor:
-        if request.POST:
-            if request.POST['action']=="accept_request":
-               cursor.execute("SELECT loaner FROM requests WHERE request_id=%s" ,[request.POST['id']])
-               borrower= (cursor.fetchone())
-               cursor.execute("SELECT item FROM requests WHERE request_id=%s",[request.POST['id']])
-               item= (cursor.fetchone())
-               cursor.execute("SELECT date_needed FROM requests WHERE request_id=%s",[request.POST['id']])
-               date_borrowed= (cursor.fetchone())
-               cursor.execute("SELECT return_date FROM requests WHERE request_id=%s",[request.POST['id']])
-               return_deadline= (cursor.fetchone())
-               returned_date= return_deadline
-               cursor.execute("INSERT INTO loan VALUES (%s, %s, %s, %s, %s, %s, %s)", [request.POST['id'], borrower, request.session['email'], item , date_borrowed, return_deadline, returned_date])
-               cursor.execute("UPDATE requests SET accepted=true WHERE request_id=%s",[request.POST['id']])
-               cursor.execute("UPDATE users SET vouchers_points=vouchers_points+100 WHERE school_email=%s",[request.session['email']])
-               return redirect('profile')
-    with connection.cursor() as cursor:
-        cursor.execute("UPDATE loan SET days_overdue= (CURRENT_DATE- return_deadline) WHERE return_deadline<CURRENT_DATE")
-        cursor.execute("SELECT COALESCE(SUM(days_overdue),0) FROM loan WHERE borrower=%s", [request.session['email']])
-        demerits= cursor.fetchone()
-        cursor.execute("UPDATE users SET demerit_points= %s WHERE school_email=%s", [demerits, request.session['email']])
-        #
-        cursor.execute("SELECT * FROM requests WHERE accepted=false and loaner<>%s  ORDER BY date_needed ASC",[request.session['email']])
-        #cursor.execute("SELECT * FROM requests r, user u WHERE r.accepted=false and r.loaner<>%s and u.school_email=r.loaner ORDER BY date_needed ASC",[request.session['email']])
-        requests = cursor.fetchall()
-        cursor.execute("SELECT * FROM requests WHERE accepted=false and loaner=%s ORDER BY date_needed ASC",[request.session['email']])
-        my_requests=cursor.fetchall()
-        return render(request, "app/home.html",  {'requests': requests, 'my_requests':my_requests})
+def index(request):
+    """Shows the main page"""
+    
+    #Login
+    if request.POST:    
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT school_email, password FROM users WHERE school_email = %s AND password = %s AND suspend = FALSE", [request.POST['school_email'],request.POST['password']])
+            account = cursor.fetchone()
+            if account:
+                cursor.execute("UPDATE loan SET days_overdue= (CURRENT_DATE- return_deadline) WHERE return_deadline<CURRENT_DATE")
+                cursor.execute("SELECT COALESCE(SUM(days_overdue),0) FROM loan WHERE borrower=%s", [request.POST['school_email']])
+                demerits= cursor.fetchone()
+                if demerits<8:
+                    cursor.execute("UPDATE users SET demerit_points= %s WHERE school_email=%s and suspend=false", [demerits, request.POST['school_email']])
+                else:
+                    cursor.execute("UPDATE users SET suspend= true WHERE school_email=%s", [request.POST['school_email']])
+            #
+            cursor.execute("SELECT school_email, password FROM users WHERE school_email = %s AND password = %s AND suspend = FALSE", [request.POST['school_email'],request.POST['password']])
+            account = cursor.fetchone()
+            email = request.POST['school_email']            
+           
+        context = {}
+        status = ''
+        if account == None:
+            status = 'Wrong Login Details or your account has been suspended'
+        elif request.POST['school_email'] == 'admin@u.nus.edu' and request.POST['password'] == '123456':
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT * FROM users")
+                users = cursor.fetchall()
+            result_dict = {'users': users}
+            
+            return redirect('admin_home')
+        #render(request, "app/admin_home.html", {'users': users})
+        else:
+            with connection.cursor() as cursor:
+                request.session['email'] = email
+                cursor.execute("UPDATE loan SET days_overdue= (CURRENT_DATE- return_deadline) WHERE return_deadline<CURRENT_DATE")
+                cursor.execute("SELECT COALESCE(SUM(days_overdue),0) FROM loan WHERE borrower=%s", [request.session['email']])
+                demerits= cursor.fetchone()
+                cursor.execute("UPDATE users SET demerit_points= %s WHERE school_email=%s", [demerits, request.session['email']])
+                #               
+                cursor.execute("SELECT * FROM requests WHERE accepted=false and loaner<>%s",[request.session['email']])
+                requests = cursor.fetchall()
+                cursor.execute("SELECT * FROM requests WHERE accepted=false and loaner=%s",[request.session['email']])
+                my_requests=cursor.fetchall()
+            result_dict = {'requests': requests, 'my_requests':my_requests}
+            return render(request, "app/home.html",  {'requests': requests, 'my_requests':my_requests})
+        
+        context['status'] = status
+        return render(request, "app/index.html", context)
+
+    return render(request,'app/index.html',{})
 
 def index(request):
     """Shows the main page"""
