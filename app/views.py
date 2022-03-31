@@ -346,7 +346,7 @@ def voucher(request):
         cursor.execute("SELECT * FROM vouch")
         voucher=cursor.fetchall()
         cursor.execute('SELECT * from users WHERE school_email =%s', [request.session['email'] ])
-        points=cursor.fetchone()
+        points=cursor.fetchall()
         
     results_dict={'voucher':voucher, 'points':points}
     
