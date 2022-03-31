@@ -97,6 +97,7 @@
                 <th>Item</th>
                 <th>Date Borrowed</th>
                 <th>Date Return</th>
+		<th>Days Overdue</th>
             </thead>
             {% for b in borrowed %}
             <tr>
@@ -104,6 +105,7 @@
                 <td> {{ b.3 }} </td>
                 <td> {{ b.4 }} </td>
                 <td> {{ b.5 }} </td>
+		<td> {{ b.7 }} </td>
             <tr>
             {% endfor %}
         </table>
