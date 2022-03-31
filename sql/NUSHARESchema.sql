@@ -15,13 +15,6 @@ suspend BOOLEAN DEFAULT FALSE,
 CHECK (users.current_borrowed_items <= users.max_request)
 );
 
-CREATE TABLE category (
-category VARCHAR(64) PRIMARY KEY UNIQUE
-);
-
-CREATE TABLE location (
-location VARCHAR(64) PRIMARY KEY UNIQUE
-);
 
 
 CREATE TABLE requests (
