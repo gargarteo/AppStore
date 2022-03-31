@@ -3,6 +3,24 @@ from django.db import connection
 from django.http import HttpResponse  
 import datetime
 
+def voucher_store(request):
+    """Shows the main page"""
+
+    ## Delete customer
+    if request.POST:
+        if request.POST['action'] == 'delete':
+            with connection.cursor() as cursor:
+                cursor.execute("DELETE FROM vouch WHERE voucher_name = %s", [request.POST['voucher_name']])
+
+    ## Use raw query to get all objects
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM vouch ORDER BY merchant_name")
+        vouch = cursor.fetchall()
+
+    result_dict = {'vouch': vouch}
+
+    return render(request,'app/voucher_store.html',result_dict)
+
 def new_request(request):
     context = {}
     status = ''             
