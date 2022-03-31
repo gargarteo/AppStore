@@ -148,7 +148,7 @@ def index(request):
                 cursor.execute("UPDATE loan SET days_overdue= (CURRENT_DATE- return_deadline) WHERE return_deadline<CURRENT_DATE")
                 cursor.execute("SELECT COALESCE(SUM(days_overdue),0) FROM loan WHERE borrower=%s", [request.POST['school_email']])
                 demerits= cursor.fetchone()
-                if demerits<8:
+                if demerits[0]<8:
                     cursor.execute("UPDATE users SET demerit_points= %s WHERE school_email=%s and suspend=false", [demerits, request.POST['school_email']])
                 else:
                     cursor.execute("UPDATE users SET suspend= true WHERE school_email=%s", [request.POST['school_email']])
