@@ -302,10 +302,8 @@ def profile(request):
         cursor.execute("SELECT * FROM requests WHERE loaner=%s AND accepted=false", [request.session['email']])
         requests= cursor.fetchall()
         cursor.execute("UPDATE loan SET days_overdue= (CURRENT_DATE- return_deadline) WHERE return_deadline<CURRENT_DATE")
-        cursor.execute("SELECT SUM(days_overdue) FROM loan WHERE borrower=%s", [request.session['email']])
+        cursor.execute("SELECT COALESCE(SUM(days_overdue),0) FROM loan WHERE borrower=%s", [request.session['email']])
         demerits= cursor.fetchone()
-        if not demerits:
-            demerits=0
         cursor.execute("UPDATE users SET demerit_points= %s WHERE school_email=%s", [demerits, request.session['email']])
         cursor.execute("SELECT * FROM loan WHERE owner= %s", [request.session['email']])
         loan=cursor.fetchall()
