@@ -418,4 +418,4 @@ def voucher(request):
                     status = 'Not enough points to purchase voucher!'
                     context['status'] = status
                     return render(request,'app/voucher.html',context)
-    return render(request,'app/voucher.html',vouchers_dict)
+    return render(request,'app/voucher.html',results_dict)
