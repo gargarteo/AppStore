@@ -189,43 +189,6 @@ def index(request):
 
     return render(request,'app/index.html',{})
 
-def index(request):
-    """Shows the main page"""
-    
-    #Login
-    if request.POST:    
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT school_email, password FROM users WHERE school_email = %s AND password = %s AND suspend = FALSE", [request.POST['school_email'],request.POST['password']])
-            account = cursor.fetchone()
-            email = request.POST['school_email']
-            
-           
-        context = {}
-        status = ''
-        request.session['email'] = email
-        if account == None:
-            status = 'Wrong Login Details or your account has been suspended'
-        elif request.POST['school_email'] == 'admin@u.nus.edu' and request.POST['password'] == '123456':
-            with connection.cursor() as cursor:
-                cursor.execute("SELECT * FROM users")
-                users = cursor.fetchall()
-            result_dict = {'users': users}
-            
-            return redirect('admin_home')
-        #render(request, "app/admin_home.html", {'users': users})
-        else:
-            with connection.cursor() as cursor:
-                cursor.execute("SELECT * FROM requests WHERE accepted=false and loaner<>%s",[request.session['email']])
-                requests = cursor.fetchall()
-                cursor.execute("SELECT * FROM requests WHERE accepted=false and loaner=%s",[request.session['email']])
-                my_requests=cursor.fetchall()
-            result_dict = {'requests': requests, 'my_requests':my_requests}
-            return render(request, "app/home.html",  {'requests': requests, 'my_requests':my_requests})
-        
-        context['status'] = status
-        return render(request, "app/index.html", context)
-
-    return render(request,'app/index.html',{})
 
 def logout(request):
    try:
