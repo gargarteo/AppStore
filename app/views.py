@@ -139,7 +139,23 @@ def admin_userview(request, email):
     profile_dict = {'full_profile': full_profile, 'requests':requests, 'loan': loan, 'borrowed':borrowed, 'vouchers':vouchers}
     return render(request,'app/admin_userview.html',profile_dict)
 
+def admin_voucher(request):
+    """Shows the main page"""
 
+    ## Delete voucher
+    if request.POST:
+        if request.POST['action'] == 'delete_voucher':
+            with connection.cursor() as cursor:
+                cursor.execute("DELETE FROM vouch WHERE voucher_name = %s", [request.POST['voucher_name']])
+
+    ## Use raw query to get all objects
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM vouch ORDER BY merchant_name")
+        vouch = cursor.fetchall()
+
+    result_dict = {'vouch': vouch}
+
+    return render(request,'app/admin_voucher.html',result_dict)
 
 def index(request):
     """Shows the main page"""
