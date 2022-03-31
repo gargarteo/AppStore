@@ -362,7 +362,7 @@ def voucher(request):
                 pts= cursor.fetchone()
                 if (pts<=profilepoints):
                     cursor.execute("INSERT INTO vouchers (voucher_name, merchant_name, voucher_value,owner_of_voucher) VALUES (%s, %s, %s,%s)"
-                        , [ request.POST['voucher_name'], request.POST['merchant_name'], request.POST['voucher_value'],[request.session['email'] ])
+                        , [ request.POST['voucher_name'], request.POST['merchant_name'], request.POST['voucher_value'], request.session['email'] ])
                     cursor.execute("UPDATE users SET u.vouchers_points = u.vouchers_points-v.points_required FROM users u, vouch v WHERE u.school_email=%s",[request.session['email']])
                     status = 'Voucher successfully claimed'
 
