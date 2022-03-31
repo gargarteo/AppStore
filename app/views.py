@@ -360,11 +360,15 @@ def profile(request):
     profile_dict = {'full_profile': full_profile, 'requests':requests, 'loan': loan, 'borrowed':borrowed, 'voucher':voucher}
     return render(request,'app/profile.html',profile_dict)
     
-def voucher_store(request):
+def voucher(request):
     with connection.cursor() as cursor:
         cursor.execute("SELECT * FROM vouch")
         voucher=cursor.fetchall()
-    vouchers_dict={'voucher':voucher}
+        
+        
+        
+        
+    results_dict={'voucher':voucher, 'points':points}
     
     #Need add the buy functionality
     context = {}
@@ -383,26 +387,4 @@ def voucher_store(request):
                     status = 'Not enough points to purchase voucher!'
                     context['status'] = status
                     return render(request,'app/voucher.html',context)
-    return render(request,'app/voucher_store.html',vouchers_dict)
-
-#buy voucher function
-#def use(request, voucherid):
-#    context = {}
-#    status = ''
-#    if request.POST:
-#        if request.POST['action'] == 'claim':
-##            with connection.cursor() as cursor:
-#                cursor.execute("SELECT voucher_points FROM users WHERE school_email=%s", [request.session['email']])
-#                profilepoints=cursor.fetchall()
-#                cursor.execute("SELECT points_required FROM vouchers WHERE voucher_id=voucherid")
-#                pts= cursor.fetchone()
-#                if (voucherid<=(profilepoints)):
-#                    cursor.execute("UPDATE voucher SET owner_of_voucher=%s WHERE voucher_id=%s", [request.session['email'],voucherid])
-#                    cursor.execute("UPDATE users SET vouchers_points=(profilepoints)-(%s) WHERE school_email=%s", [pts,request.session['email']])
-#                else:
-#                    status = 'Not enough points to purchase voucher!'
-#    context['status'] = status
-#    return render(request, "app/voucher.html", context)
-    
-
-
+    return render(request,'app/voucher.html',vouchers_dict)
