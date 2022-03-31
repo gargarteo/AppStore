@@ -121,7 +121,7 @@ def admin_userview(request, email):
             with connection.cursor() as cursor:
                 cursor.execute("DELETE FROM requests WHERE request_id = %s", [request.POST['request_id']])
                 
-        if request.POST['action'] == 'delete_voucher':
+        elif request.POST['action'] == 'delete_voucher':
             with connection.cursor() as cursor:
                 cursor.execute("DELETE FROM vouchers WHERE voucher_id = %s", [request.POST['voucher_id']])
     
