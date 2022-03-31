@@ -3,11 +3,10 @@
 <body>
     <h1 align = center>Voucher Store</h1>
    <br/><br/>
-    <table style='text-align:left'>
  {% for f in points %}
-           <th>Points: {{ f.0 }} </th>
+	    <p> Points: {{ f.0 }} </p>
   {% endfor %}
-	</table>
+
     <p style="color:red">{{ status|safe }}</p>
     <h3 align=center>Shop Vouchers<h3>
     <table border=1 align=center>
