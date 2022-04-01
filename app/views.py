@@ -62,7 +62,7 @@ def admin_home(request):
                 cursor.execute('SELECT suspend from users where school_email=%s', [request.POST['school_email'] ])
                 user_status = cursor.fetchone()
                 if user_status[0]: #If true (suspended)
-                    cursor.execute('DELETE FROM loan where borrower=%s AND overdue_days > 0', [request.POST['school_email'] ])
+                    cursor.execute('DELETE FROM loan where borrower=%s AND days_overdue > 0', [request.POST['school_email'] ])
                 else: #Not suspended
                     cursor.execute("UPDATE users SET suspend = TRUE WHERE school_email = %s", [request.POST['school_email']])
                 
