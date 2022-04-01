@@ -103,8 +103,7 @@
                 <td> {{ b.3 }} </td>
                 <td> {{ b.4 }} </td>
                 <td> {{ b.5 }} </td>
-                <td> <form method="POST" style="display: inline;">
-                {% csrf_token %}
+   
               <td><form method="POST" style="display: inline;">
 		{% csrf_token %}
 	        <input type="hidden" name="request_id" value="{{b.0}}"/>
