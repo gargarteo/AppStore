@@ -66,6 +66,7 @@ def admin_home(request):
                     cursor.execute("SELECT COALESCE(SUM(days_overdue),0) FROM loan WHERE borrower=%s", [request.POST['school_email']])
                     demerits= cursor.fetchone()
                     cursor.execute("UPDATE users SET demerit_points= %s WHERE school_email=%s", [demerits[0], request.POST['school_email']])
+                    cursor.execute('UPDATE users SET suspend = FALSE WHERE school_email = %s', [request.POST['school_email']])
                 else: #Not suspended
                     cursor.execute("UPDATE users SET suspend = TRUE WHERE school_email = %s", [request.POST['school_email']])
                 
