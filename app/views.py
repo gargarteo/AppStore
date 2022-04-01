@@ -130,7 +130,7 @@ def admin_userview(request, email):
                 
         elif request.POST['action'] == 'returned':
             with connection.cursor() as cursor:
-                    cursor.execute("UPDATE loan SET returned=TRUE WHERE request_id=%s", [request.POST['returned']])
+                    cursor.execute("UPDATE loan SET returned=TRUE WHERE request_id=%s", [request.POST['request_id']])
     
     with connection.cursor() as cursor: 
         cursor.execute("SELECT * FROM users WHERE school_email=%s", [email]) 
