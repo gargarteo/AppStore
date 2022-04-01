@@ -3,6 +3,7 @@ from django.db import connection
 from django.http import HttpResponse  
 import datetime
 
+
 def new_request(request):
     context = {}
     status = ''             
