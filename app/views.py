@@ -130,7 +130,7 @@ def admin_userview(request, email):
                 
         elif request.POST['action'] == 'returned':
             with connection.cursor() as cursor:
-                    cursor.execute("UPDATE loan SET returned=TRUE WHERE request_id=%s", [request.POST['request_id']])
+                cursor.execute("UPDATE loan SET returned=TRUE WHERE request_id=%s", [request.POST['request_id']])
     
     with connection.cursor() as cursor: 
         cursor.execute("SELECT * FROM users WHERE school_email=%s", [email]) 
@@ -356,12 +356,10 @@ def voucher(request):
                     cursor.execute("UPDATE users SET vouchers_points = vouchers_points-%s WHERE school_email=%s"
                                    ,[pts[0], request.session['email'] ])
                     status = 'Voucher successfully claimed'
-                    #results_dict={'voucher':voucher, 'points':points,'status':status}
-
 
                 else:
                     status = 'Not enough points to purchase voucher!'
-                    #results_dict={'voucher':voucher, 'points':points,'status':status}
+                    
     with connection.cursor() as cursor:
         cursor.execute("SELECT * FROM vouch")
         voucher=cursor.fetchall()
