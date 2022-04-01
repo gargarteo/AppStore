@@ -120,7 +120,7 @@ def admin_userview(request, email):
     with connection.cursor() as cursor: 
         cursor.execute("SELECT * FROM users WHERE school_email=%s", [email]) 
         full_profile= cursor.fetchall()
-        cursor.execute("SELECT * FROM requests WHERE loaner=%s AND accepted == FALSE", [email])
+        cursor.execute("SELECT * FROM requests WHERE loaner=%s AND accepted = FALSE", [email])
         requests= cursor.fetchall()
         cursor.execute("SELECT * FROM loan WHERE owner= %s", [email])
         loan=cursor.fetchall()
