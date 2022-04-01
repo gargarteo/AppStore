@@ -42,14 +42,12 @@ def home(request):
                date_borrowed= (cursor.fetchone())
                cursor.execute("SELECT return_date FROM requests WHERE request_id=%s",[request.POST['id']])
                return_deadline= (cursor.fetchone())
-               returned_date= return_deadline
-               cursor.execute("INSERT INTO loan VALUES (%s, %s, %s, %s, %s, %s, %s)", [request.POST['id'], borrower, request.session['email'], item , date_borrowed, return_deadline, returned_date])
+               cursor.execute("INSERT INTO loan VALUES (%s, %s, %s, %s, %s, %s)", [request.POST['id'], borrower, request.session['email'], item , date_borrowed, return_deadline])
                cursor.execute("UPDATE requests SET accepted=true WHERE request_id=%s",[request.POST['id']])
                cursor.execute("UPDATE users SET vouchers_points=vouchers_points+100 WHERE school_email=%s",[request.session['email']])
                return redirect('profile')
     with connection.cursor() as cursor:
         cursor.execute("SELECT * FROM requests WHERE accepted=false and loaner<>%s  ORDER BY date_needed ASC",[request.session['email']])
-        #cursor.execute("SELECT * FROM requests r, user u WHERE r.accepted=false and r.loaner<>%s and u.school_email=r.loaner ORDER BY date_needed ASC",[request.session['email']])
         requests = cursor.fetchall()
         cursor.execute("SELECT * FROM requests WHERE accepted=false and loaner=%s ORDER BY date_needed ASC",[request.session['email']])
         my_requests=cursor.fetchall()
@@ -225,11 +223,8 @@ def index(request):
             cursor.execute("UPDATE loan SET days_overdue= (CURRENT_DATE- return_deadline) WHERE return_deadline<CURRENT_DATE")
             if account:
                 cursor.execute("SELECT COALESCE(SUM(days_overdue),0) FROM loan WHERE borrower=%s", [request.POST['school_email']])
-                loan_demerits= cursor.fetchone()
-                cursor.execute("SELECT demerit_points FROM users where school_email =%s", [request.POST['school_email']])
-                user_demerits=cursor.fetchone()
-                demerits=loan_demerits[0]+user_demerits[0]
-                cursor.execute("UPDATE users SET demerit_points= %s WHERE school_email=%s", [demerits, request.POST['school_email']])
+                demerits= cursor.fetchone()
+                cursor.execute("UPDATE users SET demerit_points= %s WHERE school_email=%s", [demerits[0], request.POST['school_email']])
                 cursor.execute("UPDATE users SET suspend= true WHERE school_email=%s AND demerit_points>=8 ", [request.POST['school_email']])
             #
             cursor.execute("SELECT school_email, password FROM users WHERE school_email = %s AND password = %s AND suspend = FALSE", [request.POST['school_email'],request.POST['password']])
@@ -306,9 +301,9 @@ def profile(request):
         full_profile= cursor.fetchall()
         cursor.execute("SELECT * FROM requests WHERE loaner=%s AND accepted=false", [request.session['email']])
         requests= cursor.fetchall()
-        cursor.execute("SELECT * FROM loan WHERE owner= %s", [request.session['email']])
+        cursor.execute("SELECT * FROM loan WHERE owner= %s AND returned=false", [request.session['email']])
         loan=cursor.fetchall()
-        cursor.execute("SELECT * FROM loan WHERE borrower=%s", [request.session['email']])
+        cursor.execute("SELECT * FROM loan WHERE borrower=%s AND returned=false", [request.session['email']])
         borrowed=cursor.fetchall()
         cursor.execute("SELECT * FROM vouchers WHERE owner_of_voucher=%s AND used=FALSE", [request.session['email']])
         vouchers=cursor.fetchall() 
@@ -320,7 +315,7 @@ def profile(request):
                     return redirect('profile')
             if request.POST['action']=='returned':
                 with connection.cursor() as cursor:
-                    cursor.execute("DELETE FROM loan WHERE request_id=%s", [request.POST['returned']])
+                    cursor.execute("UPDATE loan SET returned=TRUE WHERE request_id=%s", [request.POST['returned']])
                     return redirect('profile')
             if request.POST['action']=='use':
                 with connection.cursor() as cursor:
