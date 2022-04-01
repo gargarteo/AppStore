@@ -94,6 +94,7 @@
                 <th>Item</th>
                 <th>Date Borrowed</th>
                 <th>Date Return</th>
+                <th>Return</th>
             </thead>
             {% for b in borrowed %}
             <tr>
@@ -102,7 +103,13 @@
                 <td> {{ b.3 }} </td>
                 <td> {{ b.4 }} </td>
                 <td> {{ b.5 }} </td>
-            <tr>
+                <td> <form method="POST" style="display: inline;">
+                {% csrf_token %}
+              <td><form method="POST" style="display: inline;">
+		{% csrf_token %}
+	        <input type="hidden" name="request_id" value="{{b.0}}"/>
+                <button onclick="return confirm('Confirm returning {{ b.3 }}?');" type="submit" name="action" value="returned">Returned</button>
+		    </form></td>
             {% endfor %}
         </table>
     {% else %}
