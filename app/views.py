@@ -137,7 +137,7 @@ def admin_userview(request, email):
         full_profile= cursor.fetchall()
         cursor.execute("SELECT * FROM requests WHERE loaner=%s AND accepted = FALSE", [email])
         requests= cursor.fetchall()
-        cursor.execute("SELECT * FROM loan WHERE owner= %s", [email])
+        cursor.execute("SELECT * FROM loan WHERE owner= %s AND returned = FALSE", [email])
         loan=cursor.fetchall()
         cursor.execute("SELECT * FROM loan WHERE borrower=%s AND returned = FALSE", [email])
         borrowed=cursor.fetchall()
