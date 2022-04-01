@@ -127,6 +127,10 @@ def admin_userview(request, email):
         elif request.POST['action'] == 'delete_voucher':
             with connection.cursor() as cursor:
                 cursor.execute("DELETE FROM vouchers WHERE voucher_id = %s", [request.POST['voucher_id']])
+                
+        elif request.POST['action'] == 'returned':
+            with connection.cursor() as cursor:
+                    cursor.execute("UPDATE loan SET returned=TRUE WHERE request_id=%s", [request.POST['returned']])
     
     with connection.cursor() as cursor: 
         cursor.execute("SELECT * FROM users WHERE school_email=%s", [email]) 
