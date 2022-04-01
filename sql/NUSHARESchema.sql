@@ -40,9 +40,12 @@ owner VARCHAR(64) NOT NULL REFERENCES users(school_email),
 item VARCHAR(64) NOT NULL,
 date_borrowed DATE NOT NULL,
 return_deadline DATE,
-returned_date DATE,
+returned BOOLEAN NOT NULL DEFAULT FALSE,
 days_overdue INT DEFAULT 0.00
 );
+
+
+
 CREATE TABLE vouchers(
 voucher_id SERIAL PRIMARY KEY,
 voucher_name VARCHAR(64) NOT NULL,
