@@ -61,7 +61,7 @@ def admin_stats(request):
         #Account for users who same amount of loaned out items
         best_loaner = cursor.fetchall()
         
-        cursor.execute("SELECT item, count(*) from loan GROUP BY item HAVING count(*) >= ALL(SELECT count(*) from loan GROUPBY item)")
+        cursor.execute("SELECT item, count(*) from loan GROUP BY item HAVING count(*) >= ALL(SELECT count(*) from loan GROUP BY item)")
         hottest_item = cursor.fetchall()
         
     if request.POST:
@@ -72,7 +72,7 @@ def admin_stats(request):
                 #Account for users who same amount of loaned out items
                 best_loaner = cursor.fetchall()
         
-                cursor.execute("SELECT item, count(*) FROM loan GROUP BY item HAVING count(*) >= ALL(SELECT count(*) from loan GROUPBY item)")
+                cursor.execute("SELECT item, count(*) FROM loan GROUP BY item HAVING count(*) >= ALL(SELECT count(*) from loan GROUP BY item)")
                 hottest_item = cursor.fetchall()
                 
                 result_dict = {'best_loaner': best_loaner, 'hottest_item' : hottest_item}
