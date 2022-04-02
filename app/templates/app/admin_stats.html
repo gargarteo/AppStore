@@ -1,1 +1,114 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h1 align = center>User Statistics</h1>
+
+    <br/><br/>
+    <h3 align = center>User Table</h3> 
+
+  
+
+            <table border=1 align=center>
+                <thead>
+                    <th>Name</th>
+                    <th><div>School</div><div>Email</div></th>
+                    <th><div>No. of items</div><div>borrowed currently</div></th>
+                    <th><div>Demerit</div><div>Points</div></th>
+                    <th><div>Voucher</div><div>Points</div></th>
+                    <th><div>Maximum</div><div>Request</div></th>
+                    <th>Suspended</th>
+                    <th>View</th> 
+                    <th>Edit</th>
+                    <th>Suspend</th>
+                </thead>
+                 {% for r in users %}
+                  <tr>
+                    <td> {{ r.0 }} </td>
+                    <td> {{ r.1 }} </td>
+                    <td> {{ r.2 }} </td>
+                    <td> {{ r.3 }} </td>
+                    <td> {{ r.4 }} </td>
+                    <td> {{ r.5 }} </td>
+                    <td> {{ r.7 }} </td>
+                    
+                <!--
+                <td> <form method="POST" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="school_email" value="{{r.1}}"/>
+                <a href = "profile"><button type="submit" name="action" value="admin_view">
+                    View</button> </a> 
+                 </form>
+                </td>
+                -->
+                      
+                <td> <a href="admin_userview/{{r.1}}"><button>view</button></a>     
+                 </td>
+                      
+                <!--
+                <td> <form method="POST" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="school_email" value="{{r.1}}"/>
+                <a href = "admin_useredit"><button type="submit" name="action" value="admin_useredit">
+                    Edit</button> </a> 
+                 </form>
+                </td>
+                -->
+                 <td> <a href="admin_useredit/{{r.1}}"><button>Edit</button></a>     
+                 </td>
+                 
+                <td> <form method="POST" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="school_email" value="{{r.1}}"/>
+                <button onclick="return confirm('Are you sure you want suspend {{r.0}} with an email of {{r.1}} ?');" type="submit" name="action" value="suspend_user">
+                    Suspend User</button> 
+                 </form></td>
+                </tr>
+                {% endfor %}
+          </table>
+          
+  <br/><br/>  
+    
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.btn {
+  background-color: DodgerBlue;
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.button {background-color: #f44336;
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+  background-color: RoyalBlue;
+}
+
+.button:hover {
+  background-color: DarkRed;
+}
+</style>
+</head>
+<body align = center>
+
+</br></br><br/><br/>
+<button class="btn"><i class="fa fa-home"></i>Home</button>
+<a href ="admin_voucher"><button class="btn"><i class="fa fa-gift-card"></i> Vouchers</button></a>
+<a href ="admin_stats"><button class="btn"><i class="fa fa-bar-chart"></i> Vouchers</button></a>    
+<a href = "/"> <button class="button" ><i class="fa fa-sign-out"></i> Logout </button> </a>
+
+
+</body>
+</html>
 
