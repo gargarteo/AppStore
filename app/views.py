@@ -236,7 +236,6 @@ def index(request):
             cursor.execute("SELECT school_email, password FROM users WHERE school_email = %s AND password = %s AND suspend = FALSE", [request.POST['school_email'],request.POST['password']])
             account = cursor.fetchone()
             cursor.execute("UPDATE loan SET days_overdue= (CURRENT_DATE- return_deadline) WHERE return_deadline<CURRENT_DATE")
-            cursor.execute("UPDATE users SET demerit_points= (SELECT SUM(days_overdue) FROM loan GROUP BY borrower) WHERE users.school_email= loan.borrower")
             if account:
                 cursor.execute("SELECT COALESCE(SUM(days_overdue),0) FROM loan WHERE borrower=%s", [request.POST['school_email']])
                 demerits= cursor.fetchone()
