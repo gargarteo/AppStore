@@ -37,8 +37,10 @@
                   <tr>
                     <td> {{ i.0 }} </td>
                     <td> {{ i.1 }} </td>
-                {% else %}
-                {% endfor %}
+                 {% endfor %}
+         {% else %}
+         {% endif %}
+                
           </table>
   <br/><br/> 
     
@@ -55,11 +57,12 @@
                   <tr>
                     <td> {{ i.0 }} </td>
                     <td> {{ i.1 }} </td>
-                {% else %}
-                {% endfor %}
-          </table>  
-       
-  {% endif %}
+                    {% endfor %}
+             {% else %}
+             {% endif %}
+
+              </table>
+      <br/><br/> 
 
  
 
