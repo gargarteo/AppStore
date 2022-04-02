@@ -61,18 +61,18 @@ def admin_stats(request):
         #Account for users who same amount of loaned out items
         best_loaner = cursor.fetchall()
         
-        cursor.execute("SELECT item, count(*) from loan GROUPBY item HAVING count(*) >= ALL(SELECT count(*) from loan GROUPBY item")
+        cursor.execute("SELECT item, count(*) from loan GROUPBY item HAVING count(*) >= ALL(SELECT count(*) from loan GROUPBY item)")
         hottest_item = cursor.fetchall()
         
     if request.POST:
         #Need choose the category
         if request.POST['category'] == 'general':
             with connection.cursor() as cursor:
-                cursor.execute("SELECT owner, count(*) FROM loan GROUP BY owner HAVING count(*) >= ALL(SELECT count(*) from loan GROUP BY owner")
+                cursor.execute("SELECT owner, count(*) FROM loan GROUP BY owner HAVING count(*) >= ALL(SELECT count(*) from loan GROUP BY owner)")
                 #Account for users who same amount of loaned out items
                 best_loaner = cursor.fetchall()
         
-                cursor.execute("SELECT item, count(*) from loan GROUPBY item HAVING count(*) >= ALL(SELECT count(*) from loan GROUPBY item")
+                cursor.execute("SELECT item, count(*) from loan GROUPBY item HAVING count(*) >= ALL(SELECT count(*) from loan GROUPBY item)")
                 hottest_item = cursor.fetchall()
                 
                 result_dict = {'best_loaner': best_loaner, 'hottest_item' : hottest_item}
@@ -81,7 +81,7 @@ def admin_stats(request):
             
         elif request.POST['category'] == 'loaners':
             with connection.cursor() as cursor:
-                cursor.execute('SELECT owner, count(*) from loan GROUPBY owner WHERE NOT IN (SELECT borrower from loan')
+                cursor.execute('SELECT owner, count(*) from loan GROUPBY owner WHERE NOT IN (SELECT borrower from loan)')
                 loaners = cursor.fetchall()
                 
                 result_dict = {'loaners': loaners}
@@ -89,7 +89,7 @@ def admin_stats(request):
             
         elif request.POST['category'] == 'borrowers':
             with connection.cursor() as cursor:
-                cursor.execute('SELECT borrower, count(*) from loan GROUPBY borrower WHERE NOT IN (SELECT owner from loan')
+                cursor.execute('SELECT borrower, count(*) from loan GROUPBY borrower WHERE NOT IN (SELECT owner from loan)')
                 borrower = cursor.fetchall()
                 
                 result_dict = {'borrower': borrower}
