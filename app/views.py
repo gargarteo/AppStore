@@ -258,6 +258,7 @@ def admin_editvoucher(request, voucher_name):
 
 def index(request):
     """Shows the main page"""
+    #this doesnt work :(
     with connection.cursor() as cursor:
         cursor.execute("UPDATE loan SET days_overdue= (CURRENT_DATE- return_deadline) WHERE return_deadline<CURRENT_DATE")
         cursor.execute("CREATE OR REPLACE VIEW tempp AS SELECT borrower, COALESCE(SUM(days_overdue),0) as sum FROM loan GROUP BY borrower")
