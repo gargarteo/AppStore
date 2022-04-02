@@ -54,6 +54,35 @@ def home(request):
         my_requests=cursor.fetchall()
         return render(request, "app/home.html",  {'requests': requests, 'my_requests':my_requests})
 
+def admin_stats(request):
+    ## Suspend customer
+    if request.POST:
+        if request.POST['action'] == 'suspend_user':
+            with connection.cursor() as cursor:
+                cursor.execute('SELECT suspend from users where school_email=%s', [request.POST['school_email'] ])
+                user_status = cursor.fetchone()
+                if user_status[0]: #If true (suspended)
+                    cursor.execute('DELETE FROM loan where borrower=%s AND days_overdue > 0', [request.POST['school_email'] ])
+                    cursor.execute("SELECT COALESCE(SUM(days_overdue),0) FROM loan WHERE borrower=%s", [request.POST['school_email']])
+                    demerits= cursor.fetchone()
+                    cursor.execute("UPDATE users SET demerit_points= %s WHERE school_email=%s", [demerits[0], request.POST['school_email']])
+                    cursor.execute('UPDATE users SET suspend = FALSE WHERE school_email = %s', [request.POST['school_email']])
+                else: #Not suspended
+                    cursor.execute("UPDATE users SET suspend = TRUE WHERE school_email = %s", [request.POST['school_email']])
+                
+                
+                cursor.execute("SELECT * FROM users ORDER BY name ASC")
+                users = cursor.fetchall()
+                result_dict = {'users': users}
+                
+                return render(request,'app/admin_stats.html',result_dict)
+    
+    with connection.cursor() as cursor:            
+        cursor.execute("SELECT * FROM users ORDER BY name ASC")
+        users = cursor.fetchall()
+
+    result_dict = {'users': users}
+    return render(request,'app/admin_stats.html',result_dict)
 
 def admin_home(request):
     ## Suspend customer
