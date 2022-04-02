@@ -81,7 +81,7 @@ def admin_stats(request):
             
         elif request.POST['category'] == 'loaners':
             with connection.cursor() as cursor:
-                cursor.execute('SELECT l1.owner, count(*) from loan l1 GROUP BY l1.owner WHERE NOT IN (SELECT l2.borrower from loan l2)')
+                cursor.execute('SELECT l1.owner, count(*) FROM loan l1 WHERE l1.owner NOT IN (SELECT l2.borrower from loan l2) GROUP BY l1.owner')
                 loaners = cursor.fetchall()
                 
                 result_dict = {'loaners': loaners}
@@ -89,7 +89,7 @@ def admin_stats(request):
             
         elif request.POST['category'] == 'borrowers':
             with connection.cursor() as cursor:
-                cursor.execute('SELECT borrower, count(*) from loan GROUP BY borrower WHERE NOT IN (SELECT owner from loan)')
+                cursor.execute('SELECT l1.borrower, count(*) from loan l1 WHERE l1.borrower NOT IN (SELECT l2.owner from loan l2) GROUP BY l1.borrower')
                 borrower = cursor.fetchall()
                 
                 result_dict = {'borrower': borrower}
