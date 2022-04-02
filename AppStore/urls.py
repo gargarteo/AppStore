@@ -34,5 +34,6 @@ urlpatterns = [
     path('admin_voucher', app.views.admin_voucher, name='admin_voucher'),
     path('admin_addvoucher', app.views.admin_addvoucher, name='admin_addvoucher'),
     path('admin_editvoucher', app.views.admin_editvoucher, name='admin_editvoucher'),
-    path('admin_stats', app.views.admin_stats, name='admin_stats')
+    path('admin_stats', app.views.admin_stats, name='admin_stats'),
+    path('admin_stats_general', app.views.admin_stats, name='admin_stats_general')
 ]
