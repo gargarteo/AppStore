@@ -57,7 +57,7 @@ def home(request):
 def admin_stats(request):
     ## Suspend customer
     with connection.cursor() as cursor:
-        cursor.execute("SELECT owner, count(*) FROM loan GROUP BY owner HAVING count(*) >= ALL(SELECT count(owner) from loan GROUP BY owner")
+        cursor.execute("SELECT owner, count(*) FROM loan GROUP BY owner HAVING count(*) >= ALL(SELECT count(owner) from loan GROUP BY owner)")
         #Account for users who same amount of loaned out items
         best_loaner = cursor.fetchall()
         
