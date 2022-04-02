@@ -261,7 +261,7 @@ def index(request):
     with connection.cursor() as cursor:
         cursor.execute("UPDATE loan SET days_overdue= (CURRENT_DATE- return_deadline) WHERE return_deadline<CURRENT_DATE")
         cursor.execute("CREATE OR REPLACE VIEW tempp AS SELECT borrower, COALESCE(SUM(days_overdue),0) as sum FROM loan GROUP BY borrower")
-        cursor.execute("UPDATE users SET demerit_points= t.sum FROM tempp t WHERE borrower IN t.borrower")
+        cursor.execute("UPDATE users SET demerit_points= tempp.sum FROM users JOIN tempp ON users.school_email=tempp.borrower")
     #this doesnt work :(
     #with connection.cursor() as cursor:
         #cursor.execute("UPDATE loan SET days_overdue= (CURRENT_DATE- return_deadline) WHERE return_deadline<CURRENT_DATE")
