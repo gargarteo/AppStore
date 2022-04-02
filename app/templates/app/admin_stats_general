@@ -1,1 +1,12 @@
+<html>
+<body>
+    <h2>User Edit</h2>
+    <a href="https://project-it2002-gargar.herokuapp.com/admin_stats">Back to Statistics</a>
+
+    <p style="color:red">{{ status|safe }}</p>
+
+  
+
+</body>
+</html>
 
