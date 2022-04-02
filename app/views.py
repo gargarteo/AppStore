@@ -267,11 +267,11 @@ def index(request):
             cursor.execute("UPDATE loan SET days_overdue= (CURRENT_DATE- return_deadline) WHERE return_deadline<CURRENT_DATE")
             cursor.execute("CREATE OR REPLACE VIEW tempp AS SELECT borrower, COALESCE(SUM(days_overdue),0) as sum FROM loan GROUP BY borrower")
             cursor.execute("UPDATE users SET demerit_points= t.sum FROM tempp t, users u WHERE t.borrower=u.school_email")
-            if account:
-                cursor.execute("SELECT COALESCE(SUM(days_overdue),0) FROM loan WHERE borrower=%s", [request.POST['school_email']])
-                demerits= cursor.fetchone()
-                cursor.execute("UPDATE users SET demerit_points= %s WHERE school_email=%s", [demerits[0], request.POST['school_email']])
-                cursor.execute("UPDATE users SET suspend= true WHERE school_email=%s AND demerit_points>=8 ", [request.POST['school_email']])
+            #if account:
+                #cursor.execute("SELECT COALESCE(SUM(days_overdue),0) FROM loan WHERE borrower=%s", [request.POST['school_email']])
+               # demerits= cursor.fetchone()
+                #cursor.execute("UPDATE users SET demerit_points= %s WHERE school_email=%s", [demerits[0], request.POST['school_email']])
+               # cursor.execute("UPDATE users SET suspend= true WHERE school_email=%s AND demerit_points>=8 ", [request.POST['school_email']])
             #
             cursor.execute("SELECT school_email, password FROM users WHERE school_email = %s AND password = %s AND suspend = FALSE", [request.POST['school_email'],request.POST['password']])
             account = cursor.fetchone()
