@@ -22,12 +22,8 @@
  <button type="submit" value="admin_stats">Submit</button> 
     </form> 
 
-
   <br/><br/>  
-        <table border=1 align=center>
           </table>
-            
-  
         <p style="color:blue" align=center>Best Loaner</p>
             <table border=1 align=center>
                 <thead>
@@ -38,21 +34,15 @@
                   <tr>
                     <td> {{ i.0 }} </td>
                     <td> {{ i.1 }} </td>
-                 {% endfor %}
-
-                              
-
-                
+                 {% endfor %}          
           </table>
   <br/><br/> 
-        <table border=1 align=center>
+
   </table>
-            
-  
-        <p style="color:blue" align=center>Best Loaner</p>
+        <p style="color:blue" align=center>Hottest Item</p>
             <table border=1 align=center>
                 <thead>
-                    <th>Name</th>
+                    <th>Item</th>
                     <th>Count</th>
                 </thead>
                  {% for i in hottest_item %}
@@ -60,10 +50,7 @@
                     <td> {{ i.0 }} </td>
                     <td> {{ i.1 }} </td>
                     {% endfor %}
-   
-                  
-        
-
+  
               </table>
       <br/><br/> 
 
