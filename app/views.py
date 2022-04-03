@@ -55,51 +55,31 @@ def home(request):
         return render(request, "app/home.html",  {'requests': requests, 'my_requests':my_requests})
 
 def admin_stats(request):
-    ## Suspend customer
+    
     with connection.cursor() as cursor:
         cursor.execute("SELECT owner, count(*) FROM loan GROUP BY owner HAVING count(*) >= ALL(SELECT count(owner) from loan GROUP BY owner)")
         #Account for users who same amount of loaned out items
         best_loaner = cursor.fetchall()
         
         cursor.execute("SELECT item, count(*) from loan GROUP BY item HAVING count(*) >= ALL(SELECT count(*) from loan GROUP BY item)")
-        hottest_item = cursor.fetchall()
-        
-    if request.POST:
-        #Need choose the category
-        if request.POST['category'] == 'general':
-            with connection.cursor() as cursor:
-                cursor.execute("SELECT owner, count(*) FROM loan GROUP BY owner HAVING count(*) >= ALL(SELECT count(*) from loan GROUP BY owner)")
-                #Account for users who same amount of loaned out items
-                best_loaner = cursor.fetchall()
-        
-                cursor.execute("SELECT item, count(*) FROM loan GROUP BY item HAVING count(*) >= ALL(SELECT count(*) from loan GROUP BY item)")
-                hottest_item = cursor.fetchall()
-                
-                result_dict = {'best_loaner': best_loaner, 'hottest_item' : hottest_item}
-                
-                return render(request,'app/admin_stats.html',result_dict)
-            
-        elif request.POST['category'] == 'loaners':
-            with connection.cursor() as cursor:
-                cursor.execute('SELECT l1.owner, count(*) FROM loan l1 WHERE l1.owner NOT IN (SELECT l2.borrower from loan l2) GROUP BY l1.owner')
-                loaners = cursor.fetchall()
-                
-                result_dict = {'loaners': loaners}
-                return render(request, 'app/admin_stats.html', result_dict)
-            
-        elif request.POST['category'] == 'borrowers':
-            with connection.cursor() as cursor:
-                cursor.execute('SELECT l1.borrower, count(*) from loan l1 WHERE l1.borrower NOT IN (SELECT l2.owner from loan l2) GROUP BY l1.borrower')
-                borrower = cursor.fetchall()
-                
-                result_dict = {'borrower': borrower}
-                return render(request, 'app/admin_stats.html', result_dict)
-          
-                
-    result_dict = {'best_loaner': best_loaner, 'hottest_item' : hottest_item}
-                
-    return render(request,'app/admin_stats.html',result_dict)
+        hottest_item = cursor.fetchall()        
+        result_dict = {'best_loaner': best_loaner, 'hottest_item' : hottest_item}
+        return render(request,'app/admin_stats.html',result_dict)
 
+def admin_loaners(request):
+    with connection.cursor() as cursor:
+        cursor.execute('SELECT l1.owner, count(*) FROM loan l1 WHERE l1.owner NOT IN (SELECT l2.borrower from loan l2) GROUP BY l1.owner')
+        loaners = cursor.fetchall()
+        result_dict = {'loaners': loaners}
+        return render(request, 'app/admin_loaners.html', result_dict)  
+    
+def admin_borrowers(request):
+    with connection.cursor() as cursor:
+        cursor.execute('SELECT l1.borrower, count(*) from loan l1 WHERE l1.borrower NOT IN (SELECT l2.owner from loan l2) GROUP BY l1.borrower')
+        borrowers = cursor.fetchall()
+        result_dict = {'borrowers': borrowers}
+        return render(request, 'app/admin_borrowers.html', result_dict)
+          
 
 def admin_home(request):
     ## Suspend customer
