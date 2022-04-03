@@ -61,6 +61,8 @@ def admin_stats(request):
                 return redirect('admin_borrowers')
             elif request.POST['category']=='loaners':
                 return redirect('admin_loaners')
+            elif request.POST['category']=='general':
+                return redirect('admin_stats')
             
     with connection.cursor() as cursor:
         cursor.execute("SELECT owner, count(*) FROM loan GROUP BY owner HAVING count(*) >= ALL(SELECT count(owner) from loan GROUP BY owner)")
@@ -77,6 +79,8 @@ def admin_loaners(request):
         if request.POST:
             if request.POST['category']=='borrowers':
                 return redirect('admin_borrowers')
+            elif request.POST['category']=='loaners':
+                return redirect('admin_loaners')
             elif request.POST['category']=='general':
                 return redirect('admin_stats')
     with connection.cursor() as cursor:
@@ -88,10 +92,12 @@ def admin_loaners(request):
 def admin_borrowers(request):
     with connection.cursor() as cursor:
         if request.POST:
-            if request.POST['category']=='general':
-                return redirect('admin_stats')
+            if request.POST['category']=='borrowers':
+                return redirect('admin_borrowers')
             elif request.POST['category']=='loaners':
                 return redirect('admin_loaners')
+            elif request.POST['category']=='general':
+                return redirect('admin_stats')
     with connection.cursor() as cursor:
         cursor.execute('SELECT l1.borrower, count(*) from loan l1 WHERE l1.borrower NOT IN (SELECT l2.owner from loan l2) GROUP BY l1.borrower')
         borrowers = cursor.fetchall()
