@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h1 align = center>User Statistics</h1>
+
+    <!-- Create a Form -->
+
+    <form method="POST">
+        <!-- Security token by Django -->
+        {% csrf_token %}
+        <!-- form -->		
+      <div id="div_id_category" class="control-group"> <label for="category" class="control-label requiredField">
+        Category:<span class="asteriskField">*</span> </label> </br>
+        <select name="category" id="category"> 
+    <option value="borrowers">Borrowers</option>
+    <option value="general">General</option>
+    </select><div class="controls">  </div> </div> 
+  
+  </select><div class="controls"> </div> </div> 
+        <br>
+ <button type="submit" value="admin_stats">Submit</button> 
+    </form> 
+
+
+  </table>
+        <p style="color:blue" align=center>Loaners who have not borrowed anything</p>
+            <table border=1 align=center>
+                <thead>
+                    <th>Loaner</th>
+                    <th>Number of items loaned</th>
+                </thead>
+                 {% for i in loaners %}
+                  <tr>
+                    <td> {{ i.0 }} </td>
+                    <td> {{ i.1 }} </td>
+                    {% endfor %}
+  
+              </table>
+      <br/><br/> 
+
+ 
+
+                
+
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.btn {
+  background-color: DodgerBlue;
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.button {background-color: #f44336;
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+  background-color: RoyalBlue;
+}
+
+.button:hover {
+  background-color: DarkRed;
+}
+</style>
+</head>
+<body align = center>
+
+</br></br><br/><br/>
+<a href ="https://project-it2002-gargar.herokuapp.com/admin_home"><button class="btn"><i class="fa fa-home"></i>Home</button></a>
+<a href ="admin_voucher"><button class="btn"><i class="fa fa-gift-card"></i> Vouchers</button></a>
+<a href ="admin_stats"><button class="btn"><i class="fa fa-bar-chart"></i> Statistics</button></a>    
+<a href = "/"> <button class="button" ><i class="fa fa-sign-out"></i> Logout </button> </a>
+
+
+</body>
+</html>
