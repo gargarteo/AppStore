@@ -84,7 +84,7 @@ def admin_loaners(request):
             elif request.POST['category']=='general':
                 return redirect('admin_stats')
     with connection.cursor() as cursor:
-        cursor.execute('SELECT l1.owner, count(*) FROM loan l1 WHERE l1.owner NOT IN (SELECT l2.borrower from loan l2) GROUP BY l1.owner')
+        cursor.execute('SELECT l1.owner, count(*) FROM loan l1 WHERE l1.owner NOT IN (SELECT l2.borrower from loan l2) GROUP BY l1.owner ORDER BY count(*) DESC')
         loaners = cursor.fetchall()
         result_dict = {'loaners': loaners}
         return render(request, 'app/admin_loaners.html', result_dict)  
@@ -99,7 +99,7 @@ def admin_borrowers(request):
             elif request.POST['category']=='general':
                 return redirect('admin_stats')
     with connection.cursor() as cursor:
-        cursor.execute('SELECT l1.borrower, count(*) from loan l1 WHERE l1.borrower NOT IN (SELECT l2.owner from loan l2) GROUP BY l1.borrower')
+        cursor.execute('SELECT l1.borrower, count(*) from loan l1 WHERE l1.borrower NOT IN (SELECT l2.owner from loan l2) GROUP BY l1.borrower ORDER BY count(*) DESC')
         borrowers = cursor.fetchall()
         result_dict = {'borrowers': borrowers}
         return render(request, 'app/admin_borrowers.html', result_dict)
