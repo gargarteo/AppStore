@@ -25,7 +25,7 @@
 
   <br/><br/>  
         <table border=1 align=center>
-        {% if 'best_loaner' in result_dict %}   </table>
+          </table>
             
   
         <p style="color:blue" align=center>Best Loaner</p>
@@ -39,14 +39,14 @@
                     <td> {{ i.0 }} </td>
                     <td> {{ i.1 }} </td>
                  {% endfor %}
-         {% else %}
+
                               
-         {% endif %}
+
                 
           </table>
   <br/><br/> 
         <table border=1 align=center>
-        {% if 'hottest_item' in result_dict %}   </table>
+  </table>
             
   
         <p style="color:blue" align=center>Best Loaner</p>
@@ -60,9 +60,9 @@
                     <td> {{ i.0 }} </td>
                     <td> {{ i.1 }} </td>
                     {% endfor %}
-             {% else %}
+   
                   
-             {% endif %}
+        
 
               </table>
       <br/><br/> 
