@@ -45,10 +45,11 @@ days_overdue INT DEFAULT 0.00
 );
 
 CREATE TABLE vouch (
-voucher_name VARCHAR(64) NOT NULL PRIMARY KEY,
+voucher_name VARCHAR(64) NOT NULL,
 merchant_name VARCHAR(64) NOT NULL,
 voucher_value INTEGER NOT NULL CHECK (voucher_value >0),
-points_required INTEGER NOT NULL CHECK(points_required >0)
+points_required INTEGER NOT NULL CHECK(points_required >0),
+PRIMARY KEY(voucher_name, merchant_name, voucher_value)
 );
 
 
