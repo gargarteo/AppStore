@@ -52,6 +52,7 @@ voucher_name VARCHAR(64) NOT NULL,
 merchant_name VARCHAR(64) NOT NULL,
 voucher_value INTEGER NOT NULL,
 used BOOLEAN NOT NULL DEFAULT FALSE,
+FOREIGN KEY (voucher_name, merchant_name, voucher_value) REFERENCES vouch(voucher_name, merchant_name, voucher_value),
 owner_of_voucher VARCHAR(64) references users(school_email));
 
 
