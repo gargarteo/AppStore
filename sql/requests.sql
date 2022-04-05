@@ -1,1 +1,3 @@
-
+INSERT INTO requests (item, loaner, category, date_needed, time_needed, return_date,return_time, meetup_location) VALUES (‘Mouse’,’e0599007@u.nus.edu’, ‘Electronics’, ‘04/16/2022’, ‘08:51’, ‘04/21/2022’, ‘11:30’, ‘Raffles Hall’)
+INSERT INTO requests (item, loaner, category, date_needed, time_needed, return_date,return_time, meetup_location) VALUES (‘Football’, ‘e0555975@u.nus.edu’, ‘Sports Equipment’, ‘04/16/2022’, ‘09:00’, ’04/17/2022’, ‘09:00’, ‘Raffles Hall’)
+INSERT INTO requests (item, loaner, category, date_needed, time_needed, return_date,return_time, meetup_location) VALUES (‘keyboard’,’e0599007@u.nus.edu’, ‘Electronics’, ‘04/30/2022’, ‘10:51’, ‘05/25/2022’, ‘13:30’, ‘AS 5’)
