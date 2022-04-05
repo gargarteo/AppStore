@@ -44,6 +44,12 @@ returned BOOLEAN NOT NULL DEFAULT FALSE,
 days_overdue INT DEFAULT 0.00
 );
 
+CREATE TABLE vouch (
+voucher_name VARCHAR(64) NOT NULL PRIMARY KEY,
+merchant_name VARCHAR(64) NOT NULL,
+voucher_value INTEGER NOT NULL CHECK (voucher_value >0),
+points_required INTEGER NOT NULL CHECK(points_required >0)
+);
 
 
 CREATE TABLE vouchers(
@@ -58,11 +64,5 @@ owner_of_voucher VARCHAR(64) references users(school_email));
 
 
 
-CREATE TABLE vouch (
-voucher_name VARCHAR(64) NOT NULL PRIMARY KEY,
-merchant_name VARCHAR(64) NOT NULL,
-voucher_value INTEGER NOT NULL CHECK (voucher_value >0),
-points_required INTEGER NOT NULL CHECK(points_required >0)
-);
 
 
