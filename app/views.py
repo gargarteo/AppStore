@@ -48,7 +48,7 @@ def home(request):
                cursor.execute("UPDATE users SET vouchers_points=vouchers_points+100 WHERE school_email=%s",[request.session['email']])
                return redirect('profile')
     with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM requests WHERE r.accepted=FALSE and r.loaner<>%s and return_date> CURRENT_DATE  ORDER BY date_needed ASC",[request.session['email']])
+        cursor.execute("SELECT * FROM requests WHERE accepted=FALSE and loaner<>%s and return_date> CURRENT_DATE  ORDER BY date_needed ASC",[request.session['email']])
         requests = cursor.fetchall()
         cursor.execute("SELECT * FROM requests WHERE accepted=false and loaner=%s and return_date> CURRENT_DATE  ORDER BY date_needed ASC",[request.session['email']])
         my_requests=cursor.fetchall()
