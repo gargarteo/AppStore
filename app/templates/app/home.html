@@ -22,7 +22,6 @@
                 </thead>
                  {% for r in requests %}
                   <tr>
-                    <td> {{ r.0 }} </td>
                     <td> {{ r.1 }} </td>
                     <td> {{ r.2 }} </td>
                     <td> {{ r.3 }} </td>
@@ -30,6 +29,7 @@
                     <td> {{ r.5 }} </td>
                     <td> {{ r.6 }} </td>
                     <td> {{ r.7 }} </td>
+                    <td> {{ r.8 }} </td>
                       
                 <td> <form method="POST" style="display: inline" action="home">
                 {% csrf_token %}
